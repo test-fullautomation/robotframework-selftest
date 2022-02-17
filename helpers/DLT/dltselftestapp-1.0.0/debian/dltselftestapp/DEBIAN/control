@@ -1,0 +1,11 @@
+Package: dltselftestapp
+Version: 1.0.0
+Architecture: amd64
+Maintainer: User <ngoan.tranduy@vn.bosch.com>
+Installed-Size: 29
+Depends: libc6 (>= 2.4)
+Section: unknown
+Priority: optional
+Homepage: <insert the upstream URL, if relevant>
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>

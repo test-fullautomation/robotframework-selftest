@@ -1,0 +1,34 @@
+Format: 1.8
+Date: Mon, 15 Nov 2021 07:40:27 +0000
+Source: dltselftestapp
+Binary: dltselftestapp dltselftestapp-dbgsym
+Architecture: source amd64
+Version: 1.0.0
+Distribution: unstable
+Urgency: medium
+Maintainer: User <ngoan.tranduy@vn.bosch.com>
+Changed-By: User <ngoan.tranduy@vn.bosch.com>
+Description:
+ dltselftestapp - <insert up to 60 chars description>
+Changes:
+ dltselftestapp (1.0.0) unstable; urgency=medium
+ .
+   * Initial Release.
+Checksums-Sha1:
+ 3cffa0a085f874dbf105631e0e11213a3c9915b1 601 dltselftestapp_1.0.0.dsc
+ e40f8b3984e774d9f10b91f87621176dbf85201d 8800 dltselftestapp_1.0.0.tar.xz
+ 6d011a2885a5b84289592957a2c5950536dc0306 7020 dltselftestapp-dbgsym_1.0.0_amd64.deb
+ 6a457f49506be0cfb4412b649e3851ba24a91a3c 7498 dltselftestapp_1.0.0_amd64.buildinfo
+ 19af2807b42f61f7cd75018912f4afe8a0d01c08 5128 dltselftestapp_1.0.0_amd64.deb
+Checksums-Sha256:
+ 680bbff190f691ba0ae9d5a600a5b7529a3841b4a420aa03276b1e696f8ed6e4 601 dltselftestapp_1.0.0.dsc
+ 6ede7e9531ce4f4d751c339006a3d8c8e349f1870d72164ce6b1eab6a9aa053f 8800 dltselftestapp_1.0.0.tar.xz
+ 0de4673d3ec17da20e77a4a026ea5db641ebc31f25f7fc84ba74f6725857df93 7020 dltselftestapp-dbgsym_1.0.0_amd64.deb
+ c2f9a6b0688a6bf4db46e984f947172ca917f793afb3b73bba7c817e255cb89b 7498 dltselftestapp_1.0.0_amd64.buildinfo
+ 67e93b8f72466d7135b1a6926f84cfd15331d04b9062bf289c9d8edfa709b626 5128 dltselftestapp_1.0.0_amd64.deb
+Files:
+ a9e675b4a90ce87a2e6f5432db4d1b71 601 unknown optional dltselftestapp_1.0.0.dsc
+ 14639a84ea211e44d87baf9a146d4cbc 8800 unknown optional dltselftestapp_1.0.0.tar.xz
+ 53f3b1fa6f895bccc6631b68957bca60 7020 debug optional dltselftestapp-dbgsym_1.0.0_amd64.deb
+ a85a7f10b2ee8b99e59961d17dbf337d 7498 unknown optional dltselftestapp_1.0.0_amd64.buildinfo
+ 2bf9ef6a34fb375810aa652b12a8ba6f 5128 unknown optional dltselftestapp_1.0.0_amd64.deb

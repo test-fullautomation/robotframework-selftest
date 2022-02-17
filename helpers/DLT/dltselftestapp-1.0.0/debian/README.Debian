@@ -1,0 +1,14 @@
+dltselftestapp for Debian
+------------------------
+
+- build package:
+```
+   dpkg-buildpackage -uc -us
+```
+- install package:
+```
+   sudo dpkg -i ../dltselftestapp_1.0.0_amd64.deb
+```
+   `DLTSelfTestApp` will be installed under `/opt/bosch/robfw/dlt` directory
+
+ -- User <ngoan.tranduy@vn.bosch.com>  Mon, 15 Nov 2021 07:40:27 +0000

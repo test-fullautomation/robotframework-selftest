@@ -1,0 +1,15 @@
+Source: dltselftestapp
+Section: unknown
+Priority: optional
+Maintainer: User <ngoan.tranduy@vn.bosch.com>
+Build-Depends: debhelper-compat (= 12)
+Standards-Version: 4.4.0
+Homepage: <insert the upstream URL, if relevant>
+#Vcs-Browser: https://salsa.debian.org/debian/dltselftestapp
+#Vcs-Git: https://salsa.debian.org/debian/dltselftestapp.git
+
+Package: dltselftestapp
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>

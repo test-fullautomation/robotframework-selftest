@@ -1,0 +1,36 @@
+The Debian Package dltselftestapp
+----------------------------
+
+`DLTSelfTestApp` is an application which will be run on the target for testing the DLT connection between Robotframework AIO and target.
+
+## Precondition
+`dlt-daemon` should be installed and this service is running on the target.
+
+## Installation
+```
+sudo dpkg -i ../dltselftestapp_1.0.0_amd64.deb
+```
+`DLTSelfTestApp` is installed under `/opt/bosch/robfw/dlt` directory.
+## Usage
+Try follow command to start `DLTSelfTestApp`
+```
+/opt/bosch/robfw/dlt/DLTSelfTestApp
+```
+Welcome log message **"Welcome to Robotframework AIO DLTSelfTestApp..."** will be sent at application startup.\
+Then the ping log **"ping message from Robotframework AIO DLTSelfTestApp"** every 5 seconds.
+
+## DLT command injection
+To perform the DLT command injection, use below information:
+   - App ID: `RBFW`
+   - Context ID: `TEST`
+   - Service ID: `0x1000`
+   - Data as Textdata
+
+DLT log reponse of `DLTSelfTestApp` will bases on injected command:
+   - `welcome`: DLT reponse as above welcome message.
+   - `exit`: DLT reponse as **"Bye..."** then `DLTSelfTestApp` will be terminated.
+   - Other commands: DLT reponse as combination of data and string.\
+   e.g: **"Data:  000000: 77 65 6c 63 6f 6d 65 31 32 31 32 00 xx xx xx xx welcome1212."**
+
+## Maintainers
+[Tran Duy **Ngoan**](https://connect.bosch.com/profiles/html/profileView.do?key=8b91aa39-e896-4de7-bee1-32e5e03b5350#&tabinst=Updates) - email ngoan.tranduy@vn.bosch.com
