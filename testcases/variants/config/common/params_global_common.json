@@ -12,16 +12,14 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 {
-  "default": {
-    "name": "robot_config_win10.json",
-    "path": ".../config/"
-  },
-  "Win10": {
-    "name": "robot_config_win10.json",
-    "path": ".../config/"
-  },
-  "osd5": {
-    "name": "robot_config_osd5.json",
-    "path": ".../config/"
+  "gGlobalIntParam" : 1,
+  
+  "gGlobalFloatParam" : 1.332,
+  
+  "gGlobalString"   : "This is a string", // just for test
+   
+  "gGlobalStructure": {
+    "general": "general",
+    "testing": 16
   }
 }

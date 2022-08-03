@@ -12,16 +12,10 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 {
-  "default": {
-    "name": "robot_config_win10.json",
-    "path": ".../config/"
-  },
-  "Win10": {
-    "name": "robot_config_win10.json",
-    "path": ".../config/"
-  },
-  "osd5": {
-    "name": "robot_config_osd5.json",
-    "path": ".../config/"
-  }
+  // New preprocessor definition for only variant 1
+  "gPreproVariant1" : "Specific preprocessor definition for variant 1",
+
+  // Overwrite existing preprocessor definitions
+  "gPreprolIntParam" : 2,
+  "${preprocessor}['definitions']['gPreproStructure']['general']": "variant1"
 }

@@ -11,12 +11,6 @@
 //  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
-//*****************************************************************************
-//  Author: Mai Dinh Nam Son
-//
-//  This file defines all common global parameters and will be included to all
-//  test config files
-//*****************************************************************************
 {
   "gPreprolIntParam" : 1,
   
@@ -31,88 +25,52 @@
                           "hw" : {
                             "internal" : {
                               "serial" : {
-                                "port" : "COM9"
+                                // "port" : "COM9"
+                                "port" : "COM5",
+                                "logfile" : "Selftest_Serial"
                               },
-                              "external" : {
-                                "duts"  : {
-                                  "has_volvoicm__DELETED"      : false,
-                                  "has_gen3"          : false,
-                                  "has_gen4"          : false,
-                                  "has_lsim"    : false,
-                                  "has_android"       : false,
-                                  "has_AIVI_Scope31"  : false,
-                                  "ip"    : {
-                                    "volvoicm"     : null,
-                                    "gen3"         : "172.17.0.1",
-                                    "gen4"         : null,
-                                    "lsim"         : "172.17.0.11",
-                                    "android"      : "",
-                                    "AIVI_Scope31" : "172.17.0.1"
-                                  },
-                                  "trc"   : {
-                                    "osd5": {
-                                         "gen3flex@DLTConnector": {
-                                            "target_ip": "172.17.0.11",
-                                            "target_port": 3490,
-                                            "mode": 0,
-                                            "ecu": "ECU1",
-                                            "com_port": "COM1",
-                                            "baudrate": 115200,
-                                            "server_ip": "localhost",
-                                            "server_port": 1234
-                                      }
-                                    },
-                                    "win10": {
-                                         "gen3flex@DLTConnector": {
-                                            "target_ip": "172.17.0.11",
-                                            "target_port": 3490,
-                                            "mode": 0,
-                                            "ecu": "ECU1",
-                                            "com_port": "COM1",
-                                            "baudrate": 115200,
-                                            "server_ip": "localhost",
-                                            "server_port": 1234
-                                      }
-                                    },
-                                    "AIVI_Scope31"   : {
-                                      "device" : "gen3flex@dlt",
-                                      "trcfile"   : "TTFis/prj_overall_all_PRJ_RN_AIVI_19.0V33.trc"
-                                    }
-                                  },
-                                  "android" : {
-                                    "caps" : {
-                                      "platformVersion": "8.1",
-                                      "deviceName": "androidDevice",
-                                      "automationName": "UIAutomator2",
-                                      "platformName": "Android",
-                                      "udid":"emulator-5554",
-                                      "app": "../../../helpers/Android/TMLSelfTest.apk",
-                                      "appPackage"   : "com.example.ntd1hc.tmlselftest",
-                                      "appActivity"  : ".MainActivity",
-                                      "noReset" : "true"
-                                    },
-                                    "caps_conn___" : {
-                                      "platformVersion": "8.1",
-                                      "deviceName": "androidDevice",
-                                      "automationName": "UIAutomator2",
-                                      "platformName": "Android",
-                                      "udid":"emulator-5554",
-                                      "noReset" : "true"
-                                    },
-                                    "address"   : "localhost",
-                                    "port"      : "4723"
+                              "TCPIP" : {
+                                "address" : "127.0.0.1",
+                                "port" : 12345,
+                                "logfile": "selftest_TCPIP"
+                              },
+                              "SSH" : {
+                                "logfile": "selftest_SSH",
+                                "address" : "127.0.0.1",
+                                "port" : 8022,
+                                // "address" : "172.17.0.1",
+                                // "port" : 22,
+                                "username" : "root",
+                                "password" : "",
+                                "authentication" : "password",
+                                "key_filename": "../../../../config/ssh/id_rsa_nopwd"
+                              }
+                            },
+                            "external" : {
+                              "duts"  : {
+                                "trc"   : {
+                                  "gen3flex@DLTConnector": {
+                                    // "target_ip": "172.17.0.1",
+                                    // "target_port": 3490,
+                                    "target_ip": "127.0.0.1",
+                                    "target_port": 3490,
+                                    "mode": 0,
+                                    "ecu": "ECU1",
+                                    "com_port": "COM1",
+                                    "baudrate": 115200,
+                                    "server_ip": "localhost",
+                                    "server_port": 1234
+                                    // "trcfile" : "../../../config/dlt/prj_overall_a.trc"
                                   }
                                 }
                               }
                             }
                           },
                           "sw" : {
-                            "has_bits" : false,
-                            "has_linux_at_serial0" : false,
-                            "has_asf_selftestservice_at_virtualbox" : false,
-                            "has_remoteservice_at_virtualbox" : false,
-                            "has_selftestusers_at_virtualbox" : false,
-                            "has_mosquitto_mqtt_broker" : true
+                            "has_bits" : true,
+                            "has_ssh"  : true,
+                            "has_dlt_selftestapp" : false
                           }
                         }
+  
 }

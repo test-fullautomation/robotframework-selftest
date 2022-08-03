@@ -11,12 +11,6 @@
 //  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
-//*****************************************************************************
-//  Author: Mai Dinh Nam Son
-//
-//  This file defines all common global parameters and will be included to all
-//  test config files
-//*****************************************************************************
 {
   "WelcomeString": "Hello... ROBFW is running now!",
   // Version control information.
@@ -25,5 +19,7 @@
     "minorversion": "1",
     "patchversion": "0"
   },
-  "TargetName" : "gen3flex@dlt"
+  "TargetName" : "gen3flex@dlt",
+  "Maximum_version" : "0.5.1",
+  "Minimum_version" : "0.4.0"
 }

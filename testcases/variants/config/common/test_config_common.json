@@ -12,16 +12,14 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 {
-  "default": {
-    "name": "robot_config_win10.json",
-    "path": ".../config/"
+  "WelcomeString": "Hello... ROBFW is running now!",
+  // Version control information.
+  "version": {
+    "majorversion": "0",
+    "minorversion": "1",
+    "patchversion": "0"
   },
-  "Win10": {
-    "name": "robot_config_win10.json",
-    "path": ".../config/"
-  },
-  "osd5": {
-    "name": "robot_config_osd5.json",
-    "path": ".../config/"
-  }
+  "Maximum_version": "0.5.1",
+  "Minimum_version": "0.5.0",
+  "TargetName" : "gen3flex@dlt"
 }

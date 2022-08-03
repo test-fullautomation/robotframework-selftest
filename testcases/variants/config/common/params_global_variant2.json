@@ -12,16 +12,13 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 {
-  "default": {
-    "name": "robot_config_win10.json",
-    "path": ".../config/"
-  },
-  "Win10": {
-    "name": "robot_config_win10.json",
-    "path": ".../config/"
-  },
-  "osd5": {
-    "name": "robot_config_osd5.json",
-    "path": ".../config/"
-  }
+  // New global parameter for only variant 2
+  "gGlobalVariant2" : "Specific global parameter for variant 2",
+
+  // Overwrite existing global parameter
+  "gGlobalString" : "New string for variant 2",
+  "${params}['global']['gGlobalStructure']['general']": "variant2",
+
+  // Add new element to existing parameter
+  "${params}['global']['gGlobalStructure']['variant2']": "new global param for variant 2"
 }

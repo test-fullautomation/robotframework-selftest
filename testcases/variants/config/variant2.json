@@ -11,29 +11,21 @@
 //  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
-//**************************************************************************
-// 
-// File: robot_config.json
-// Initialized by Mai Dinh Nam Son
-//
-//**************************************************************************
 {
   "[import]": "./common/test_config_common.json",
-  "ErrorFileName": "variant_0_RobotTestError.log",
-  "LogfileName": "variant_0_RobotTestLog.log",
   "params": {
     // Global parameters
     "global": {
-      "[import]": "./common/params_global_common.json"
+      "[import]": "./common/params_global_common.json",
+      "[import]": "./common/params_global_variant2.json"
     }
   },
   "preprocessor": {
     "definitions": {
       // FEATURE switches
       "[import]": "./common/preprocessor_definitions_common.json",
-      "[import]": "./template/result_strings.json"
+      "[import]": "./common/preprocessor_definitions_variant2.json"
     }
   },
-  "Project": "Robotframmework AIO Selftest",
-  "SummaryFileName": "SelfTest_RobotTestSummary.log"
+  "Project": "variant_2"
 }
