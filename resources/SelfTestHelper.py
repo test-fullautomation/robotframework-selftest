@@ -36,7 +36,7 @@ class SelfTestHelper(object):
         self.process_tcpip_server = None
 
     def parse_data_from_json(self, pathfile):
-        return CJsonPreprocessor().jsonLoad(pathfile)
+        return CJsonPreprocessor().jsonLoad(os.path.abspath(pathfile))
 
     def start_BITS(self):
         """

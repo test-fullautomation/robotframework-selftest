@@ -68,7 +68,7 @@ def start_client(clientSocket, addr):
             # clientSocket.send(msg)
             if msg == b'close':
                break
-            elif matched_obj:=re.match('DELAY_(\d+)', msg.decode()):
+            elif matched_obj:=re.match('DELAY_(\d+)', msg.decode(errors='ignore')):
                time.sleep(int(matched_obj.group(1)))
 
             clientSocket.send(f"echo: {msg}\r\n".encode())

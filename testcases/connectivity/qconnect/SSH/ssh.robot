@@ -63,8 +63,8 @@ Copy Public Keys To Target
         ...                 command=mkdir ~/.ssh
 
         verify          conn_name=${CONNECTION_NAME}_copy_key
-        ...             search_pattern=(Done)
-        ...             send_cmd=touch ~/.ssh/authorized_keys && echo Done
+        ...             search_pattern=(^DoneCreateKeyFile$)
+        ...             send_cmd=touch ~/.ssh/authorized_keys && echo DoneCreateKeyFile
         ...             timeout=10
     END
 
@@ -72,17 +72,18 @@ Copy Public Keys To Target
     FOR    ${key_file}    IN    @{key_files}
         Log    Append key file ${key_file} to authorized_keys   console=True
         ${key_content}  Get File    ${key_file}
+        Log    ${key_content}    console=True
         verify          conn_name=${CONNECTION_NAME}_copy_key
-        ...             search_pattern=(Done)
-        ...             send_cmd=echo ${key_content.strip()} >> ~/.ssh/authorized_keys && echo Done
+        ...             search_pattern=(^DoneCopyKey$)
+        ...             send_cmd=echo ${key_content.strip()} >> ~/.ssh/authorized_keys && echo DoneCopyKey
         ...             timeout=10
         
     END
 
     Log    Chmod authorized_keys file to 600    console=True
     verify              conn_name=${CONNECTION_NAME}_copy_key
-    ...                 search_pattern=(Done)
-    ...                 send_cmd=chmod 600 ~/.ssh/authorized_keys && echo Done
+    ...                 search_pattern=(^DoneChmod$)
+    ...                 send_cmd=chmod 600 ~/.ssh/authorized_keys && echo DoneChmod
 
 
     disconnect  ${CONNECTION_NAME}_copy_key
@@ -93,18 +94,20 @@ Reset Authorized Keys File
     ...                 conn_conf=${__TESTBENCH__CONFIG}[hw][internal][SSH]
 
     verify              conn_name=${CONNECTION_NAME}_reset_key
-    ...                 search_pattern=(Done$)
-    ...                 send_cmd=rm ~/.ssh/authorized_keys && echo Done
+    ...                 search_pattern=(^DoneRmKey$)
+    ...                 send_cmd=rm ~/.ssh/authorized_keys && echo DoneRmKey
     # ...                 timeout=10
 
     IF  ${existence_authorized_keys}
         Log    Restore authorized_keys file    console=True
         verify              conn_name=${CONNECTION_NAME}_reset_key
-        ...                 search_pattern=(Done$)
-        ...                 send_cmd=mv ~/.ssh/${backup_keys_filename} ~/.ssh/authorized_keys && echo Done
+        ...                 search_pattern=(^DoneResetKeyasdas$)
+        ...                 send_cmd=mv ~/.ssh/${backup_keys_filename} ~/.ssh/authorized_keys && echo DoneResetKey
         # ...                 timeout=10
     END
     disconnect  ${CONNECTION_NAME}_reset_key
+
+    Release Test Environment
     
 *** Variables ***
 ${CONNECTION_NAME}          SSH_CONNECTION
@@ -132,6 +135,7 @@ SSH connect with password authentication fail
     ...                             conn_conf=${ssh_wrong_pw}
 
 SSH connect with keyfile authentication
+    [Teardown]    Reset Authorized Keys File
     Copy Public Keys To Target    ${keyfile_withoutpwd}
     ${ssh_auth_keyfile}=    Copy Dictionary   ${__TESTBENCH__CONFIG}[hw][internal][SSH]   deep_copy=True
     Set To Dictionary   ${ssh_auth_keyfile}  authentication=keyfile
@@ -147,9 +151,10 @@ SSH connect with keyfile authentication
     ...                 timeout=10
 
     Log To Console      ${res}[1]
-    Reset Authorized Keys File
+    # Reset Authorized Keys File
     
 SSH connect with password and keyfile authentication
+    [Teardown]    Reset Authorized Keys File
     Copy Public Keys To Target    ${keyfile_withpwd}
     ${ssh_auth_passwordkeyfile}=    Copy Dictionary   ${__TESTBENCH__CONFIG}[hw][internal][SSH]   deep_copy=True
     Set To Dictionary   ${ssh_auth_passwordkeyfile}  authentication=passwordkeyfile
@@ -167,7 +172,6 @@ SSH connect with password and keyfile authentication
     ...                 timeout=10
 
     Log To Console      ${res}[1]
-    Reset Authorized Keys File
 
 SSH send command
     [Documentation]     Connect SSH base.
