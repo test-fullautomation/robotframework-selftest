@@ -23,6 +23,7 @@
     "definitions": {
       // FEATURE switches
       "[import]": "./common/preprocessor_definitions_common.json",
+      "[import]": "./common/preprocessor_definitions_ext.json",
       "[import]": "./selftest_prepro_osd5.json"
     }
   },

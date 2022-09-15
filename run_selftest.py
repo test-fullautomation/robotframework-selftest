@@ -13,17 +13,12 @@
 #  limitations under the License.
 import sys
 import os
-from robot import run_cli, rebot_cli
 import subprocess
+import shutil
 
 BASE_DIR = os.path.split(os.path.abspath(__file__))[0]
 TESTCASE_DIR = os.path.join(BASE_DIR, 'testcases')
 
-# Define components and variants for selftest execution
-# By defaults, all sub directories under testcases folder are used as COMPONENTS
-COMPONENTS = [f.name for f in os.scandir(TESTCASE_DIR) if f.is_dir()]
-# COMPONENTS = ['variants', 'connectivity']
-VARIANTS   = ['default', 'variant_1', 'variant_2']
 
 PYTHON = 'python' if sys.platform.startswith('win') else "python3"
 ROBOT_CMD  = [f'{os.environ["RobotPythonPath"]}/{PYTHON}', '-m', 'robot.run']
@@ -94,15 +89,35 @@ def run_robot(cmpt, variant=None):
         vars.extend(['--variable', variable])
 
     res = subprocess.run([*ROBOT_CMD, '--name', suitename, *vars,
+    # res = subprocess.Popen([*ROBOT_CMD, '--name', suitename, *vars,
                         '--outputdir', output_dir, 
                         '--output', f'{suitename}.xml', 
                         '--report', f'{cmpt}_report.html',
                         '--log', f'{cmpt}_log.html', 
-                        robot_target], capture_output=True)
+                        # robot_target], capture_output=True)
+                        robot_target])
 
     outfile = os.path.join(output_dir, f'{suitename}.xml')
     print(outfile)
     return outfile
 
+def add_selftest_ext():
+    print("Adding selftest-ext testcases ...")
+    shutil.copytree(os.path.join(SELFTEST_EXT_DIR, 'testcases'), TESTCASE_DIR, dirs_exist_ok=True)
+
+    print("Adding selftest-ext configurations ...")
+    shutil.copytree(os.path.join(SELFTEST_EXT_DIR, 'config'), os.path.join(BASE_DIR, 'config'), dirs_exist_ok=True)
+
+
 if __name__ == "__main__":
+
+    SELFTEST_EXT_DIR = "C:/MyData/4.RobotFramework/Robot-ws/BIOS/robotframework-selftest-extension"
+    add_selftest_ext()
+
+    # Define components and variants for selftest execution
+    # By defaults, all sub directories under testcases folder are used as COMPONENTS
+    COMPONENTS = [f.name for f in os.scandir(TESTCASE_DIR) if f.is_dir()]
+    # COMPONENTS = ['connectivity/qconnect/SSH']
+    VARIANTS   = ['default', 'variant_1', 'variant_2']
+
     run_all_selftest()
