@@ -32,38 +32,10 @@ class SelfTestHelper(object):
 
     def __init__(self):
         self.ROBOT_LIBRARY_LISTENER = self
-        self.process_bits = None
         self.process_tcpip_server = None
 
     def parse_data_from_json(self, pathfile):
         return CJsonPreprocessor().jsonLoad(os.path.abspath(pathfile))
-
-    def start_BITS(self):
-        """
-        Start BITS Platform application.
-        """
-        if 'ATSWorkPath' not in os.environ:
-            logger.error("Can not find the installed BITS application folder %ATSWorkPath%.")
-            return None
-
-        logger.info("Starting BITS application ...")
-        cwd = os.getcwd()
-        os.chdir(os.environ['ATSWorkPath'])
-        self.process_bits = subprocess.Popen("BITS.Platform.exe")
-        os.chdir(cwd)
-        time.sleep(15)
-
-        return self.process_bits
-
-    def stop_BITS(self):
-        """
-        Strop running BITS Platform application.
-        """
-        try:
-            if self.process_bits:
-                self.process_bits.terminate() 
-        except Exception as reason:
-            logger.error(f"Error when terminate process. Reason: {reason}")
 
     def start_TCPIP_server(self, ip=None, port=None):
         """

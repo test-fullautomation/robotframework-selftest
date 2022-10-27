@@ -15,7 +15,7 @@
 Library     RobotFramework_Testsuites    WITH NAME    testsuites
 Library     QConnectBase.ConnectionManager
 Library     Collections
-Suite Setup      testsuites.testsuite_setup    ../../../config/testsuites_config.json
+Suite Setup      Serial Client Setup
 Suite Teardown   testsuites.testsuite_teardown
 Test Setup       testsuites.testcase_setup
 Test Teardown    Release Test Environment
@@ -39,6 +39,10 @@ Serial Command
 
 Release Test Environment
     disconnect      ${CONNECTION_NAME}
+
+Serial Client Setup
+    testsuites.testsuite_setup    ../../../config/testsuites_config.json
+    Skip If    not ${__TESTBENCH__CONFIG}[sw][has_serial]    Skip SSH suite
 
 *** Test Cases ***
 Serial base verify

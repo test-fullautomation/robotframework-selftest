@@ -111,8 +111,8 @@ def add_selftest_ext():
 
 if __name__ == "__main__":
 
-    SELFTEST_EXT_DIR = "C:/MyData/4.RobotFramework/Robot-ws/BIOS/robotframework-selftest-extension"
-    add_selftest_ext()
+    SELFTEST_EXT_DIR = ""
+    # add_selftest_ext()
 
     # Define components and variants for selftest execution
     # By defaults, all sub directories under testcases folder are used as COMPONENTS

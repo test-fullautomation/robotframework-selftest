@@ -18,7 +18,6 @@ Library     QConnectBase.ConnectionManager
 Library     Collections
 Library     OperatingSystem
 Suite Setup      SSH Client Setup
-# Suite Teardown   Reset Authorized Keys File
 Test Teardown    Release Test Environment
 
 *** Keywords ***
@@ -49,7 +48,7 @@ Copy Public Keys To Target
     ...             conn_name=${CONNECTION_NAME}_copy_key
     ...             search_pattern=(File: '(.*)'$)
     ...             send_cmd=stat ~/.ssh/authorized_keys
-    # ...             timeout=10
+    ...             timeout=10
 
     IF  "${status}"=="PASS"
         Log    Backup current authorized_keys file    console=True
@@ -84,6 +83,7 @@ Copy Public Keys To Target
     verify              conn_name=${CONNECTION_NAME}_copy_key
     ...                 search_pattern=(^DoneChmod$)
     ...                 send_cmd=chmod 600 ~/.ssh/authorized_keys && echo DoneChmod
+    ...                 timeout=10
 
 
     disconnect  ${CONNECTION_NAME}_copy_key
@@ -96,14 +96,14 @@ Reset Authorized Keys File
     verify              conn_name=${CONNECTION_NAME}_reset_key
     ...                 search_pattern=(^DoneRmKey$)
     ...                 send_cmd=rm ~/.ssh/authorized_keys && echo DoneRmKey
-    # ...                 timeout=10
+    ...                 timeout=10
 
     IF  ${existence_authorized_keys}
         Log    Restore authorized_keys file    console=True
         verify              conn_name=${CONNECTION_NAME}_reset_key
         ...                 search_pattern=(^DoneResetKeyasdas$)
         ...                 send_cmd=mv ~/.ssh/${backup_keys_filename} ~/.ssh/authorized_keys && echo DoneResetKey
-        # ...                 timeout=10
+        ...                 timeout=10
     END
     disconnect  ${CONNECTION_NAME}_reset_key
 

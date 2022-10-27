@@ -13,5 +13,5 @@
 //  limitations under the License.
 {
   "${preprocessor}['definitions']['__TESTBENCH__CONFIG']['sw']['has_bits']": true,
-  "${preprocessor}['definitions']['__TESTBENCH__CONFIG']['sw']['has_dlt_selftestapp']": false
+  "${preprocessor}['definitions']['__TESTBENCH__CONFIG']['sw']['has_dlt_selftestapp']": true
 }

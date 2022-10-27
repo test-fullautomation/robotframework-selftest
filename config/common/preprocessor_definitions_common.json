@@ -25,8 +25,7 @@
                           "hw" : {
                             "internal" : {
                               "serial" : {
-                                // "port" : "COM9"
-                                "port" : "COM5",
+                                "port" : "COM4",
                                 "logfile" : "Selftest_Serial"
                               },
                               "TCPIP" : {
@@ -37,10 +36,8 @@
                               "SSH" : {
                                 "logfile": "selftest_SSH",
                                 "address" : "127.0.0.1",
-                                "port" : 8022,
-                                // "address" : "172.17.0.1",
-                                // "port" : 22,
-                                "username" : "root",
+                                "port" : 7022,
+                                "username" : "ntd1hc",
                                 "password" : "",
                                 "authentication" : "password",
                                 "key_filename": "../../../../config/ssh/id_rsa_nopwd"
@@ -50,26 +47,25 @@
                               "duts"  : {
                                 "trc"   : {
                                   "gen3flex@DLTConnector": {
-                                    // "target_ip": "172.17.0.1",
-                                    // "target_port": 3490,
                                     "target_ip": "127.0.0.1",
-                                    "target_port": 3490,
+                                    "target_port": 7490,
                                     "mode": 0,
                                     "ecu": "ECU1",
                                     "com_port": "COM1",
                                     "baudrate": 115200,
                                     "server_ip": "localhost",
-                                    "server_port": 1234
-                                    // "trcfile" : "../../../config/dlt/prj_overall_a.trc"
+                                    "server_port": 1234,
+                                    "trcfile" : "../../../config/dlt/default.trt"
                                   }
                                 }
                               }
                             }
                           },
                           "sw" : {
-                            "has_bits" : true,
+                            "has_bits" : false,
+                            "has_serial" : true,
                             "has_ssh"  : true,
-                            "has_dlt_selftestapp" : false
+                            "has_dlt_selftestapp" : true
                           }
                         }
   
