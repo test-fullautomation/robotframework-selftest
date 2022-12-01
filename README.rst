@@ -1,17 +1,3 @@
-.. Copyright 2020-2022 Robert Bosch GmbH
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-   http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-
 Package Description
 ===================
 
@@ -23,7 +9,6 @@ Table of Contents
 -  `Selftest testsuite structure <#selftest-testsuite-structure>`__
 -  `How to execute <#how-to-execute>`__
 -  `Contribution <#contribution>`__
--  `Sourcecode Documentation <#documentation>`__
 -  `Feedback <#feedback>`__
 -  `About <#about>`__
 
@@ -79,13 +64,14 @@ E.g:
 
 - adapt ``__TESTBENCH__CONFIG.hw.internal.SSH`` object to configure for ssh 
   connection test cases.
-- set ``__TESTBENCH__CONFIG.sw.has_serial` to value ``true``/``false`` to turn 
+- set ``__TESTBENCH__CONFIG.sw.has_serial`` to value ``true``/``false`` to turn 
   on/off the execution of Serial test cases. (features switch)
 
   In case the value ``false`` is set, Serial test cases will be skipped 
   (``SKIP`` status) when executing selftest.
 
-.. note::
+Notes:
+~~~~~~
 
    Regarding to DLT test cases with **DLTSelftestApp**: The **DLTSelftestApp**
    (is included in ``helpers/DLT`` folder) should be installed on the target 
