@@ -17,8 +17,8 @@
 
   // Overwrite existing preprocessor definitions
   "gPreproString" : "New string for variant 2",
-  "${preprocessor}['definitions']['gPreproStructure']['general']": "variant2",
+  ${params}['global']['gPreproStructure']['general']: "variant2",
 
   // Add new element to existing parameter
-  "${preprocessor}['definitions']['gPreproStructure']['variant2']": "new preprocessor definitions for variant 2"
+  ${params}['global']['gPreproStructure']['variant2']: "new preprocessor definitions for variant 2"
 }

@@ -13,7 +13,7 @@
 #  limitations under the License.
 *** Settings ***
 Resource        ../../../resources/selftest_resource.robot
-Library         RobotFramework_Testsuites    WITH NAME    testsuites
+Library         RobotFramework_TestsuitesManagement    WITH NAME    testsuites
 Library         QConnectBase.ConnectionManager
 Suite Setup     DLTSelfTestApp Setup
 Suite Teardown  DLTSelfTestApp Teardown

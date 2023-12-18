@@ -46,17 +46,15 @@
                             "external" : {
                               "duts"  : {
                                 "trc"   : {
-                                  "gen3flex@DLTConnector": {
-                                    "target_ip": "127.0.0.1",
-                                    "target_port": 7490,
-                                    "mode": 0,
-                                    "ecu": "ECU1",
-                                    "com_port": "COM1",
-                                    "baudrate": 115200,
-                                    "server_ip": "localhost",
-                                    "server_port": 1234,
-                                    "trcfile" : "../../../config/dlt/default.trt"
-                                  }
+                                  "target_ip": "127.0.0.1",
+                                  "target_port": 7490,
+                                  "mode": 0,
+                                  "ecu": "ECU1",
+                                  "com_port": "COM1",
+                                  "baudrate": 115200,
+                                  "server_ip": "localhost",
+                                  "server_port": 1234,
+                                  "trcfile" : "../../../config/dlt/default.trt"
                                 }
                               }
                             }

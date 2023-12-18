@@ -13,7 +13,7 @@
 #  limitations under the License.
 *** Settings ***
 Resource    ../../../../resources/selftest_resource.robot
-Library     RobotFramework_Testsuites    WITH NAME    testsuites
+Library     RobotFramework_TestsuitesManagement    WITH NAME    testsuites
 Library     QConnectBase.ConnectionManager
 Library     Collections
 Library     OperatingSystem
@@ -62,7 +62,7 @@ Copy Public Keys To Target
         ...                 command=mkdir ~/.ssh
 
         verify          conn_name=${CONNECTION_NAME}_copy_key
-        ...             search_pattern=(^DoneCreateKeyFile$)
+        ...             search_pattern=(DoneCreateKeyFile)
         ...             send_cmd=touch ~/.ssh/authorized_keys && echo DoneCreateKeyFile
         ...             timeout=10
     END
@@ -73,7 +73,7 @@ Copy Public Keys To Target
         ${key_content}  Get File    ${key_file}
         Log    ${key_content}    console=True
         verify          conn_name=${CONNECTION_NAME}_copy_key
-        ...             search_pattern=(^DoneCopyKey$)
+        ...             search_pattern=(DoneCopyKey)
         ...             send_cmd=echo ${key_content.strip()} >> ~/.ssh/authorized_keys && echo DoneCopyKey
         ...             timeout=10
         
@@ -81,7 +81,7 @@ Copy Public Keys To Target
 
     Log    Chmod authorized_keys file to 600    console=True
     verify              conn_name=${CONNECTION_NAME}_copy_key
-    ...                 search_pattern=(^DoneChmod$)
+    ...                 search_pattern=(DoneChmod)
     ...                 send_cmd=chmod 600 ~/.ssh/authorized_keys && echo DoneChmod
     ...                 timeout=10
 
@@ -94,7 +94,7 @@ Reset Authorized Keys File
     ...                 conn_conf=${__TESTBENCH__CONFIG}[hw][internal][SSH]
 
     verify              conn_name=${CONNECTION_NAME}_reset_key
-    ...                 search_pattern=(^DoneRmKey$)
+    ...                 search_pattern=(DoneRmKey)
     ...                 send_cmd=rm ~/.ssh/authorized_keys && echo DoneRmKey
     ...                 timeout=10
 

@@ -16,7 +16,7 @@ Library     SelfTestHelper.py
 
 *** Variables ***
 ${ALL_VARIABLES}=           Get Variables
-${TIMEOUT_ERROR}=           Unable to match the pattern after '5' seconds.
+${TIMEOUT_ERROR}=           Unable to match the pattern after '5' time.
 ${NOT_CONNECT_ERROR}=       The 'NOT_CONNECTED' connection ${SPACE}hasn't been established. Please connect first.
 ${FAIL_CONNECT_ERROR}=      Unable to create connection. Exception: Not possible to connect.
 ${EXISTING_CONNECT_ERROR}=  The connection name '${CONNECTION_NAME}' has already existed! Please use other name

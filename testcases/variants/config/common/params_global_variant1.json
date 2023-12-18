@@ -17,5 +17,5 @@
 
   // Overwrite existing global parameter
   "gGlobalIntParam" : 2,
-  "${params}['global']['gGlobalStructure']['general']": "variant1"
+  ${params}['global']['gGlobalStructure']['general']: "variant1"
 }

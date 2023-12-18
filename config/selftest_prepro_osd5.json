@@ -12,8 +12,8 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 {
-  "${preprocessor}['definitions']['__TESTBENCH__CONFIG']['sw']['has_bits']": false,
-  "${preprocessor}['definitions']['__TESTBENCH__CONFIG']['sw']['has_ssh']": false,
-  "${preprocessor}['definitions']['__TESTBENCH__CONFIG']['sw']['has_dlt_selftestapp']": false,
-  "${preprocessor}['definitions']['__TESTBENCH__CONFIG']['hw']['external']['dut']['trc']['dltconnect']": "/usr/share/DLTConnector/DLTConnector.sh"
+  ${preprocessor}['definitions']['__TESTBENCH__CONFIG']['sw']['has_bits']: false,
+  ${preprocessor}['definitions']['__TESTBENCH__CONFIG']['sw']['has_ssh']: false,
+  ${preprocessor}['definitions']['__TESTBENCH__CONFIG']['sw']['has_dlt_selftestapp']: false,
+  ${preprocessor}['definitions']['__TESTBENCH__CONFIG']['hw']['external']['dut']['trc']['dltconnect']: "/usr/share/DLTConnector/DLTConnector.sh"
 }

@@ -19,7 +19,7 @@
     "minorversion": "1",
     "patchversion": "0"
   },
-  "Maximum_version": "0.7.1",
+  "Maximum_version": "0.11.1",
   "Minimum_version": "0.5.0",
   "TargetName" : "gen3flex@dlt"
 }

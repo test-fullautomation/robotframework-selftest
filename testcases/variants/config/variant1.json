@@ -17,12 +17,7 @@
     // Global parameters
     "global": {
       "[import]": "./common/params_global_common.json",
-      "[import]": "./common/params_global_variant1.json"
-    }
-  },
-  "preprocessor": {
-    "definitions": {
-      // FEATURE switches
+      "[import]": "./common/params_global_variant1.json",
       "[import]": "./common/preprocessor_definitions_common.json",
       "[import]": "./common/preprocessor_definitions_variant1.json"
     }

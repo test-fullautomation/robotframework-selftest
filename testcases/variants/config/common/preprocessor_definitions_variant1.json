@@ -17,5 +17,5 @@
 
   // Overwrite existing preprocessor definitions
   "gPreprolIntParam" : 2,
-  "${preprocessor}['definitions']['gPreproStructure']['general']": "variant1"
+  ${params}['global']['gPreproStructure']['general']: "variant1"
 }

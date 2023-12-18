@@ -13,7 +13,7 @@
 #  limitations under the License.
 *** Settings ***
 Resource         ../../resources/selftest_resource.robot
-Library          RobotFramework_Testsuites    WITH NAME    testsuites
+Library          RobotFramework_TestsuitesManagement    WITH NAME    testsuites
 Suite Setup      Variant Setup
 Suite Teardown   testsuites.testsuite_teardown
 Test Setup       testsuites.testcase_setup

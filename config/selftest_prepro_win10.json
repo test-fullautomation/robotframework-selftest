@@ -12,6 +12,6 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 {
-  "${preprocessor}['definitions']['__TESTBENCH__CONFIG']['sw']['has_bits']": true,
-  "${preprocessor}['definitions']['__TESTBENCH__CONFIG']['sw']['has_dlt_selftestapp']": true
+  ${params}['global']['__TESTBENCH__CONFIG']['sw']['has_bits']: false,
+  ${params}['global']['__TESTBENCH__CONFIG']['sw']['has_dlt_selftestapp']: false
 }

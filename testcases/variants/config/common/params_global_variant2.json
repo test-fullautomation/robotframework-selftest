@@ -17,8 +17,8 @@
 
   // Overwrite existing global parameter
   "gGlobalString" : "New string for variant 2",
-  "${params}['global']['gGlobalStructure']['general']": "variant2",
+  ${params}['global']['gGlobalStructure']['general']: "variant2",
 
   // Add new element to existing parameter
-  "${params}['global']['gGlobalStructure']['variant2']": "new global param for variant 2"
+  ${params}['global']['gGlobalStructure']['variant2']: "new global param for variant 2"
 }
