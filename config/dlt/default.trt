@@ -1,0 +1,1215 @@
+;/************************************************************************
+; * @file: Trace.trt
+; *
+; * @version: $Revision: 1.14 $
+; *
+; * TRT rules for Trace Commands and Messages
+; *
+; * @author: Sakthivelu.S<Sakthivelu.S@in.bosch.com>
+; *
+; * @copyright: (c) 2003 – 2004 ADIT Corporation
+; *
+; * @history
+; * Moved TR_CLASS_TRACE into Comp TRACE  Sep-2005
+; * Modified for ADIT platform  Sep-2004
+; * 1.14 - Copied default.trt contents from v5.2 and DLT block mode command rule changed Nov-2018
+; ***********************************************************************/
+
+;/*-------------------------------------
+;     definitions for trace class
+;  -------------------------------------
+;
+;   A class definition describes a 16 bit value, which has two parts
+;
+;   [  Component - ID   ][   Trace-Class-ID  ]
+;   15                  8                    0
+;
+;
+;   The component describes for which SW-parts the trace classes are defined for. For each component 2^10 = 1024
+;   classes are possible. (The first 24 classes are predefined for global issues. see below)
+;
+;
+;---------------------------------------*/
+;/*
+;   Defines for component-id:
+;*/
+;
+;
+; TR_COMP_SYSTEM				(256 * 0)		*/	componentname = "SYSTEM"		*/
+; TR_COMP_TRACE					(256 * 12)		*/	componentname = "TRACE"			*/
+
+
+; class definitions for component = "TRACE"
+ARRAY TR_DLT_STATUS =0x00:   OFF
+ARRAY TR_DLT_STATUS =0x01:   ON
+
+ARRAY  TR_DLT_INF_DEFAULT = 0x00000000:	DEF_INF
+
+ARRAY TR_DLT_LOG_LEVEL =0x00:   DLT_LOG_OFF
+ARRAY TR_DLT_LOG_LEVEL =0x01:   DLT_LOG_FATAL
+ARRAY TR_DLT_LOG_LEVEL =0x02:   DLT_LOG_ERROR
+ARRAY TR_DLT_LOG_LEVEL =0x03:   DLT_LOG_WARN
+ARRAY TR_DLT_LOG_LEVEL =0x04:   DLT_LOG_INFO
+ARRAY TR_DLT_LOG_LEVEL =0x05:   DLT_LOG_DEBUG
+ARRAY TR_DLT_LOG_LEVEL =0x06:   DLT_LOG_VERBOSE
+
+ARRAY TR_DLT_SRHDR_FLAGS =0x00:   DLT_FLAG_OFF
+ARRAY TR_DLT_SRHDR_FLAGS =0x01:   DLT_FLAG_ON
+
+
+ARRAY TR_CHAN =0xB6:		TR_TTFIS_TFW				
+ARRAY TR_CHAN =0xB8:        TR_TTFIS_PROF                           
+ARRAY TR_CHAN =0xB9:		TR_TTFIS_ROUTER						
+ARRAY TR_CHAN =0xBA:		TR_TTFIS_TSIM
+ARRAY TR_CHAN =0xC3:		TR_TTFIS_CAL
+ARRAY TR_CHAN =0xC8:        TR_TTFIS_DIAG_MCNET
+ARRAY TR_CHAN =0xC9:        TR_TTFIS_DLT
+
+
+ARRAY TR_SSNID = 0x00000000:	DEF_SSN
+                                    
+ARRAY TR_CLASS = 0x0C00:	TR_CLASS_TRACE							,\
+							TR_CLASS_POSTMORTEM
+							
+ARRAY TR_CLASS = 0x0C10:    TR_CLASS_PROFILER						,\
+							TR_CLASS_PROF_DUMP_TTT					,\
+							TR_CLASS_PROF_DUMP_TASK					,\
+							TR_CLASS_PROF_DUMP_FPMEM				,\
+							TR_CLASS_PROF_DUMP_VPMEM				,\
+							TR_CLASS_PROF_DUMP_RDYQ					,\
+							TR_CLASS_PROF_TSK_WAIT					,\
+							TR_CLASS_PROF_STATUS
+							
+ARRAY TR_CLASS = 0x0C20:        TR_CLASS_DBGEXTN_CALLSTACK				,\
+							TR_CLASS_DBGEXTN_MEM_DUMP               ,\
+							TR_CLASS_DBGEXTN_DISASM	
+
+ARRAY TR_CLASS = 0x19:    TR_CLASS_TEST1
+ARRAY TR_CLASS = 0x1b:    TR_CLASS_TEST2
+ARRAY TR_CLASS = 0x0C28:    TR_CLASS_SYSLOG ,\
+                            TR_CLASS_ERRMEM
+
+ARRAY TR_CLASS = 0x0C30:   TR_CLASS_EXCEPTION_HANDLER
+
+
+										
+
+ARRAY TR_LEVEL = 0x00:      TR_LEVEL_FATAL[CUSTOMER]                ,\
+                            TR_LEVEL_ERRORS[EEZ]                    ,\
+                            TR_LEVEL_SYSTEM_MIN[FATAL_ERROR]        ,\
+                            TR_LEVEL_SYSTEM[ERROR]                  ,\
+                            TR_LEVEL_COMPONENT[WARNING]             ,\
+                            TR_LEVEL_USER_1[STATE_TRANSITION]       ,\
+                            TR_LEVEL_USER_2[EVENT]                  ,\
+                            TR_LEVEL_USER_3[MESSAGE]                ,\
+                            TR_LEVEL_USER_4[DATA]                   ,\
+
+ARRAY TR_LEVEL = 0x00:      SYSLOG_LEVEL_EMERG                      ,\
+				SYSLOG_LEVEL_ALERT                      ,\
+				SYSLOG_LEVEL_CRIT                       ,\
+				SYSLOG_LEVEL_ERR                        ,\
+				SYSLOG_LEVEL_WARNING                    ,\
+				SYSLOG_LEVEL_NOTICE                     ,\
+				SYSLOG_LEVEL_INFO                       ,\
+				SYSLOG_LEVEL_DEBUG
+
+
+ARRAY TR_CHAN =0x00:        NO_CHAN_SELECTED                        ,\
+                            TR_TTFIS_CACHE                          ,\
+                            TR_TTFIS_DVDTEST                        ,\
+                            TR_TTFIS_SYSMANAGER                     ,\
+                            TR_TTFIS_FANCONTROL                     ,\
+                            TR_TTFIS_VKBOARD                        ,\
+                            TR_TTFIS_MTRACERUN                      ,\
+                            TR_TTFIS_NAVITRACE                      ,\
+                            TR_TTFIS_TMC                            ,\
+                            TR_TTFIS_VOICE                          ,\
+                            TR_TTFIS_PLAYGROUND                     ,\
+                            TR_TTFIS_LPM1                           ,\
+                            TR_TTFIS_LPM2                           
+
+ARRAY TR_CHAN =0x12:        TR_TTFIS_SOCKET    
+ARRAY TR_CHAN =0xB6:		TR_TTFIS_TFW				
+ARRAY TR_CHAN =0xB8:        TR_TTFIS_PROF                           
+ARRAY TR_CHAN =0xB9:		TR_TTFIS_ROUTER						
+ARRAY TR_CHAN =0xBA:		TR_TTFIS_TSIM
+ARRAY TR_CHAN =0xC3:		TR_TTFIS_CAL
+ARRAY TR_CHAN =0xC8:        TR_TTFIS_DIAG_MCNET
+ARRAY TR_CHAN =0xC9:        TR_TTFIS_DLT
+
+ARRAY TR_TIME_INFO=0x00:    NO_TIME                                 ,\
+                            WITH_TIME
+
+
+ARRAY TR_BUF_STATUS=0x01:   BUF_FILLED_IN_PERCENT                   ,\
+                            BUF_OVERWRITTEN_IN_BYTES
+
+ARRAY TR_BLOCK_MODE=0x00:   NOBLOCK                                 ,\
+                            BLOCK
+
+ARRAY TR_OUTPUT_PORT= 0x01: ADITSIO                                 ,\
+                            ADITUSBIO                               ,\
+                         	  PROXY                                   ,\
+                         	  SOCKET                                  ,\
+                         	  PCIe                                    ,\
+                         	  ADITTCPIP                               ,\
+                         	  ADITUSBH
+
+ARRAY TR_FILTER_OPT = 0x00: ALL                                     ,\
+                            HEX                                     ,\
+                            TEXT                                    ,\
+                            ASCII                                   ,\
+                            TRIP        
+
+ARRAY TR_TRIP_OPT   = 0x00: RECORD                                  ,\
+                            REPLAY                                  ,\
+                            NOTRIP
+
+ARRAY TR_STBYT_OPT =  0x00: DISABLE                                 ,\
+                            ENABLE
+
+
+ARRAY TR_REG	  = 0x00: r0										,\
+						  r1										,\
+						  r2										,\
+						  r3										,\
+						  r4										,\
+						  r5										,\
+						  r6										,\
+						  r7										,\
+						  r8										,\
+						  r9										,\
+						  r10										,\
+						  r11										,\
+						  r12										,\
+						  r13										,\
+						  r14										,\
+						  r15										,\
+						  r16										,\
+						  r17										,\
+						  r18										,\
+						  r19										,\
+						  r20										,\
+						  r21										,\
+						  r22										,\
+						  r23										,\
+						  r24										,\
+						  r25										,\
+						  r26										,\
+						  r27										,\
+						  r28										,\
+						  r29										,\
+						  r30										,\
+						  r31											  
+						  					
+
+ARRAY TIMESTAMP_MODE = 0x01: 32BIT, \
+                             64BIT, \
+                             RTC
+							 
+ARRAY EARLYTRACE_MODE 	= 	0x00:	DISABLED, \
+									ENABLED
+							
+ARRAY PROXYACTIVE_MODE 	= 	0x00:	DISABLED, \
+									ENABLED
+
+ARRAY BLOCK_MODE_STATUS	=	0x00:   DISABLED ,\
+									ENABLED
+									
+ARRAY TIMESTAMP_TYPE    =	0x00:   NO_TIMESTAMP ,\
+									32-BIT_TIMESTAMP ,\
+									64-BIT_TIMESTAMP ,\
+									RTC-TIMESTAMP
+									
+ARRAY MASTER_OS         =   0x00:   LINUX ,\
+                                    T-KERNEL ,\
+									NONE
+												
+ARRAY WRITE_MODE			=   0x00:    OVERWRITE ,\
+						                 FLUSH 
+									
+# Replay File Type
+ARRAY TR_REPLAY_FILE_TYP = 0x01 : TRIP
+ARRAY TR_REPLAY_FILE_TYP = 0x02 : LOG
+
+# Replay MultiFile
+ARRAY TR_REPLAY_FILE_SEQ = 0x00 : SINGLE
+ARRAY TR_REPLAY_FILE_SEQ = 0x01 : MULTI
+
+# Replay File Format
+ARRAY TR_REPLAY_FILE_FMT = 0x00 : NOT_ENCRYPTED
+ARRAY TR_REPLAY_FILE_FMT = 0x01 : ENCRYPTED
+;***********************************************************************
+;*                    control commands for trace                       *
+;***********************************************************************
+
+CMD TR_TEST_CONNECTION ::0f ff 01 01
+
+CMD TR_SET_CONFIG %i(TR_CLASS) %i(TR_LEVEL) :: 0f ff 01 02: %1(5,2,M) %2(7,1,M)
+
+CMD TR_STOP_TRACE %i(TR_CLASS) %i(TR_LEVEL):: 0f ff 01 05: %1(5,2,M) %2(7,1,M)
+
+CMD TR_ENABLE_TIMESTAMP %i(TIMESTAMP_MODE):: 0f ff 01 06 : %1(5,1)
+CMD TR_ENABLE_TIMESTAMP :: 0f ff 01 06 01
+
+CMD TR_DISABLE_TIMESTAMP :: 0f ff 01 07
+
+CMD TR_SAVE_CNFG_ON_SHUTDOWN :: 0f ff 01 0d
+
+CMD TR_SAVE_CNFG :: 0f ff 01 0d
+
+CMD TR_ENABLE_BLOCKMODE %i(TR_BLOCK_MODE)::0f ff 01 08:%1(5)
+
+CMD TR_CHANGE_OUTPUTPORT %i(TR_OUTPUT_PORT)::0f ff 01 09:%1(5)
+
+CMD TR_SEND_DATA_TO_CHANNEL %i(TR_CHAN) %x(250)::0f ff 02: %1(4) %2(5,1,M,0)
+CMD TR_SEND_DATA_TO_CHANNEL_EXTN %i(TR_CHAN) %x(247)::0f ff 02 ff: %1(5,2,M) %2(7,1,M,0)
+
+CMD DLT_MESSAGE_BUFFER_OVERFLOW            ::0f ff 02 C9 14 00 00 00 00 45 43 55 31
+CMD DLT_MESSAGE_BUFFER_OVERFLOW_ECU  %s()  ::0f ff 02 C9 14 00 00 00 00 00 00 00 00 : %1(10,4)
+
+CMD DLT_GET_DEFAULT_TRACE_STATUS           ::0f ff 02 C9 15 00 00 00 00 45 43 55 31 
+CMD DLT_GET_DEFAULT_TRACE_STATUS_ECU  %s() ::0f ff 02 C9 15 00 00 00 00 00 00 00 00 : %1(10,4)
+
+CMD DLT_SET_VERBOSE_MODE           %i(TR_DLT_STATUS)  ::0f ff 02 C9 09 00 00 00 00 45 43 55 31 : %1(14)
+CMD DLT_SET_VERBOSE_MODE_ECU  %s() %i(TR_DLT_STATUS)  ::0f ff 02 C9 09 00 00 00 00 00 00 00 00 : %1(10,4) %2(14)
+
+CMD DLT_SET_COM_INTERFACE_STATUS         %i(TR_DLT_STATUS)    ::0f ff 02 C9 07 00 00 00 00 45 43 55 31 : %1(14)
+CMD DLT_SET_COM_INTERFACE_STATUS_ECU  %s() %i(TR_DLT_STATUS)  ::0f ff 02 C9 07 00 00 00 00 00 00 00 00 : %1(10,4) %2(14)
+
+CMD DLT_SET_MESSAGE_FILTERING           %i(TR_DLT_STATUS)  ::0f ff 02 C9 0a 00 00 00 00 45 43 55 31 : %1(14)
+CMD DLT_SET_MESSAGE_FILTERING_ECU  %s() %i(TR_DLT_STATUS)  ::0f ff 02 C9 0a 00 00 00 00 00 00 00 00 : %1(10,4) %2(14)
+
+CMD DLT_SET_TIMING_PACKETS           %i(TR_DLT_STATUS)  ::0f ff 02 C9 0b 00 00 00 00 45 43 55 31 : %1(14)
+CMD DLT_SET_TIMING_PACKETS_ECU  %s() %i(TR_DLT_STATUS)  ::0f ff 02 C9 0b 00 00 00 00 00 00 00 00 : %1(10,4) %2(14)
+
+CMD DLT_USE_EXTENDED_HEADER           %i(TR_DLT_STATUS)  ::0f ff 02 C9 10 00 00 00 00 45 43 55 31 : %1(14)
+CMD DLT_USE_EXTENDED_HEADER_ECU  %s() %i(TR_DLT_STATUS)  ::0f ff 02 C9 10 00 00 00 00 00 00 00 00 : %1(10,4) %2(14)
+
+CMD DLT_USE_TIMESTAMP           %i(TR_DLT_STATUS)  ::0f ff 02 C9 0f 00 00 00 00 45 43 55 31 : %1(14)
+CMD DLT_USE_TIMESTAMP_ECU  %s() %i(TR_DLT_STATUS)  ::0f ff 02 C9 0f 00 00 00 00 00 00 00 00 : %1(10,4) %2(14)
+
+CMD DLT_USE_SESSION_ID           %i(TR_DLT_STATUS)  ::0f ff 02 C9 0e 00 00 00 00 45 43 55 31 : %1(14)
+CMD DLT_USE_SESSION_ID_ECU  %s() %i(TR_DLT_STATUS)  ::0f ff 02 C9 0e 00 00 00 00 00 00 00 00 : %1(10,4) %2(14)
+
+CMD DLT_SET_COM_INTERFACE_MAX_BANDWIDTH           %s() %i()  ::0f ff 02 C9 08 00 00 00 00 45 43 55 31 : %1(14,4) %2(18)
+CMD DLT_SET_COM_INTERFACE_MAX_BANDWIDTH_ECU  %s() %s() %i()  ::0f ff 02 C9 08 00 00 00 00 00 00 00 00 : %1(10,4) %2(14,4) %3(18) 
+
+CMD DLT_USE_ECU_ID           %i(TR_DLT_STATUS)       ::0f ff 02 C9 0d 00 00 00 00 45 43 55 31 : %1(14)
+CMD DLT_USE_ECU_ID_ECU  %s() %i(TR_DLT_STATUS)       ::0f ff 02 C9 0d 00 00 00 00 00 00 00 00 : %1(10,4) %2(14)
+
+CMD DLT_SET_BLOCK_MODE %i(TR_DLT_STATUS)             ::0f ff 02 C9 0B 0F 00 00 00 45 43 55 31 :%1(14)
+CMD DLT_SET_BLOCK_MODE_ECU %s() %i(TR_DLT_STATUS)    ::0f ff 02 C9 0B 0F 00 00 00 00 00 00 00 :%1(10,4) %2(14)
+
+CMD DLT_GET_BLOCK_MODE                               ::0f ff 02 C9 0C 0F 00 00 00 45 43 55 31
+CMD DLT_GET_BLOCK_MODE_ECU %s()                      ::0f ff 02 C9 0C 0F 00 00 00 00 00 00 00 :%1(10,4)
+
+CMD DLT_STORE_CONFIG                                 ::0f ff 02 C9 05 00 00 00 00 45 43 55 31
+CMD DLT_STORE_CONFIG_ECU %s()                        ::0f ff 02 C9 05 00 00 00 00 00 00 00 00:%1(10,4)
+
+CMD DLT_RESET_TO_FACTORY_DEFAULT                     ::0f ff 02 C9 06 00 00 00 00 45 43 55 31
+CMD DLT_RESET_TO_FACTORY_DEFAULT_ECU %s()            ::0f ff 02 C9 06 00 00 00 00 00 00 00 00:%1(10,4)
+
+CMD DLT_SET_DEFAULT_LOG_LEVEL %i(TR_DLT_LOG_LEVEL)   ::0f ff 02 C9 11 00 00 00 00 45 43 55 31:%1(14)
+CMD DLT_SET_DEFAULT_LOG_LEVEL_ECU %s() %i(TR_DLT_LOG_LEVEL)  ::0f ff 02 C9 11 00 00 00 00 00 00 00 00:%1(10,4) %2(14)
+
+CMD DLT_GET_DEFAULT_LOG_LEVEL             ::0f ff 02 C9 04 00 00 00 00 45 43 55 31
+CMD DLT_GET_DEFAULT_LOG_LEVEL_ECU %s()    ::0f ff 02 C9 04 00 00 00 00 00 00 00 00:%1(10)
+
+CMD DLT_SET_DEFAULT_TRACE_STATUS %i(TR_DLT_STATUS) %i(TR_DLT_INF_DEFAULT)   ::0f ff 02 C9 12 00 00 00 00 45 43 55 31 : %1(14) %2(15,4,I)
+CMD DLT_SET_DEFAULT_TRACE_STATUS_ECU %s() %i(TR_DLT_STATUS) %i(TR_DLT_INF_DEFAULT) ::0f ff 02 C9 12 00 00 00 00 00 00 00 00 : %1(10,4) %2(14) %3(15,4,I)
+
+CMD DLT_GET_DEFAULT_TRACE_STATUS              :: 0f ff 02 C9 15 00 00 00 00 45 43 55 31 :
+CMD DLT_GET_DEFAULT_TRACE_STATUS_ECU %s()     :: 0f ff 02 C9 15 00 00 00 00 00 00 00 00 :%1(10,4)
+
+CMD DLT_SET_TRACE_STATUS %s() %s() %i(TR_DLT_STATUS) ::0f ff 02 C9 02 00 00 00 00 45 43 55 31 00 00 00 00 00 00 00 00: %1(14,4) %2(18,4) %3(22)
+CMD DLT_SET_TRACE_STATUS_ECU %s() %s() %s() %i(TR_DLT_STATUS)      ::0f ff 02 C9 02 00 00 00 00 00 00 00 00  : %1(10,4) %2(14,4) %3(18,4) %4(22) 
+
+CMD DLT_SET_LOG_LEVEL %s() %s() %i(TR_DLT_LOG_LEVEL)            ::0f ff 02 C9 01 00 00 00 00 45 43 55 31 : %1(14,4) %2(18,4) %3(22) 
+CMD DLT_SET_LOG_LEVEL_ECU %s() %s() %s() %i(TR_DLT_LOG_LEVEL)   ::0f ff 02 C9 01 00 00 00 00 00 00 00 00 : %1(10,4) %2(14,4) %3(18,4) %4(22) 
+
+CMD DLT_GET_LOG_INFO           ::0f ff 02 C9 03 00 00 00 06 45 43 55 31 00 00 00 00 00 00 00 00 00 00 00
+CMD DLT_GET_LOG_INFO_ECU %s()  ::0f ff 02 C9 03 00 00 00 06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 :%1(10,4)
+
+CMD DLT_GET_LOCAL_TIME           ::0f ff 02 C9 0c 00 00 00 00 45 43 55 31 :
+CMD DLT_GET_LOCAL_TIME_ECU %s()  ::0f ff 02 C9 0c 00 00 00 00 00 00 00 00 : %1(10,4)
+
+CMD DLT_GET_SOFTWARE_VERSION           ::0f ff 02 C9 13 00 00 00 00 45 43 55 31
+CMD DLT_GET_SOFTWARE_VERSION_ECU %s()  ::0f ff 02 C9 13 00 00 00 00 00 00 00 00: %1(10,4)
+
+CMD DLT_CALL_SW_INJECTION  %s() %s() %s() %x(250)::0f ff 02 C9 FF 0F 00 00 00 00 00 00 45 43 55 31 00 00 00 00 00 : %1(5,8) %2(17,4) %3(21,4) %4(25,1,M,0)
+CMD DLT_CALL_SW_INJECTION_ECU %s() %s() %s() %s() %x(250)::0f ff 02 C9 FF 0F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 : %1(5,8) %2(13,4) %3(17,4) %4(21,4) %5(25,1,M,0)
+
+CMD DLT_NVB_LOAD_CONFIG  %s() ::0f ff 02 CA FF 0F 00 00 :%1(9,230)
+CMD DLT_SET_SERIAL_HDR %i(TR_DLT_SRHDR_FLAGS) %i(TR_DLT_SRHDR_FLAGS) %i(TR_DLT_SRHDR_FLAGS) %i(TR_DLT_SRHDR_FLAGS) ::0f ff 02 CB :%1(5) %2(6) %3(7) %4(8)
+
+CMD TR_CONF_ENABLE_ALL  %i(TR_LEVEL)::0f ff 01 0e: %1(5,1,M)
+
+CMD TR_CONF_DISABLE_ALL ::0f ff 01 0f
+
+;CMD TR_CONF_TRIP_MODE %i(TR_TRIP_OPT)::0f ff 03 01: %1(5,1,M)
+
+;CMD TR_CONF_STAT_BYTE %i(TR_STBYT_OPT)::0f ff 03 02: %1(5,1,M)
+
+CMD TR_SET_PROXY_TIME_STAMP ::0f ff 03 03 01
+
+CMD TR_RESET_PROXY_TIME_STAMP ::0f ff 03 03 00
+
+CMD TR_ENABLE_PROXY_BLOCKMODE %i(TR_BLOCK_MODE)::0f ff 03 07:%1(5)
+
+CMD TR_CONF_PROXY_FILESZ %x()::0f ff 03 04:%1(5,4,M)
+
+CMD TR_CONF_PROXY_MAX_FILESZ %x()::0f ff 03 08:%1(5,4,M)
+
+CMD TR_ENABLE_PROXY_BLOCKMODE %i(TR_BLOCK_MODE)::0f ff 03 07:%1(5)
+
+CMD TR_CONF_PROXY_FILESZ %x()::0f ff 03 04:%1(5,4,M)
+
+CMD TR_CONF_PROXY_MAX_FILESZ %x()::0f ff 03 08:%1(5,4,M)
+
+# <Command> [FileName] [FileType] [FileFormat] [FileSeq]  [TimeDly] [DeviceFilter]
+
+CMD TR_CONVERT_FILE  %x(127) %u(TR_REPLAY_FILE_TYP) %u(TR_REPLAY_FILE_FMT) %u(TR_REPLAY_FILE_SEQ) %u() %x(50) \
+						 :: 0f ff 01 03 01 \
+						 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 \
+						 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 \
+						 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 \
+						 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 \
+						 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 \
+						 : %1(6,1,I,0) %2(133,1) %3(134,1) %4(135,1) %5(136,4,M) %6(140,1,I,0)
+
+CMD TR_CONVERT_TRIP_FILE  %x(127) %u(TR_REPLAY_FILE_TYP) %u(TR_REPLAY_FILE_FMT) %u(TR_REPLAY_FILE_SEQ) %u() %x(50) \
+						 :: 0f ff 01 03 01 \
+						 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 \
+						 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 \
+						 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 \
+						 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 \
+						 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 \
+						 : %1(6,1,I,0) %2(133,1) %3(134,1) %4(135,1) %5(136,4,M) %6(140,1,I,0)
+
+CMD TR_CONVERT_TRIP_FILE ::0f ff 01 03 01
+
+CMD TR_CONVERT_FILE		:: 0f ff 01 03 01
+
+CMD TR_CONV_FILE ::0f ff 01 03 01
+
+;CMD TR_CMD_PLATFORM ::0f ff 03 00 01
+
+CMD TR_GET_ERR_MEM :: 0f ff 04 00
+
+CMD TR_CLEAR_ERR_MEM :: 0f ff 04 01 
+
+CMD TR_GET_LAST_CALLSTACK :: 0f ff 04 02
+
+CMD TR_CLEAR_LAST_CALLSTACK :: 0f ff 04 03
+
+CMD TR_SET_MEM_INT %x(TR_SYMBOL_INT) %i(1):%2 < 0xFFFFFFFF: 0f ff 05 00 00 : %1(6,4,M) %2(10,4,M)
+
+CMD TR_SET_MEM_SHORT %x(TR_SYMBOL_SHORT) %i(1):%2 < 65536 : 0f ff 05 00 01 : %1(6,4,M) %2(10,2,M)
+
+CMD TR_SET_MEM_CHAR %x(TR_SYMBOL_CHAR) %i(1):%2 < 256: 0f ff 05 00 02 : %1(6,4,M) %2(10,1,M)
+
+CMD TR_GET_MEM_INT %x(TR_SYMBOL_INT):: 0f ff 05 01 00 : %1(6,4,M)
+
+CMD TR_GET_MEM_INT %x(TR_SYMBOL_INT) %i(1):%2 < 256: 0f ff 05 01 00 : %1(6,4,M) %2(10,1,I)
+
+CMD TR_GET_MEM_SHORT %x(TR_SYMBOL_SHORT):: 0f ff 05 01 01 : %1(6,4,M)
+
+CMD TR_GET_MEM_SHORT %x(TR_SYMBOL_SHORT) %i(1):%2 < 256: 0f ff 05 01 01 : %1(6,4,M) %2(10,1,I)
+
+CMD TR_GET_MEM_CHAR %x(TR_SYMBOL_CHAR):: 0f ff 05 01 02 : %1(6,4,M)
+
+CMD TR_GET_MEM_CHAR %x(TR_SYMBOL_CHAR) %i(1):%2 < 256: 0f ff 05 01 02 : %1(6,4,M) %2(10,1,I)
+
+CMD TR_CODE_DISASSEMBLE :: 0f ff 05 02 
+
+CMD TR_CODE_DISASSEMBLE %i(1):%1 < 256 : 0f ff 05 02 : %1(6,1,M)
+
+CMD TR_CODE_DISASSEMBLE %x(TR_SYMBOL_FUNC):: 0f ff 05 02 : %1(6,4,M) 
+
+CMD TR_CODE_DISASSEMBLE %x(TR_SYMBOL_FUNC) %i(1):%2 < 256: 0f ff 05 02 :%1(6,4,M) %2(10,1,I)
+
+CMD TR_GET_TTFIS_CLASS_CNFG  :: 0F FF 01 11
+
+CMD TR_GET_PROXY_CLASS_CNFG  :: 0F FF 01 12
+
+CMD TR_GET_TRACE_SETTINGS  :: 0F FF 01 13
+
+CMD TR_GET_PROXY_SETTINGS  :: 0F FF 01 14
+
+CMD TR_GET_REG_CHNL_INFO  :: 0F FF 01 15
+
+;************************************************
+;* Trace status messages			            *
+;************************************************
+00: (2)==0x0c: %s(6,255)
+
+0c:(2)==0x00,>!trace:
+
+!trace:(6)==0x01: get connection
+
+!trace:(3)==0x02: TIME_STAMP: Lo:%u(6,4,M) ms Hi:%u(10,4,M) ms
+
+!trace:(3)==0x03: INFO: Trace Buffer Overflow %u(6,4,M) Bytes overwritten
+
+!trace:(3)==0x04: INFO: Trace Buffer Level is more than 90 percent
+
+!trace:(6)==0x04,(7)== 0x01: INFO: Trace Buffer mode is switched to Non-Block mode due to non-availability of TTFis connection
+
+!trace:(6)==0x04,(7)== 0x00: INFO: Trace Buffer mode is switched back to Block mode
+
+!trace:(6)==0x05: ERROR: Class could not be enabled/disabled. Either the class 0x%x(7,2,I)  or the level is invalid
+
+!trace:(6)==0x0A,(7)==0x00: ERROR: Command not supported by TRACE
+
+!trace:(6)==0x0A,(7)==0x01: ERROR: Channel not registered with TRACE
+
+!trace:(6)==0x0A,(7)==0x02: ERROR: Invalid Message Length
+
+!trace:(6)==0x0A,(7)==0x03: ERROR: Switching IO failed. Proceeding with current IO interface.
+
+!trace:(6)==0x07,(7)==0x01,(8)==0x01: INFO: Buffer set to Non-Block mode
+
+!trace:(6)==0x07,(7)==0x00,(8)==0x01: INFO: Buffer set to Block mode
+
+!trace:(6)==0x0F : TTFis Class & Level Info : CLASS :%35s(TR_CLASS,7,2,M)\t(0x%04X(7,2,M))\t\tLEVEL :%-s(TR_LEVEL,9,1) (0x%02x(9,1,M))
+
+!trace:(6)==0x10 : Proxy Class & Level Info : CLASS :%35s(TR_CLASS,7,2,M)\t(0x%04X(7,2,M))\t\tLEVEL :%-s(TR_LEVEL,9,1) (0x%02x(9,1,M))
+
+!trace:(6)==0x11,(7)==01 : Trace Setting INFO..: \nBlock_Mode :%-10s(BLOCK_MODE_STATUS,8,1)\nTimestamp :%-15s(TIMESTAMP_TYPE,9,1)\nEarly_trace :%-10s(EARLYTRACE_MODE,10,1)\nProxy :%-10s(PROXYACTIVE_MODE,11,1)\nMaster_OS :%-10s(MASTER_OS,12,1)
+
+!trace:(6)==0x11,(7)==02 : Trace Configuration location : %s(8,230)
+
+!trace:(6)==0x11,(7)==03 : Proxy Configuration location : %s(8,230)
+
+!trace:(6)==0x11,(7)==04 : IP Address & Port : %s(8,230)
+
+!trace:(6)==0x11,(7)==05 : Trace Registered channel INFO :%25s(TR_CHAN,9,2)\t(0x%04X(9,2,M))\t OS MODE :%-10s(MASTER_OS,8,1)
+
+!trace:(6)==0x12,(7)==01 : Proxy Setting INFO:\nWrite_Mode :%-10s(WRITE_MODE,8,1)\nTimestamp :%-15s(TIMESTAMP_TYPE,9,1) \n Total proxy file size(in BYTES): %u(10,4,M) \n Each proxy file size(in BYTES): %u(14,4,M)
+
+
+
+;***************************************************************************
+; XCMDS for trace TraceGroups, Online filter JJ82HI
+;***************************************************************************
+
+XCMD grp_add %u(TR_CLASS)%u(TR_LEVEL)%s()::G+ %1u(1,2) %1u(2)  %1s(3,8)
+XCMD grp_rem %u(TR_CLASS)%s()::G- %1u(1,2) %1s(2,8)
+
+XCMD grp_enable %s()::GE %1s(1,8)
+XCMD grp_enable %s() %s()::GE %1s(1,8) %2s(2,260)
+XCMD grp_enable %s() %s() %u(TR_FILTER_OPT)::GE %1s(1,8) %2s(2,260) %3u(3)
+XCMD stop_filter %s()::GF %1s(1,260)
+XCMD get_file::
+
+;Added for Extended Online filtering
+XCMD grp_enable %s() %s() %s()::GE %1s(1,8) %2s(2,2) %3s(3,260)
+XCMD grp_enable %s() %s() %s() %u(TR_FILTER_OPT)::GE %1s(1,8) %2s(2,2) %3s(3,260) %4u(4)
+XCMD grp_enable %s() %s() %s() %u(TR_FILTER_OPT) %s()::GE %1s(1,8) %2s(2,2) %3s(3,260) %4u(4) %5s(5,3)
+XCMD stop_filter %s() %s()::GF %1s(1,2) %2s(2,260)
+
+XCMD grp_disable %s()::GD %1s(1,8)
+XCMD grp_delete %s()::G* %1s(1,8)
+XCMD grp_print %s()::GP %1s(1,8)
+XCMD grp_set %s() %s()::GS %1s(1,8) %2s(2,260)
+XCMD grp_lst_all ::GG
+XCMD TR_SAVE_CNFG_ON_CARD %s() %s()::GC %1s(1,8) %2s(2,9)
+
+XCMD dlt_grp_enabl %s()::GDE %1s(1,8)
+XCMD dlt_grp_disabl %s()::GDD %1s(1,8)
+XCMD dlt_grp_delete %s()::GDF %1s(1,8)
+XCMD dlt_grp_print %s()::GDP %1s(1,8)
+XCMD dlt_grp_lst_all ::GDL
+XCMD dlt_save_cnfg_on_host ::GDS
+
+
+;***************************************************************************
+; profiler support translation rules
+; 08.05.2003 - introduced (es)
+
+; profiler control commands
+CMD TR_DUMP_TTT :: 0f ff 02 B8 01
+
+; profiler control commands (short cuts)
+CMD TT :: 0f ff 02 B8 01
+
+; query control commands
+CMD TR_DUMP_TASK_INFO  :: 0f ff 02 B8 02
+CMD TR_DUMP_FPMEM_INFO :: 0f ff 02 B8 03
+CMD TR_DUMP_VPMEM_INFO :: 0f ff 02 B8 04
+CMD TR_DUMP_RDYQ %i()  :: 0f ff 02 B8 05 : %1(6)
+CMD TR_DUMP_TSK_WAIT   :: 0f ff 02 B8 06
+CMD TR_DUMP_SEMAPHORE  :: 0f ff 02 B8 07
+CMD TR_DUMP_MAILBOX	   :: 0f ff 02 B8 08
+CMD TR_DUMP_MSGQ	   :: 0f ff 02 B8 09
+CMD TR_DUMP_ALMHDLR	   :: 0f ff 02 B8 0A
+CMD TR_DUMP_EVTFLG	   :: 0f ff 02 B8 0B
+
+
+; query control commands (short cuts)
+CMD TI :: 0f ff 02 B8 02
+CMD FMI :: 0f ff 02 B8 03
+CMD VPI :: 0f ff 02 B8 04
+CMD RDYQ %i() :: 0f ff 02 B8 05 : %1(6)
+CMD TW	::0f ff 02 B8 06
+CMD SEM ::0f ff 02 B8 07
+CMD MBX ::0f ff 02 B8 08
+CMD MSGQ::0f ff 02 B8 09
+CMD ALM ::0f ff 02 B8 0A
+CMD FLG ::0f ff 02 B8 0B
+
+; translation rules for incoming profiler data
+0c:(2)==0x11: TTT info -- %-8s(6,8) %8u(14,4)
+
+; translation rules for status msg from profiler
+0c:(2)==0x17,(6)==0x01 : Not available
+0c:(2)==0x17,(6)==0x02 : No Task is in wait state
+0c:(2)==0x17,(6)==0x03 : No Task of this priority is in ReadyQ
+
+;for fixed memory pool
+0c:(2)==0x13,>!mpfinfo:
+!mpfinfo : (6)==0xee: \n-------------------------------------FIXED MEMORY POOL---------------------------------------\n\
+					  \n\t\t\t\tName	\tFreeBlk	\tWaiting Tasks \
+					  \n---------------------------------------------------------------------------------------------
+!mpfinfo : (6)!=0xee: \t\t\t\t%-8s(6,8) \t%u(14,4) \t\t\t%-8s(18,8,I,255," ")
+
+;for variable memory pool
+0c:(2)==0x14,>!mplinfo:
+!mplinfo : (6)==0xee: \n------------------------------------VARIABLE MEMORY POOL-------------------------------------\n\
+                      \n\t\t\t\t\t\t Name	\tFreeSize	\t\tMaxSize	\tWaiting Tasks \
+					  \n  \t\t\t\t\t\t\t\t\t(contiguous)				\
+					  \n---------------------------------------------------------------------------------------------
+!mplinfo : (6)!=0xee: \t\t\t\t %-8s(6,8) \t%u(14,4) \t\t\t%u(18,4) \t\t\t%-8s(22,8,I,255," ")
+
+;for ReadyQ
+0c:(2)==0x15,>!readyq:
+!readyq : (6)==0xee: \n------------------------------------READY Q PRECEDENCE----------------------------------------\n\
+                     \n\t\t\t\t		  Task Name \
+					 \n----------------------------------------------------------------------------------------------
+!readyq : (6)!=0xee: \t\t\t\t %-8s(6,8)
+
+;for waiting task info
+0c:(2)==0x16,>!waitinfo:
+!waitinfo : (6)==0xee: \n----------------------------------TASK WAIT INFO--------------------------------------------\n\
+                       \n\t\t\t\t\t Name	\tWaitsOn	\t\tObject Name \
+					   \n--------------------------------------------------------------------------------------------
+!waitinfo : (6)!=0xee: \t\t\t%-8s(6,8) \t%-12s(14,16) \t\t%-8s(30,8)
+
+
+;for semaphore
+0c:(2)==0x17,>!seminfo:
+!seminfo : (6)==0xee: \n---------------------------------------SEMAPHORE INFO---------------------------------------\n\
+					  \n\t\t\t\t\t\tName	\tSemCount	\tWaiting Tasks \
+					  \n--------------------------------------------------------------------------------------------
+!seminfo : (6)!=0xee: \t\t\t\t%-8s(6,8) \t%u(14,4) \t\t\t%-8s(18,8,I,255," ")
+
+
+;for mailbox
+0c:(2)==0x18,>!mbxinfo:
+!mbxinfo : (6)==0xee: \n---------------------------------------MAILBOX INFO----------------------------------------\n\
+					  \n\t\t\t\t\t\tName	\tWaiting Tasks \
+					  \n-------------------------------------------------------------------------------------------
+!mbxinfo : (6)!=0xee: \t\t\t\t%-8s(6,8) \t\t\t%-8s(14,8,I,255," ")
+
+;for Message Buffer
+0c:(2)==0x19,>!msginfo:
+!msginfo : (6)==0xee: \n---------------------------------------MESSAGE BUFFER INFO---------------------------------\n\
+                      \n\t\t\t\t\t\tName	\tFreeBufSize	   \tMaxMsgSize	   \tWaiting Tasks \
+                      \n-------------------------------------------------------------------------------------------
+!msginfo : (6)!=0xee: \t\t\t\t %-8s(6,8) \t%u(14,4) \t\t\t\t\t%u(18,4) \t\t\t%-8s(22,8,I,255," ")
+
+
+;for Alarm Handler
+0c:(2)==0x1a,>!alminfo:
+!alminfo : (6)==0xee: \n---------------------------------------ALARM HANDLER INFO----------------------------------\n\
+					  \n\t\t\t\t\t\t\tName	\tTimeLeft	\tStatus \
+					  \n-------------------------------------------------------------------------------------------
+!alminfo : (6)!=0xee,(18)==0x00: \t\t\t\t%-8s(6,8) \t%u(14,4) \t\t\t INACTIVE
+!alminfo : (6)!=0xee,(18)==0x01: \t\t\t\t%-8s(6,8) \t%u(14,4) \t\t\t ACTIVE
+
+;for Event Flag
+0c:(2)==0x1b,>!flginfo:
+!flginfo : (6)==0xee: \n---------------------------------------EVENT FLAG INFO-------------------------------------\n\
+                      \n\t\t\t\t\t\tName	\tFlagPattern	\tWaiting Tasks \
+                      \n-------------------------------------------------------------------------------------------
+!flginfo : (6)!=0xee: \t\t\t\t %-8s(6,8) \t%-4u(14,4)  \t\t\t%-8s(18,8,I,255," ")
+
+;for task info
+0c:(2)==0x12,>!taskinfo:
+!taskinfo : (6)==0xee:\n-----------------------------------------------------------TASK PROFILE----------------------------------------------------------------------\n\
+                      \n\t\t\tID\tName    \tStatus          \tCurPri BasePri SliceTime(ms)\t\tSystemStack \t\t            UserStack											 \n\
+					  \n\t\t\t        \t                \t                            \tsize\t\tBase\t\tMin\t     size\t\tBase\t\tMin \
+					  \n---------------------------------------------------------------------------------------------------------------------------------------------
+
+!taskinfo :(6)!=0xee,(70)==0x04:\t%3u(6,4)\t%-8s(10,8)\t%-13s(18,16)\t\t%u(34,4)\t\t%u(38,4)\t\t%u(42,4)\t\t%-10u(50,4)0x%-8x(58,4)\t%-10u(66,4)\
+ %-10u(46,4)\t0x%-8x(54,4)\t%-10u(62,4)*current task*
+
+!taskinfo :(6)!=0xee,(70)==0x03:\t%3u(6,4)\t%-8s(10,8)\t%-13s(18,16)\t\t%u(34,4)\t\t%u(38,4)\t\t%u(42,4)\t\t%-10u(50,4)0x%-8x(58,4)\t%-10u(66,4)\
+ %-10u(46,4)\t0x%-8x(54,4)\t%-10u(62,4)*RNG0*
+
+!taskinfo :(6)!=0xee,(70)==0x02:\t%3u(6,4)\t%-8s(10,8)\t%-13s(18,16)\t\t%u(34,4)\t\t%u(38,4)\t\t%u(42,4)\t\t%-10u(50,4)0x%-8x(58,4)\t%-10u(66,4)\
+ %-10u(46,4)\t0x%-8x(54,4)\t%-10u(62,4)*TA_USERSTACK*
+
+!taskinfo :(6)!=0xee,(70)==0x01:\t%3u(6,4)\t%-8s(10,8)\t%-13s(18,16)\t\t%u(34,4)\t\t%u(38,4)\t\t%u(42,4)\t\t%-10u(50,4)0x%-8x(58,4)\t%-10u(66,4)\
+ %-10u(46,4)\t0x%-8x(54,4)\t%-10u(62,4)
+ 
+ 
+;Debug Extension support status messages
+0c:(2)==0x21,>!getmem:
+!getmem : (6)==0x00 : Value is %i(7,4,I,255," ")
+!getmem : (6)==0x01 : Value is %i(7,2,I,255," ")
+!getmem : (6)==0x02 : Value is %i(7,1,I,255," ")
+ 
+0c:(2)==0x20,>!callstack:
+!callstack :: CALLSTACK\n\t%x(TR_SYMBOL_FUNC,6,4,I,255,"\n\t") 
+
+;rules for disassembly
+0c:(2)==0x22,>!disassembly:
+!disassembly :(6)==0xed: Error: Specify number of lines to be displayed
+!disassembly :(6)==0xec: Error: Specify the start address to disassemble 
+
+!disassembly :(6)==0xee:\n---------------------------------------DISASSEMBLY CODE-----------------------------------\n\
+						\n\t\t\t Address	\topcode	\tassembly \
+						\n------------------------------------------------------------------------------------------
+!disassembly:(6)==0x00,(14,FC:2)==0x09:\t%-8x(7,4)\t%-8x(11,4):\t\taddiu  \
+%u(TR_REG,13,001F:0), %u(TR_REG,13,03E0:5), %i(11,2)
+								
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,0xFF:0)==0x20,(12,0x07:0)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tadd  \
+%u(TR_REG,12,00F8:3), %u(TR_REG,13,03E0:5),%u(TR_REG,13,001F:0)
+								
+!disassembly:(6)==0x00,(14,FC:2)==0x08:\t%-8x(7,4)\t%-8x(11,4):\t\taddi  \
+%u(TR_REG,13,001F:0), %u(TR_REG,13,03E0:5), %i(11,2)
+								
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,0xFF:0)==0x21,(12,0x07:0)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\taddu  \
+%u(TR_REG,12,00F8:3), %u(TR_REG,13,03E0:5),%u(TR_REG,13,001F:0)
+								
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,0xFF:0)==0x24,(12,0x07:0)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tand  \
+%u(TR_REG,12,00F8:3), %u(TR_REG,13,03E0:5),%u(TR_REG,13,001F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x0c:\t%-8x(7,4)\t%-8x(11,4):\t\tandi  \
+%u(TR_REG,13,001F:0), %u(TR_REG,13,03E0:5), %i(11,2)
+								
+!disassembly:(6)==0x00,(14,FC:2)==0x10,(13,001F:0)==0x00,(13,03E0:5)==0x08:\t%-8x(7,4)\t%-8x(11,4):\t\tbcof  \
+%i(11,2)	
+																	 
+!disassembly:(6)==0x00,(14,FC:2)==0x10,(13,001F:0)==0x01,(13,03E0:5)==0x08:\t%-8x(7,4)\t%-8x(11,4):\t\tbcoft  \
+%i(11,2)
+																	 																	 																	 							
+!disassembly:(6)==0x00,(14,FC:2)==0x10,(13,001F:0)==0x02,(13,03E0:5)==0x08:\t%-8x(7,4)\t%-8x(11,4):\t\tbcofl  \
+%i(11,2)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x10,(13,001F:0)==0x03,(13,03E0:5)==0x08:\t%-8x(7,4)\t%-8x(11,4):\t\tbcotl  \
+%i(11,2)	
+
+!disassembly:(6)==0x00,(14,FC:2)==0x04:\t%-8x(7,4)\t%-8x(11,4):\t\tbeq  \
+%u(TR_REG,13,001F:0), %u(TR_REG,13,03E0:5), %i(11,2)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x14:\t%-8x(7,4)\t%-8x(11,4):\t\tbeql \
+%u(TR_REG,13,001F:0), %u(TR_REG,13,03E0:5), %i(11,2)
+								
+!disassembly:(6)==0x00,(14,FC:2)==0x01,(13,001F:0)==0x01:\t%-8x(7,4)\t%-8x(11,4):\t\tbgez  \
+%u(TR_REG,13,03E0:5), %i(11,2)								
+
+!disassembly:(6)==0x00,(14,FC:2)==0x01,(13,001F:0)==0x11:\t%-8x(7,4)\t%-8x(11,4):\t\tbgezal  \
+%u(TR_REG,13,03E0:5), %i(11,2)			
+								 
+!disassembly:(6)==0x00,(14,FC:2)==0x01,(13,001F:0)==0x13:\t%-8x(7,4)\t%-8x(11,4):\t\tbgezall  \
+%u(TR_REG,13,03E0:5), %i(11,2)											 						
+																
+!disassembly:(6)==0x00,(14,FC:2)==0x01,(13,001F:0)==0x03:\t%-8x(7,4)\t%-8x(11,4):\t\tbgezl  \
+%u(TR_REG,13,03E0:5), %i(11,2)										
+																									 
+!disassembly:(6)==0x00,(14,FC:2)==0x07,(13,001F:0)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tbgtz  \
+%u(TR_REG,13,03E0:5), %i(11,2)		
+
+!disassembly:(6)==0x00,(14,FC:2)==0x17,(13,001F:0)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tbgtzl  \
+%u(TR_REG,13,03E0:5), %i(11,2)										 
+
+!disassembly:(6)==0x00,(14,FC:2)==0x06,(13,001F:0)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tblez  \
+%u(TR_REG,13,03E0:5), %i(11,2)	
+
+!disassembly:(6)==0x00,(14,FC:2)==0x16,(13,001F:0)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tblezl  \
+%u(TR_REG,13,03E0:5), %i(11,2)	
+
+!disassembly:(6)==0x00,(14,FC:2)==0x01,(13,001F:0)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tbltz  \
+%u(TR_REG,13,03E0:5), %i(11,2)	
+								 							 			
+!disassembly:(6)==0x00,(14,FC:2)==0x01,(13,001F:0)==0x10:\t%-8x(7,4)\t%-8x(11,4):\t\tbltzal \
+%u(TR_REG,13,03E0:5), %i(11,2)	
+
+!disassembly:(6)==0x00,(14,FC:2)==0x01,(13,001F:0)==0x12:\t%-8x(7,4)\t%-8x(11,4):\t\tbltzall \
+%u(TR_REG,13,03E0:5), %i(11,2)	
+
+!disassembly:(6)==0x00,(14,FC:2)==0x01,(13,001F:0)==0x02:\t%-8x(7,4)\t%-8x(11,4):\t\tbltzl  \
+%u(TR_REG,13,03E0:5), %i(11,2)	
+								 
+!disassembly:(6)==0x00,(14,FC:2)==0x05:\t%-8x(7,4)\t%-8x(11,4):\t\tbne  \
+%u(TR_REG,13,001F:0), %u(TR_REG,13,03E0:5), %i(11,2)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x15:\t%-8x(7,4)\t%-8x(11,4):\t\tbnel  \
+%u(TR_REG,13,001F:0), %u(TR_REG,13,03E0:5), %i(11,2)
+								
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,3F:0)==0x0D:\t%-8x(7,4)\t%-8x(11,4):\t\tbreak  
+							
+!disassembly:(6)==0x00,(14,FC:2)==0x2F:\t%-8x(7,4)\t%-8x(11,4):\t\tcache  \
+%x(13,001F:0), %i(11,2)(%u(TR_REG,13,03E0:5))	
+
+!disassembly:(6)==0x00,(14,F0:4)==0x04,(13,03E0:5)==0x02,(11,07FF:0)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tcfc  \
+%u(14,0C:2) %u(TR_REG,13,001F:0),%u(TR_REG,12,00F8:3)	
+								
+!disassembly:(6)==0x00,(14,F0:4)==0x1C,(11,07FF:0)==0x21:\t%-8x(7,4)\t%-8x(11,4):\t\tclo  \
+%u(TR_REG,12,00F8:3),%u(TR_REG,13,03E0:5)	
+
+!disassembly:(6)==0x00,(14,F0:4)==0x1C,(11,07FF:0)==0x20:\t%-8x(7,4)\t%-8x(11,4):\t\tclz \
+%u(TR_REG,12,00F8:3),%u(TR_REG,13,03E0:5)	
+
+!disassembly:(6)==0x00,(14,F0:4)==0x04,(14,02:0)==0x01:\t%-8x(7,4)\t%-8x(11,4):\t\tcop \
+%u(14,0C:2) %x(11,01FFFFFF:0)
+
+!disassembly:(6)==0x00,(14,F0:4)==0x04,(13,03E0:5)==0x06,(11,07FF:0)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tctc \
+%u(14,0C:2)%u(TR_REG,13,001F:0),%u(TR_REG,12,00F8:3)
+								
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x2C:\t%-8x(7,4)\t%-8x(11,4):\t\tdadd  \
+%u(TR_REG,12,00F8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,001F:0)																
+
+!disassembly:(6)==0x00,(14,FC:2)==0x18:\t%-8x(7,4)\t%-8x(11,4):\t\tdaddi  \
+%u(TR_REG,13,001F:0),%u(TR_REG,13,03E0:5),%i(11,2)	
+								
+!disassembly:(6)==0x00,(14,FC:2)==0x19:\t%-8x(7,4)\t%-8x(11,4):\t\tdaddiu  \
+%u(TR_REG,13,001F:0),%u(TR_REG,13,03E0:5),%i(11,2)									
+																																																																							 								 							 										 																	 																 												
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x2D:\t%-8x(7,4)\t%-8x(11,4):\t\tdaddu  \
+%u(TR_REG,12,00F8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,001F:0)		
+
+!disassembly:(6)==0x00,(14,FC:2)==0x1C,(11,07FF:0)==0x25:\t%-8x(7,4)\t%-8x(11,4):\t\tdclo \
+%u(TR_REG,12,00F8:3),%u(TR_REG,13,03E0:5)			
+
+!disassembly:(6)==0x00,(14,FC:2)==0x1C,(11,07FF:0)==0x24:\t%-8x(7,4)\t%-8x(11,4):\t\tdclz \
+%u(TR_REG,12,00F8:3),%u(TR_REG,13,03E0:5)	
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,FFFF:0)==0x1E:\t%-8x(7,4)\t%-8x(11,4):\t\tddiv \
+%u(TR_REG,13,03E0:5),%u(TR_REG,13,001F:0)																									
+								
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,FFFF:0)==0x1F:\t%-8x(7,4)\t%-8x(11,4):\t\tddivu \
+%u(TR_REG,13,03E0:5),%u(TR_REG,13,001F:0)	
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,FFFF:0)==0x1A:\t%-8x(7,4)\t%-8x(11,4):\t\tdiv \
+%u(TR_REG,13,03E0:5),%u(TR_REG,13,001F:0)	
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,FFFF:0)==0x1B:\t%-8x(7,4)\t%-8x(11,4):\t\tdivu \
+%u(TR_REG,13,03E0:5),%u(TR_REG,13,001F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x10,(11,07FF:0)==0x00,(13,03E0:5)==0x01:\t%-8x(7,4)\t%-8x(11,4):\t\tdmfco \
+%u(TR_REG,13,001F:0),%u(TR_REG,12,00F8:3)	
+								
+!disassembly:(6)==0x00,(14,FC:4)==0x04,(11,07FF:0)==0x00,(13,03E0:5)==0x01:\t%-8x(7,4)\t%-8x(11,4):\t\tdmfc \
+%u(14,0C:2) %u(TR_REG,13,001F:0),%u(TR_REG,12,00F8:3)																										
+
+!disassembly:(6)==0x00,(14,FC:2)==0x0E:\t%-8x(7,4)\t%-8x(11,4):\t\txori \
+%u(TR_REG,13,0x1F:0),%u(TR_REG,13,03E0:5),%i(11,2)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x26:\t%-8x(7,4)\t%-8x(11,4):\t\txor \
+%u(TR_REG,12,00F8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x01,(11,0x3F:0)==0x20,(14,0x02:0)==0x02:\t%-8x(7,4)\t%-8x(11,4):\t\twait \
+
+!disassembly:(6)==0x00,(14,FC:2)==0x01,(13,0x1F:0)==0x0E:\t%-8x(7,4)\t%-8x(11,4):\t\ttnei \
+%u(TR_REG,13,03E0:5), %i(11,2)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,0x3F:0)==0x36:\t%-8x(7,4)\t%-8x(11,4):\t\ttne \
+%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,0x3F:0)==0x33:\t%-8x(7,4)\t%-8x(11,4):\t\ttltu \
+%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x01,(13,0x1F:0)==0x0D:\t%-8x(7,4)\t%-8x(11,4):\t\ttltiu \
+%u(TR_REG,13,03E0:5),%i(11,2)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x01,(13,0x1F:0)==0x0A:\t%-8x(7,4)\t%-8x(11,4):\t\ttlti \
+%u(TR_REG,13,03E0:5),%i(11,2)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,0x3F:0)==0x32:\t%-8x(7,4)\t%-8x(11,4):\t\ttlt \
+%u(TR_REG,13,03E0:5),%u(TR_REG,13,001F:0)
+
+!disassembly:(6)==0x00,(14,FF:0)==0x42,(12,FFFF:0)==0x00,(11,0xFF:0)==0x06:\t%-8x(7,4)\t%-8x(11,4):\t\ttlbwr
+
+!disassembly:(6)==0x00,(14,FF:0)==0x42,(12,FFFF:0)==0x00,(11,0xFF:0)==0x02:\t%-8x(7,4)\t%-8x(11,4):\t\ttlbwi 
+
+!disassembly:(6)==0x00,(14,FF:0)==0x42,(12,FFFF:0)==0x00,(11,0xFF:0)==0x01:\t%-8x(7,4)\t%-8x(11,4):\t\ttlbr
+
+!disassembly:(6)==0x00,(14,FF:0)==0x42,(12,FFFF:0)==0x00,(11,0xFF:0)==0x08:\t%-8x(7,4)\t%-8x(11,4):\t\tTLBP 
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,0x3F:0)==0x31:\t%-8x(7,4)\t%-8x(11,4):\t\ttgeu \
+%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x01,(13,0x1F:0)==0x09:\t%-8x(7,4)\t%-8x(11,4):\t\ttgeiu \
+%u(TR_REG,13,03E0:5),%i(11,2)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x01,(13,0x1F:0)==0x08:\t%-8x(7,4)\t%-8x(11,4):\t\ttgei \
+%u(TR_REG,13,03E0:5),%i(11,2)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x01,(11,0x3F:0)==0x30:\t%-8x(7,4)\t%-8x(11,4):\t\ttge \
+%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x01,(13,0x1F:0)==0x0C:\t%-8x(7,4)\t%-8x(11,4):\t\tteqi \
+%u(TR_REG,13,03E0:5),%i(11,2)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,0x3F:0)==0x34:\t%-8x(7,4)\t%-8x(11,4):\t\tteq \
+%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,0x3F:0)==0x0C:\t%-8x(7,4)\t%-8x(11,4):\t\tsyscall 
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,0x3F:0)==0x0F,(11,03FFF800:0)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tsync 
+
+!disassembly:(6)==0x00,(14,FC:2)==0x2C:\t%-8x(7,4)\t%-8x(11,4):\t\tswr \
+%u(TR_REG,13,0x1F:0),%i(11,2)(%u(TR_REG,13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x2A,(11,00FF:0)==0x34:\t%-8x(7,4)\t%-8x(11,4):\t\tswl \
+%u(TR_REG,13,0x1F:0),%i(11,2)(%u(TR_REG,13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x2B:\t%-8x(7,4)\t%-8x(11,4):\t\tsw \
+%u(TR_REG,13,0x1F:0),%i(11,2)(%u(TR_REG,13,03E0:5))
+
+!disassembly:(6)==0x00,(14,F0:4)==0x0E:\t%-8x(7,4)\t%-8x(11,4):\t\tswc \
+ %u(14,0C:2)%u(TR_REG,13,0x1F:0),%i(11,2)(%u(TR_REG,13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x23:\t%-8x(7,4)\t%-8x(11,4):\t\tsubu \
+%u(TR_REG,12,00F8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x22:\t%-8x(7,4)\t%-8x(11,4):\t\tsub \
+%u(TR_REG,12,00F8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FFFF:0)==0x00,(11,FFFF:0)==0x40:\t%-8x(7,4)\t%-8x(11,4):\t\tssnop 
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x06:\t%-8x(7,4)\t%-8x(11,4):\t\tsrlv \
+%u(TR_REG,12,00F8:3),%u(TR_REG,13,0x1F:0),%u(TR_REG,13,03E0:5)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,0x3F:0)==0x20,(13,03E0:5)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tsrl \
+%u(TR_REG,12,00F8:3),%u(TR_REG,13,0x1F:0),%u(11,07C0:6)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x07:\t%-8x(7,4)\t%-8x(11,4):\t\tsrav \
+%u(TR_REG,12,00F8:3),%u(TR_REG,13,0x1F:0),%u(TR_REG,13,03E0:5)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,0x3F:0)==0x03,(13,03E0:5)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tsra \
+%u(TR_REG,12,00F8:3),%u(TR_REG,13,0x1F:0),%u(11,07C0:6)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x2B:\t%-8x(7,4)\t%-8x(11,4):\t\tsltu \
+%u(TR_REG,12,00F8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x0D:\t%-8x(7,4)\t%-8x(11,4):\t\tsltiu \
+%u(TR_REG,12,00F8:3),%u(TR_REG,13,03E0:5),%i(11,2)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x0A:\t%-8x(7,4)\t%-8x(11,4):\t\tslti \
+%u(TR_REG,12,00F8:3),%u(TR_REG,13,03E0:5),%i(11,2)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x2A:\t%-8x(7,4)\t%-8x(11,4):\t\tslt \
+%u(TR_REG,12,00F8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x04:\t%-8x(7,4)\t%-8x(11,4):\t\tsllv \
+%u(TR_REG,12,00F8:3),%u(TR_REG,13,0x1F:0),%u(TR_REG,13,03E0:5)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,0x3F:0)==0x00,(13,03E0:5)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tsll \
+%u(TR_REG,12,00F8:3),%u(TR_REG,13,0x1F:0),%u(11,07C0:6)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x29:\t%-8x(7,4)\t%-8x(11,4):\t\tsh \
+%u(TR_REG,13,0x1F:0),%u(11,2)(%u(TR_REG,13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x2D:\t%-8x(7,4)\t%-8x(11,4):\t\tsdr \
+%u(TR_REG,13,0x1F:0),%u(11,2)(%u(TR_REG,13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x2C:\t%-8x(7,4)\t%-8x(11,4):\t\tsdl \
+%u(TR_REG,13,0x1F:0),%u(11,2)(%u(TR_REG,13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x3F:\t%-8x(7,4)\t%-8x(11,4):\t\tsd \
+%u(TR_REG,13,0x1F:0),%u(11,2)(%u(TR_REG,13,03E0:5))
+
+!disassembly:(6)==0x00,(14,F0:4)==0x0F:\t%-8x(7,4)\t%-8x(11,4):\t\tsdc \
+ %u(14,0C:2),%u(TR_REG,13,0x1F:0),%u(11,2)(%u(TR_REG,13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x3C:\t%-8x(7,4)\t%-8x(11,4):\t\tscd \
+%u(TR_REG,13,0x1F:0),%u(11,2)(%u(TR_REG,13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x38:\t%-8x(7,4)\t%-8x(11,4):\t\tsc \
+%u(TR_REG,13,0x1F:0),%u(11,2)(%u(TR_REG,13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x28:\t%-8x(7,4)\t%-8x(11,4):\t\tsb \
+%u(TR_REG,13,0x1F:0),%u(11,2)(%u(TR_REG,13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x26:\t%-8x(7,4)\t%-8x(11,4):\t\trorv \
+%u(TR_REG,13,0x1F:0),%u(11,2)(%u(TR_REG,13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,0x3F:0)==0x02,(13,03E0:5)==0x01:\t%-8x(7,4)\t%-8x(11,4):\t\tror \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,0x1F:0),(%u(TR_REG,11,07C0:6))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x33:\t%-8x(7,4)\t%-8x(11,4):\t\tpref \
+%u(13,0x1F:0),%i(11,2),(%u(TR_REG,13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x0D:\t%-8x(7,4)\t%-8x(11,4):\t\tori \
+%u(TR_REG,13,0x1F:0),%u(TR_REG,13,03E0:5),%i(11,2)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x25:\t%-8x(7,4)\t%-8x(11,4):\t\tor \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x27:\t%-8x(7,4)\t%-8x(11,4):\t\tnor \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x59:\t%-8x(7,4)\t%-8x(11,4):\t\tmulu \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,FFFF:0)==0x19:\t%-8x(7,4)\t%-8x(11,4):\t\tmultu \
+%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,FFFF:0)==0x18:\t%-8x(7,4)\t%-8x(11,4):\t\tmult \
+%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0xD9:\t%-8x(7,4)\t%-8x(11,4):\t\tmulsu \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x02D9:\t%-8x(7,4)\t%-8x(11,4):\t\tmulshiu \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x02D8:\t%-8x(7,4)\t%-8x(11,4):\t\tmulshi \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0xD8:\t%-8x(7,4)\t%-8x(11,4):\t\tmuls \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x0259:\t%-8x(7,4)\t%-8x(11,4):\t\tmulhiu  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x0258:\t%-8x(7,4)\t%-8x(11,4):\t\tmulhi  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x1E,(11,07FF:0)==0x02:\t%-8x(7,4)\t%-8x(11,4):\t\tmul64  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x58:\t%-8x(7,4)\t%-8x(11,4):\t\tmul  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x10,(13,03E0:5)==0x04,(11,FFC1:0)==C800:\t%-8x(7,4)\t%-8x(11,4):\t\tmtps  \
+%u(TR_REG,13,0x1F:0)%u(11,0x3E:1)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x10,(13,03E0:5)==0x04,(11,FFC1:0)==C801:\t%-8x(7,4)\t%-8x(11,4):\t\tmtpc  \
+%u(TR_REG,13,0x1F:0)%u(11,0x3E:1)
+
+!disassembly:(6)==0x00,(11,FC1FFFFF:0)==0x13:\t%-8x(7,4)\t%-8x(11,4):\t\tmtlo  \
+%u(TR_REG,13,03E0:5)
+
+!disassembly:(6)==0x00,(11,FC1FFFFF:0)==0x11:\t%-8x(7,4)\t%-8x(11,4):\t\tmthi  \
+%u(TR_REG,13,03E0:5)
+
+!disassembly:(6)==0x00,(14,F0:4)==0x04,(13,03E0:5)==0x04,(11,07FF:0)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tmtc  \
+%u(14,0c:2)%u(TR_REG,13,0x1F:0),%u(TR_REG,12,0xF8:3)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x10,(13,03E0:5)==0x04,(11,07FF:0)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tmtc0  \
+%u(TR_REG,13,0x1F:0),%u(TR_REG,12,0xF8:3)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x1C,(11,FFFF:0)==0x05:\t%-8x(7,4)\t%-8x(11,4):\t\tmsubu  \
+%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x1C,(11,FFFF:0)==0x04:\t%-8x(7,4)\t%-8x(11,4):\t\tmsub  \
+%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==01D9:\t%-8x(7,4)\t%-8x(11,4):\t\tmsacu  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==03D9:\t%-8x(7,4)\t%-8x(11,4):\t\tmsachiu  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==03D8:\t%-8x(7,4)\t%-8x(11,4):\t\tmsachi  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==01D8:\t%-8x(7,4)\t%-8x(11,4):\t\tmsac  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x0A:\t%-8x(7,4)\t%-8x(11,4):\t\tmovz  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x0D:\t%-8x(7,4)\t%-8x(11,4):\t\tmovn \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(13,FFE0:0)==4000,(11,FFC1:0)==C800:\t%-8x(7,4)\t%-8x(11,4):\t\tmfps  \
+%u(TR_REG,13,0x1F:0),%u(11,0x3E:1)
+
+!disassembly:(6)==0x00,(13,FFE0:0)==4000,(11,FFC1:0)==C801:\t%-8x(7,4)\t%-8x(11,4):\t\tmfpc  \
+%u(TR_REG,13,0x1F:0),%u(11,0x3E:1)
+
+!disassembly:(6)==0x00,(13,FFFF:0)==0000,(11,07FF:0)==0x12:\t%-8x(7,4)\t%-8x(11,4):\t\tmflo  \
+%u(TR_REG,12,0xF8:3)
+
+!disassembly:(6)==0x00,(13,FFFF:0)==0000,(11,07FF:0)==0x10:\t%-8x(7,4)\t%-8x(11,4):\t\tmfhi  \
+%u(TR_REG,12,0xF8:3)
+
+!disassembly:(6)==0x00,(14,F0:4)==0x04,(13,03E0:5)==0x00,(11,07FF:0)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tmfc  \
+%u(14,0c:2)%u(TR_REG,13,0x1F:0),%u(TR_REG,12,0xF8:3)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x10,(13,03E0:5)==0x00,(11,07FF:0)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tmfc0  \
+%u(TR_REG,13,0x1F:0),%u(TR_REG,12,0xF8:3)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x1C,(11,FFFF:0)==0x01:\t%-8x(7,4)\t%-8x(11,4):\t\tmaddu  \
+%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x1C,(11,FFFF:0)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tmadd  \
+%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0159:\t%-8x(7,4)\t%-8x(11,4):\t\tmaccu  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0359:\t%-8x(7,4)\t%-8x(11,4):\t\tmacchiu  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0358:\t%-8x(7,4)\t%-8x(11,4):\t\tmacchi  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0158:\t%-8x(7,4)\t%-8x(11,4):\t\tmacc  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x27:\t%-8x(7,4)\t%-8x(11,4):\t\tlwu \
+%u(TR_REG,13,0x1F:0),%i(11,2)(%u(13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x26:\t%-8x(7,4)\t%-8x(11,4):\t\tlwr  \
+%u(TR_REG,13,0x1F:0),%i(11,2)(%u(13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x22:\t%-8x(7,4)\t%-8x(11,4):\t\tlwl  \
+%u(TR_REG,13,0x1F:0),%i(11,2)(%u(13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x0F,(13,03E0:5)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tlui  \
+%u(TR_REG,13,0x1F:0),0x%x(11,2)
+
+!disassembly:(6)==0x00,(14,F0:4)==0x03:\t%-8x(7,4)\t%-8x(11,4):\t\tlwc  \
+%u(14,0C:2)%u(TR_REG,13,0x1F:0),%i(11,2)(%u(13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x23:\t%-8x(7,4)\t%-8x(11,4):\t\tlw  \
+%u(TR_REG,13,0x1F:0),%i(11,2)(%u(13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x34:\t%-8x(7,4)\t%-8x(11,4):\t\tlld  \
+%u(TR_REG,13,0x1F:0),%i(11,2)(%u(13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x30:\t%-8x(7,4)\t%-8x(11,4):\t\tll  \
+%u(TR_REG,13,0x1F:0),%i(11,2)(%u(13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x15:\t%-8x(7,4)\t%-8x(11,4):\t\tlhu  \
+%u(TR_REG,13,0x1F:0),%i(11,2)(%u(13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x11:\t%-8x(7,4)\t%-8x(11,4):\t\tlh  \
+%u(TR_REG,13,0x1F:0),%i(11,2)(%u(13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x1B:\t%-8x(7,4)\t%-8x(11,4):\t\tldr  \
+%u(TR_REG,13,0x1F:0),%i(11,2)(%u(13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x1A:\t%-8x(7,4)\t%-8x(11,4):\t\tldl  \
+%u(TR_REG,13,0x1F:0),%i(11,2)(%u(13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x37:\t%-8x(7,4)\t%-8x(11,4):\t\tld  \
+%u(TR_REG,13,0x1F:0),%i(11,2)(%u(13,03E0:5))
+
+!disassembly:(6)==0x00,(14,F0:4)==0x0D:\t%-8x(7,4)\t%-8x(11,4):\t\tldc  \
+%u(14,0c:2)%u(TR_REG,13,0x1F:0),%i(11,2)(%u(13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x24:\t%-8x(7,4)\t%-8x(11,4):\t\tlbu  \
+%u(TR_REG,13,0x1F:0),%i(11,2)(%u(13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x20:\t%-8x(7,4)\t%-8x(11,4):\t\tlb  \
+%u(TR_REG,13,0x1F:0),%i(11,2)(%u(13,03E0:5))
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,3F:0)==0x08,(11,01FFFC:6)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tjr  \
+%u(TR_REG,13,03E0:5)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,3F:0)==0x09,(11,01FFFC:6)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tjalr \
+%u(TR_REG,13,03E0:5)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,3F:0)==0x09,(11,01FFFC:6)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tjalr  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x03:\t%-8x(7,4)\t%-8x(11,4):\t\tjal  \
+%u(11,03FFFFFF:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x02:\t%-8x(7,4)\t%-8x(11,4):\t\tj  \
+%u(11,03FFFFFF:0)
+
+!disassembly:(6)==0x00,(14,FFFFFFFF:0)==42000018:\t%-8x(7,4)\t%-8x(11,4):\t\teret  
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x2F:\t%-8x(7,4)\t%-8x(11,4):\t\tdsubu  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x2E:\t%-8x(7,4)\t%-8x(11,4):\t\tdsub  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0x16:\t%-8x(7,4)\t%-8x(11,4):\t\tdsrlv  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,0x1F:0),%u(TR_REG,13,03E0:5)
+
+!disassembly:(6)==0x00,(11,0x3F:0)==0x3E,(13,FFE0:0)==0000:\t%-8x(7,4)\t%-8x(11,4):\t\tdsrl32  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,0x1F:0),%u(11,07FF:6)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(13,03E0:5)==0x00,(11,3F:0)==0x02:\t%-8x(7,4)\t%-8x(11,4):\t\tsrl  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,0x1F:0),%u(11,07FF:6)
+
+!disassembly:(6)==0x00,(11,0x3F:0)==0x3A,(13,FFE0:0)==0000:\t%-8x(7,4)\t%-8x(11,4):\t\tdsrl  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,0x1F:0),%u(11,07FF:6)
+
+!disassembly:(6)==0x00,(11,0x3F:0)==0x17,(14,FC:2)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tdsrav  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,0x1F:0),%u(TR_REG,13,03E0:5)
+
+!disassembly:(6)==0x00,(11,0x3F:0)==0x3F,(13,FFE0:0)==0000:\t%-8x(7,4)\t%-8x(11,4):\t\tdsra32  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,0x1F:0),%u(11,07FF:6)
+
+!disassembly:(6)==0x00,(11,0x3F:0)==0x3B,(13,FFE0:0)==0000:\t%-8x(7,4)\t%-8x(11,4):\t\tdsra  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,0x1F:0),%u(11,07FF:6)
+
+!disassembly:(6)==0x00,(11,0x3F:0)==0x14,(14,FC:2)==0x00:\t%-8x(7,4)\t%-8x(11,4):\t\tdsllv  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,0x1F:0),%u(TR_REG,13,03E0:5)
+
+!disassembly:(6)==0x00,(11,0x3F:0)==0x3C,(13,FFE0:0)==0000:\t%-8x(7,4)\t%-8x(11,4):\t\tdsll32  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,0x1F:0),%u(11,07FF:6)
+
+!disassembly:(6)==0x00,(11,0x3F:0)==0x38,(13,FFE0:0)==0000:\t%-8x(7,4)\t%-8x(11,4):\t\tdsll  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,0x1F:0),%u(11,07FF:6)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==0056:\t%-8x(7,4)\t%-8x(11,4):\t\tdrorv  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,0x1F:0),%u(TR_REG,13,03E0:5)
+
+!disassembly:(6)==0x00,(11,0x3F:0)==0x3E,(13,FFE0:0)==0010:\t%-8x(7,4)\t%-8x(11,4):\t\tdror32  \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,0x1F:0),%u(11,07FF:6)
+
+!disassembly:(6)==0x00,(11,0x3F:0)==0x3A,(13,FFE0:0)==0010:\t%-8x(7,4)\t%-8x(11,4):\t\tdror   \
+%u(TR_REG,12,0xF8:3),%u(TR_REG,13,0x1F:0),%u(11,07FF:6)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==001D:\t%-8x(7,4)\t%-8x(11,4):\t\tdmultu   \
+%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,FC:2)==0x00,(11,07FF:0)==001C:\t%-8x(7,4)\t%-8x(11,4):\t\tdmult   \
+%u(TR_REG,13,03E0:5),%u(TR_REG,13,0x1F:0)
+
+!disassembly:(6)==0x00,(14,F0:4)==0x04,(11,07FF:0)==0000,(13,03E0:5)==0x05:\t%-8x(7,4)\t%-8x(11,4):\t\tdmtc  \
+%u(14,0c:2)%u(TR_REG,13,0x1F:0),%u(TR_REG,12,0xF8:3)
+
+; for syslog messages
+
+0c:(2)==0x28,>!syslog:
+!syslog :: journald:%s(6,1,I,255,"")
+
+; for errmemd messages
+
+0c:(2)==0x29,>!errmemd:
+!errmemd :: errmemd:%s(6,1,I,255,"")
+
+
+; for exception handler messages
+
+0c:(2)==0x30,>!exception_handler:
+!exception_handler :: exception_handler:%s(6,1,I,255,"")
+
+
+
+; for trace_tool messages
+
+0c:(2)==0x30,>!trace_tool:
+!trace_tool :: trace_tool:%s(6,1,I,255,"")
+
+;for test
+00:(2)==0x1e,>!callbackExtn:
+!callbackExtn :: callbackExtn:%s(6,1,I,255,"")
+
+								
+

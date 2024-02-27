@@ -11,29 +11,15 @@
 //  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
-//**************************************************************************
-// 
-// File: robot_config.json
-// Initialized by Mai Dinh Nam Son
-//
-//**************************************************************************
 {
   "[import]": "./common/test_config_common.json",
-  "ErrorFileName": "osd5_RobotTestError.log",
-  "LogfileName": "osd5_RobotTestLog.log",
   "params": {
     // Global parameters
     "global": {
-      "[import]": "./common/params_global_common.json"
+      "[import]": "./common/params_global_common.json"\,
+      "[import]": "./common/preprocessor_definitions_common.json",
+      "[import]": "./selftest_prepro_osd5.json"
     }
   },
-  "preprocessor": {
-    "definitions": {
-      // FEATURE switches
-      "[import]": "./common/preprocessor_definitions_common.json"
-    }
-  },
-  "Project": "Robotframmework_AIO_Selftest_OSD5",
-  "SummaryFileName": "OSD5_RobotTestSummary.log",
-  "Platform": "osd5"
+  "Project": "OSD5"
 }

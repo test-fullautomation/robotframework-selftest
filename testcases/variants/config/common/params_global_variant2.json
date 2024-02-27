@@ -12,15 +12,13 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 {
-  "qconnect": {
-    "qconnect" :{
-        "SerialBaseTest" : "1\r\n2\r\n3\r\n4\r\n5",
-        "SerialBaseSemicolon" : "1\r\n2\r\n3\r\n4\r\n5",
-        "SerialBaseWithNewlines":"\r\n\r\n1\r\n2\r\n3\r\n4\r\n5\r\n\r\n",
-        "SerialBaseWithNewlinesSemicolon":"\r\n\r\n1\r\n2\r\n3\r\n4\r\n5\r\n\r\n",
-        "SerialBaseWithoutResponse":"",
-        "SerialBaseWithoutResponseNegative":"",
-        "SerialBaseDelayedResponse": "('1', '2', '3', '4', '5', '0')"
-    }
-  }
+  // New global parameter for only variant 2
+  "gGlobalVariant2" : "Specific global parameter for variant 2",
+
+  // Overwrite existing global parameter
+  "gGlobalString" : "New string for variant 2",
+  ${params}['global']['gGlobalStructure']['general']: "variant2",
+
+  // Add new element to existing parameter
+  ${params}['global']['gGlobalStructure']['variant2']: "new global param for variant 2"
 }
