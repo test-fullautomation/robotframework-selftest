@@ -18,11 +18,10 @@ Library    Collections
 Library    Process
 Library    String
 Library    OperatingSystem
-Suite Setup    Start appium server
-Suite Teardown    Close appium server
+Suite Setup    Startup
+Suite Teardown    Close All Apps
 *** Variables ***
-${device}=    Pixel_7_Pro_API_31
-
+${tml_selftest_path}=          ${CURDIR}/../../../helpers/Android/TMLSelftest.apk
 ${appium_server_command}=      cmd.exe /c "$env:APPIUM_HOME\appium" --relaxed-security
 ${remote_url}=                 http://127.0.0.1:4723
 ${platform_name}=              Android
@@ -32,6 +31,7 @@ ${app_package_tmlselftest}=    com.example.ntd1hc.tmlselftest
 ${app_activity_tmlselftest}=   com.example.ntd1hc.tmlselftest.MainActivity
 ${app_package_calculator}=     com.oneplus.calculator
 ${app_activity_calculator}=    com.oneplus.calculator.Calculator
+
 
 ${checkbox1_id_locator}    id=com.example.ntd1hc.tmlselftest:id/checkbox1
 ${checkbox1_xpath_locator}    xpath=//android.widget.CheckBox[@resource-id="com.example.ntd1hc.tmlselftest:id/checkbox1"]
@@ -62,6 +62,7 @@ Verify successful opening of Android application
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
+    ...                 app=${tml_selftest_path}
 
     ${context}=    Get Contexts
 
@@ -75,6 +76,7 @@ Verify successful closure of Android Application
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
+    ...                 app=${tml_selftest_path}
 
     Close Application
     Run Keyword And Expect Error    No application is open    Get Appium SessionId
@@ -86,6 +88,7 @@ Verify successful closure of all Android applications
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
+    ...                 app=${tml_selftest_path}
 
     Log    Open Caculator application
     Open Application    remote_url=${remote_url}
@@ -104,8 +107,8 @@ Verify successful switching of Android application
     ...                 platformName=${platform_name}
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
-    ...                 platformVersion=${platform_version}
     ...                 appActivity=${app_activity_tmlselftest}
+    ...                 app=${tml_selftest_path}
     ...                 alias=selftest_app
     Log    Get tml selftest session
     ${session_1st}=    Get Appium SessionId
@@ -132,11 +135,11 @@ Verify successful switching of Android application
 Verify failed switching of Android application
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
-    ...                 alias=selftest_app
     ...                 platformName=${platform_name}
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
+    ...                 app=${tml_selftest_path}
 
     Log    Get tml selftest session
     ${session_1st}=    Get Appium SessionId
@@ -162,6 +165,7 @@ Verify successful execution ADB Shell command
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
+    ...                 app=${tml_selftest_path}
 
     ${output}=    Execute Adb Shell    "ls"
     Should Not Be Empty    ${output}
@@ -173,6 +177,7 @@ Verify failed execution ADB Shell command
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
+    ...                 app=${tml_selftest_path}
 
     ${status}=    Run Keyword And Return Status    Execute Adb Shell    "help"
     Should Be Equal    ${status}    ${False}
@@ -184,6 +189,7 @@ Verify android interactions
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
+    ...                 app=${tml_selftest_path}
 
     Log    Click to check the check box 1 using id
     Click Element    ${checkbox1_id_locator}
@@ -211,6 +217,7 @@ Verify appium can input text
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
+    ...                 app=${tml_selftest_path}
 
     Log    Tap 'Register button'
     Wait Until Element Is Visible    ${register_button_locator}
@@ -241,6 +248,7 @@ Verify appium can hide keyboard
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
+    ...                 app=${tml_selftest_path}
 
     Log    Click on Project button
     Click Element    ${project_button_locator}
@@ -268,6 +276,7 @@ Verify appium can scroll to view element
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
+    ...                 app=${tml_selftest_path}
 
     Log    Click on Project button
     Click Element    ${project_button_locator}
@@ -292,14 +301,39 @@ Verify appium can scroll to view element
     Page Should Contain Element    ${project_8_locator}
 
 *** Keywords ***
+Startup
+    Start appium server
+    Install AVD
+    Start AVD
+
 Start appium server
-    Log To Console    Start appium server
+    Log    Start appium server
     Start Process    cmd.exe /c "C:/Program Files/RobotFramework/devtools/Appium.bat"    shell=True
     Sleep    15
+
+Install AVD
+    Log     Install avd
+    Start Process    cmd.exe /c "${CURDIR}/../../../helpers/Android/install_avd.bat"    shell=True
+    Sleep    5
+
+Start AVD
+    Log    Start AVD
+    Start Process    cmd.exe /c "${CURDIR}/../../../helpers/Android/start_avd.bat"    shell=True
+    Sleep    60
+
+Close All Apps
+    Close appium server
+    Close AVD
 
 Close appium server
     Log To Console    Close appium server
     Run Process    cmd.exe /c taskkill /F /IM node.exe    shell=True
+    Sleep    5
+
+Close AVD
+    Log To Console    Close AVD
+    Run Process    cmd.exe /c taskkill /F /IM qemu-system-x86_64.exe    shell=True
+    Run Process    cmd.exe /c taskkill /F /IM emulator.exe    shell=True
     Sleep    5
 
 Convert bounds to x and y
