@@ -21,7 +21,7 @@ Library    OperatingSystem
 Suite Setup    Startup
 Suite Teardown    Close All Apps
 *** Variables ***
-${tml_selftest_path}=          ${CURDIR}/../../../helpers/Android/TMLSelftest.apk
+${selftest_path}=          ${CURDIR}/../../../helpers/Android/Selftest.apk
 ${appium_server_command}=      cmd.exe /c "$env:APPIUM_HOME\appium" --relaxed-security
 ${remote_url}=                 http://127.0.0.1:4723
 ${platform_name}=              Android
@@ -62,7 +62,7 @@ Verify successful opening of Android application
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${tml_selftest_path}
+    ...                 app=${selftest_path}
 
     ${context}=    Get Contexts
 
@@ -76,7 +76,7 @@ Verify successful closure of Android Application
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${tml_selftest_path}
+    ...                 app=${selftest_path}
 
     Close Application
     Run Keyword And Expect Error    No application is open    Get Appium SessionId
@@ -88,7 +88,7 @@ Verify successful closure of all Android applications
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${tml_selftest_path}
+    ...                 app=${selftest_path}
 
     Log    Open Caculator application
     Open Application    remote_url=${remote_url}
@@ -108,7 +108,7 @@ Verify successful switching of Android application
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${tml_selftest_path}
+    ...                 app=${selftest_path}
     ...                 alias=selftest_app
     Log    Get tml selftest session
     ${session_1st}=    Get Appium SessionId
@@ -139,7 +139,7 @@ Verify failed switching of Android application
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${tml_selftest_path}
+    ...                 app=${selftest_path}
 
     Log    Get tml selftest session
     ${session_1st}=    Get Appium SessionId
@@ -165,7 +165,7 @@ Verify successful execution ADB Shell command
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${tml_selftest_path}
+    ...                 app=${selftest_path}
 
     ${output}=    Execute Adb Shell    "ls"
     Should Not Be Empty    ${output}
@@ -177,7 +177,7 @@ Verify failed execution ADB Shell command
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${tml_selftest_path}
+    ...                 app=${selftest_path}
 
     ${status}=    Run Keyword And Return Status    Execute Adb Shell    "help"
     Should Be Equal    ${status}    ${False}
@@ -189,7 +189,7 @@ Verify android interactions
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${tml_selftest_path}
+    ...                 app=${selftest_path}
 
     Log    Click to check the check box 1 using id
     Click Element    ${checkbox1_id_locator}
@@ -217,7 +217,7 @@ Verify appium can input text
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${tml_selftest_path}
+    ...                 app=${selftest_path}
 
     Log    Tap 'Register button'
     Wait Until Element Is Visible    ${register_button_locator}
@@ -248,7 +248,7 @@ Verify appium can hide keyboard
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${tml_selftest_path}
+    ...                 app=${selftest_path}
 
     Log    Click on Project button
     Click Element    ${project_button_locator}
@@ -276,7 +276,7 @@ Verify appium can scroll to view element
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${tml_selftest_path}
+    ...                 app=${selftest_path}
 
     Log    Click on Project button
     Click Element    ${project_button_locator}
