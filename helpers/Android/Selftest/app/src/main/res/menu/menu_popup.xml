@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Create"
+        android:id="@+id/menuCreate"/>
+    <item android:title="Read"
+        android:id="@+id/menuRead"/>
+    <item android:title="Update"
+        android:id="@+id/menuUpdate"/>
+    <item android:title="Delete"
+        android:id="@+id/menuDelete"/>
+</menu>

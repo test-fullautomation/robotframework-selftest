@@ -1,0 +1,4 @@
+@Library('pipeline-build-library-blaster') _
+buildAndroid {
+    mail_notification_cicd = ""
+}
