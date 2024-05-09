@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.ntd1hc.tmlselftest"
+        applicationId "com.testfullautomation.selftest"
         minSdkVersion 23
         targetSdkVersion 28
         versionCode 1
@@ -19,9 +19,7 @@ android {
 
     repositories {
 
-        maven {
-            url 'http://fe-artifactoryha.de.bosch.com/artifactory/android-repo/'
-        }
+        mavenCentral()
 
     }
 }

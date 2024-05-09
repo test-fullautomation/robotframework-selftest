@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ntd1hc.tmlselftest">
+    package="com.testfullautomation.selftest">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="TML-selftest"
+        android:label="Selftest"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.ntd1hc.tmlselftest.MainActivity">
+        <activity android:name="com.testfullautomation.selftest.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.ntd1hc.tmlselftest.ListviewActivity" />
-        <activity android:name="com.example.ntd1hc.tmlselftest.RegisterActivity"></activity>
+        <activity android:name="com.testfullautomation.selftest.ListviewActivity" />
+        <activity android:name="com.testfullautomation.selftest.RegisterActivity"></activity>
     </application>
 
 </manifest>
