@@ -11,29 +11,16 @@
 //  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
-//**************************************************************************
-// 
-// File: robot_config.json
-// Initialized by Mai Dinh Nam Son
-//
-//**************************************************************************
 {
   "[import]": "./common/test_config_common.json",
-  "ErrorFileName": "win10_RobotTestError.log",
-  "LogfileName": "win10_RobotTestLog.log",
   "params": {
     // Global parameters
     "global": {
-      "[import]": "./common/params_global_common.json"
+      "[import]": "./common/params_global_common.json",
+      "[import]": "./common/preprocessor_definitions_common.json",
+      "[import]": "./selftest_prepro_win10.json"
     }
   },
-  "preprocessor": {
-    "definitions": {
-      // FEATURE switches
-      "[import]": "./common/preprocessor_definitions_common.json"
-    }
-  },
-  "Project": "Robotframmework_AIO_Selftest_WIN10",
-  "SummaryFileName": "WIN10_RobotTestSummary.log",
-  "Platform": "win10"
+  "Project": "Win10",
+  "TargetName": "gen3flex@DLTConnector"
 }

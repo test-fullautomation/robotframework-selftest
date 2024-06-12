@@ -12,16 +12,16 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 {
-  "default": {
-    "name": "robot_config_win10.json",
-    "path": ".../config/"
-  },
-  "Win10": {
-    "name": "robot_config_win10.json",
-    "path": ".../config/"
-  },
-  "osd5": {
-    "name": "robot_config_osd5.json",
-    "path": ".../config/"
-  }
-}
+   "default": {
+     "name": "default.json",
+     "path": ".../config/"
+   },
+   "variant_1": {
+     "name": "variant1.json",
+     "path": ".../config/"
+   },
+   "variant_2": {
+     "name": "variant2.json",
+     "path": ".../config/"
+   }
+ }

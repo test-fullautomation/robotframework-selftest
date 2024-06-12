@@ -12,16 +12,15 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 {
-  "default": {
-    "name": "robot_config_win10.json",
-    "path": ".../config/"
+  "[import]": "./common/test_config_common.json",
+  "params": {
+    // Global parameters
+    "global": {
+      "[import]": "./common/params_global_common.json",
+      "[import]": "./common/params_global_variant2.json",
+      "[import]": "./common/preprocessor_definitions_common.json",
+      "[import]": "./common/preprocessor_definitions_variant2.json"
+    }
   },
-  "Win10": {
-    "name": "robot_config_win10.json",
-    "path": ".../config/"
-  },
-  "osd5": {
-    "name": "robot_config_osd5.json",
-    "path": ".../config/"
-  }
+  "Project": "variant_2"
 }

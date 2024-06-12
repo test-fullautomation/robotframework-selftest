@@ -12,16 +12,20 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 {
-  "default": {
-    "name": "robot_config_win10.json",
-    "path": ".../config/"
-  },
-  "Win10": {
-    "name": "robot_config_win10.json",
-    "path": ".../config/"
-  },
-  "osd5": {
-    "name": "robot_config_osd5.json",
-    "path": ".../config/"
+  "gPreprolIntParam" : 1,
+  
+  "gPreproFloatParam" : 1.332,
+  
+  "gPreproString"   : "This is a string",
+   
+  "gPreproStructure": {
+                         "general": "general",
+                         "testing": 19
+                      },
+  "gPreproTest": {
+    "Param01": {
+      "checkParam01": 2,
+      "checkParam02": 5
+    }
   }
 }
