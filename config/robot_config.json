@@ -19,21 +19,16 @@
 //**************************************************************************
 {
   "[import]": "./common/test_config_common.json",
-  "ErrorFileName": "variant_0_RobotTestError.log",
-  "LogfileName": "variant_0_RobotTestLog.log",
+  // "ErrorFileName": "variant_0_RobotTestError.log",
+  // "LogfileName": "variant_0_RobotTestLog.log",
   "params": {
     // Global parameters
     "global": {
-      "[import]": "./common/params_global_common.json"
-    }
-  },
-  "preprocessor": {
-    "definitions": {
-      // FEATURE switches
+      "[import]": "./common/params_global_common.json",
       "[import]": "./common/preprocessor_definitions_common.json",
       "[import]": "./template/result_strings.json"
     }
   },
-  "Project": "Robotframmework AIO Selftest",
-  "SummaryFileName": "SelfTest_RobotTestSummary.log"
+  "Project": "Robotframmework AIO Selftest"
+  // "SummaryFileName": "SelfTest_RobotTestSummary.log"
 }
