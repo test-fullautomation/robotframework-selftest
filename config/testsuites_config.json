@@ -37,15 +37,15 @@
 {
   "default": {
     "name": "robot_config.json",
-    "path": ".../config/"
+    "path": "../config/"
   },
   "Win10": {
     "name": "robot_config_win10.json",
-    "path": ".../config/"
+    "path": "../config/"
   },
   "osd5": {
     "name": "robot_config_osd5.json",
-    "path": ".../config/"
+    "path": "../config/"
   },
   "lsim":
   {

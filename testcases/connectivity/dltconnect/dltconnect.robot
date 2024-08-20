@@ -13,7 +13,7 @@
 #  limitations under the License.
 *** Settings ***
 Documentation  This is selftest for DLT connection with DLTSelfTestApp
-Library     QConnectionLibrary.ConnectionManager
+Library         QConnectBase.ConnectionManager
 Suite Setup     DLTSelfTestApp Setup
 Suite Teardown  DLTSelfTestApp Teardown
 
