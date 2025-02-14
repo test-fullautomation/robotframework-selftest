@@ -21,7 +21,8 @@ Library    OperatingSystem
 Suite Setup    Startup
 Suite Teardown    Close All Apps
 *** Variables ***
-${selftest_path}=          ${CURDIR}/../../../helpers/Android/Selftest.apk
+${selftest_path}=            ${CURDIR}/../../../helpers/Android/Selftest.apk
+${calculator_path}=          ${CURDIR}/../../../helpers/Android/calculator.apk
 ${appium_server_command}=      cmd.exe /c "$env:APPIUM_HOME\appium" --relaxed-security
 ${remote_url}=                 http://127.0.0.1:4723
 ${platform_name}=              Android
@@ -29,8 +30,8 @@ ${platform_version}=           11
 ${automation_name}=            UiAutomator2
 ${app_package_tmlselftest}=    com.testfullautomation.selftest
 ${app_activity_tmlselftest}=   com.testfullautomation.selftest.MainActivity
-${app_package_calculator}=     com.oneplus.calculator
-${app_activity_calculator}=    com.oneplus.calculator.Calculator
+${app_package_calculator}=     com.google.android.calculator
+${app_activity_calculator}=    com.android.calculator2.Calculator
 
 ${checkbox1_id_locator}    id=com.testfullautomation.selftest:id/checkbox1
 ${checkbox1_xpath_locator}    xpath=//android.widget.CheckBox[@resource-id="com.testfullautomation.selftest:id/checkbox1"]
@@ -95,6 +96,7 @@ Verify successful closure of all Android applications
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_calculator}
     ...                 appActivity=${app_activity_calculator}
+    ...                 app=${calculator_path}
 
     Log    Close all application
     Close All Applications
@@ -118,6 +120,7 @@ Verify successful switching of Android application
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_calculator}
     ...                 appActivity=${app_activity_calculator}
+    ...                 app=${calculator_path}
     ...                 alias=calculator_app
     ${session_2nd}=    Get Appium SessionId
 
@@ -150,6 +153,7 @@ Verify failed switching of Android application
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_calculator}
     ...                 appActivity=${app_activity_calculator}
+    ...                 app=${calculator_path}
 
     ${session_2nd}=    Get Appium SessionId
 
@@ -180,6 +184,7 @@ Verify failed execution ADB Shell command
 
     ${status}=    Run Keyword And Return Status    Execute Adb Shell    "help"
     Should Be Equal    ${status}    ${False}
+    Close All Applications
 
 Verify android interactions
     Log    Open TMLselftest application
@@ -267,6 +272,7 @@ Verify appium can hide keyboard
 
     ${result}    Is Keyboard Shown
     Should Be Equal    ${result}    ${False}
+    Close All Applications
 
 Verify appium can scroll to view element
     Log    Open TMLselftest application
@@ -347,12 +353,13 @@ Convert bounds to x and y
 Create projects in project list
     [Arguments]    ${times}
     Log    Create ${times} project in project list
-    ${list_projects}=    Create List    abc
+    ${list_projects}=    Create List    project_0
+    Wait Until Element Is Visible    ${add_button_locator}
     FOR    ${counter}    IN RANGE    0    ${times}
         Log    Click on add button
         Click Element    ${add_button_locator}
         Wait Until Element Is Visible    ${project_text_locator}
-        ${item}    Set Variable    project_${times}
+        ${item}    Set Variable    project_${counter}
         Log    Enter project name: ${item}
         Input Text    ${project_text_locator}    ${item}
         Append To List    ${list_projects}    ${item}
