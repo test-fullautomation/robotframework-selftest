@@ -1,4 +1,4 @@
-@echo off
+@echo on
 
 set AVD=%RobotDevtools%\Android\tools\bin
 set AVD_NAME=my_avd
@@ -11,5 +11,3 @@ if errorlevel 1 (
     "%AEHD%\silent_install.bat"
     "%AVD%\avdmanager" create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"
 )
-
-@REM @echo on

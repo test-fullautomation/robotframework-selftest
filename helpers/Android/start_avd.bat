@@ -1,4 +1,4 @@
-@echo off
+@echo on
 
 set path=%path%;
 set ANDROID_HOME=%RobotDevtools%\Android
@@ -7,5 +7,3 @@ set ANDROID_SDK_ROOT=%USERPROFILE%\AppData\Local\Android\Sdk
 
 REM Start the emulator
 start "Start Emulator" "%EMULATOR%\emulator" -avd my_avd -accel on -gpu auto -no-snapshot-load -wipe-data -memory 4096 -cores 4
-
-@echo on
