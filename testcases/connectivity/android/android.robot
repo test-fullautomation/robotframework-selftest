@@ -313,7 +313,7 @@ Startup
 
 Start appium server
     Log    Start appium server
-    Start Process    cmd.exe /c "C:/Program Files/RobotFramework/devtools/Appium.bat"    shell=True
+    Start Process    cmd.exe /c "%RobotDevtools%/Appium.bat"    shell=True
     Sleep    15
 
 Install AVD
