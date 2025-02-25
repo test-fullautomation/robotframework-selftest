@@ -327,6 +327,8 @@ Startup
 
 Start appium server
     Log    Start appium server
+    Log    ${CURDIR}
+    Log    ${CURDIR}/../../../helpers/Android/Appium.bat
     Start Process    cmd.exe /c "${CURDIR}/../../../helpers/Android/Appium.bat"    shell=True
     Sleep    15
 
