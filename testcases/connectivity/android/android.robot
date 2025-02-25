@@ -26,7 +26,7 @@ ${calculator_path}=          ${CURDIR}/../../../helpers/Android/calculator.apk
 ${appium_server_command}=      cmd.exe /c "$env:APPIUM_HOME\appium" --relaxed-security
 ${remote_url}=                 http://127.0.0.1:4723
 ${platform_name}=              Android
-${platform_version}=           11
+${platform_version}=           14
 ${automation_name}=            UiAutomator2
 ${app_package_tmlselftest}=    com.testfullautomation.selftest
 ${app_activity_tmlselftest}=   com.testfullautomation.selftest.MainActivity
@@ -63,6 +63,7 @@ Verify successful opening of Android application
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 platformVersion=${platform_version}
 
     ${context}=    Get Contexts
 
@@ -77,6 +78,7 @@ Verify successful closure of Android Application
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 platformVersion=${platform_version}
 
     Close Application
     Run Keyword And Expect Error    No application is open    Get Appium SessionId
@@ -89,6 +91,7 @@ Verify successful closure of all Android applications
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 platformVersion=${platform_version}
 
     Log    Open Caculator application
     Open Application    remote_url=${remote_url}
@@ -97,6 +100,7 @@ Verify successful closure of all Android applications
     ...                 appPackage=${app_package_calculator}
     ...                 appActivity=${app_activity_calculator}
     ...                 app=${calculator_path}
+    ...                 platformVersion=${platform_version}
 
     Log    Close all application
     Close All Applications
@@ -110,6 +114,7 @@ Verify successful switching of Android application
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 platformVersion=${platform_version}
     ...                 alias=selftest_app
     Log    Get tml selftest session
     ${session_1st}=    Get Appium SessionId
@@ -121,6 +126,7 @@ Verify successful switching of Android application
     ...                 appPackage=${app_package_calculator}
     ...                 appActivity=${app_activity_calculator}
     ...                 app=${calculator_path}
+    ...                 platformVersion=${platform_version}
     ...                 alias=calculator_app
     ${session_2nd}=    Get Appium SessionId
 
@@ -142,6 +148,7 @@ Verify failed switching of Android application
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 platformVersion=${platform_version}
 
     Log    Get tml selftest session
     ${session_1st}=    Get Appium SessionId
@@ -154,6 +161,7 @@ Verify failed switching of Android application
     ...                 appPackage=${app_package_calculator}
     ...                 appActivity=${app_activity_calculator}
     ...                 app=${calculator_path}
+    ...                 platformVersion=${platform_version}
 
     ${session_2nd}=    Get Appium SessionId
 
@@ -169,6 +177,7 @@ Verify successful execution ADB Shell command
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 platformVersion=${platform_version}
 
     ${output}=    Execute Adb Shell    "ls"
     Should Not Be Empty    ${output}
@@ -181,6 +190,7 @@ Verify failed execution ADB Shell command
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 platformVersion=${platform_version}
 
     ${status}=    Run Keyword And Return Status    Execute Adb Shell    "help"
     Should Be Equal    ${status}    ${False}
@@ -194,6 +204,7 @@ Verify android interactions
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 platformVersion=${platform_version}
 
     Log    Click to check the check box 1 using id
     Click Element    ${checkbox1_id_locator}
@@ -222,6 +233,7 @@ Verify appium can input text
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 platformVersion=${platform_version}
 
     Log    Tap 'Register button'
     Wait Until Element Is Visible    ${register_button_locator}
@@ -253,6 +265,7 @@ Verify appium can hide keyboard
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 platformVersion=${platform_version}
 
     Log    Click on Project button
     Click Element    ${project_button_locator}
@@ -282,6 +295,7 @@ Verify appium can scroll to view element
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 platformVersion=${platform_version}
 
     Log    Click on Project button
     Click Element    ${project_button_locator}
@@ -313,7 +327,7 @@ Startup
 
 Start appium server
     Log    Start appium server
-    Start Process    cmd.exe /c "%RobotDevtools%/Appium.bat"    shell=True
+    Start Process    cmd.exe /c "${CURDIR}/../../../helpers/Android/Appium.bat"    shell=True
     Sleep    15
 
 Install AVD
