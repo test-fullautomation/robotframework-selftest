@@ -332,16 +332,16 @@ Start appium server
     ${os}=    Evaluate    platform.system()
     Log    ${os}
     IF    '${os}' == 'Windows'
-        Start Process    cmd.exe /c "${appium_bat}"    shell=True
+        Start Process    cmd.exe "${appium_bat}"    shell=True
     ELSE IF    '${os}' == 'Linux'
-        Start Process    cmd.exe /c "${appium_sh}"    shell=True
+        Start Process    bash "${appium_sh}"    shell=True
     END
     Sleep    15
 
 Install AVD
     Log     Install avd
     ${install_avd}=    Normalize Path    ${CURDIR}/../../../helpers/Android/install_avd.bat
-    Start Process    cmd.exe /c "${install_avd}"    shell=True
+    Start Process    cmd.exe "${install_avd}"    shell=True
     Sleep    5
 
 Start AVD
