@@ -327,8 +327,15 @@ Startup
 
 Start appium server
     Log    Start appium server
-    ${appium}=    Normalize Path    ${CURDIR}/../../../helpers/Android/Appium.bat
-    Start Process    cmd.exe /c "${appium}"    shell=True
+    ${appium_bat}=    Normalize Path    ${CURDIR}/../../../helpers/Android/Appium.bat
+    ${appium_sh}=    Normalize Path    ${CURDIR}/../../../helpers/Android/Appium.sh
+    ${os}=    Evaluate    platform.system()
+    Log    ${os}
+    IF    '${os}' == 'Windows'
+        Start Process    cmd.exe /c "${appium_bat}"    shell=True
+    ELSE IF    '${os}' == 'Linux'
+        Start Process    cmd.exe /c "${appium_sh}"    shell=True
+    END
     Sleep    15
 
 Install AVD
