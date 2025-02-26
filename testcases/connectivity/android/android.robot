@@ -327,19 +327,20 @@ Startup
 
 Start appium server
     Log    Start appium server
-    Log    ${CURDIR}
-    Log    ${CURDIR}/../../../helpers/Android/Appium.bat
-    Start Process    cmd.exe /c "${CURDIR}/../../../helpers/Android/Appium.bat"    shell=True
+    ${appium}=    Normalize Path    ${CURDIR}/../../../helpers/Android/Appium.bat
+    Start Process    cmd.exe /c "${appium}"    shell=True
     Sleep    15
 
 Install AVD
     Log     Install avd
-    Start Process    cmd.exe /c "${CURDIR}/../../../helpers/Android/install_avd.bat"    shell=True
+    ${install_avd}=    Normalize Path    ${CURDIR}/../../../helpers/Android/install_avd.bat
+    Start Process    cmd.exe /c "${install_avd}"    shell=True
     Sleep    5
 
 Start AVD
     Log    Start AVD
-    Start Process    cmd.exe /c "${CURDIR}/../../../helpers/Android/start_avd.bat"    shell=True
+    ${start_avd}=    Normalize Path    ${CURDIR}/../../../helpers/Android/start_avd.bat
+    Start Process    cmd.exe /c "${start_avd}"    shell=True
     Sleep    60
 
 Close All Apps
