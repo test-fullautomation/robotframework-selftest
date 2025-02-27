@@ -5,5 +5,5 @@ set path=%path%;
 set ANDROID_HOME=%RobotDevtools%\Android
 set APPIUM_HOME=%RobotNodeJS%
 
-start "Appium" "%RobotAppium%\appium" --allow-insecure=adb_shell --log D:\a\RobotFramework_AIO\robotframework-selftest\testcases\aiotestlogfiles\aiotestlogfile_appium.log
+start /b "Appium" "%RobotNodeJS%\appium" --allow-insecure=adb_shell --log D:\work\robot_fw_AIO_full\robotframework-selftest\testcases\aiotestlogfiles\aiotestlogfile_appium.log
 @echo on

@@ -323,7 +323,7 @@ Verify appium can scroll to view element
 Startup
     Start appium server
     Install AVD
-    Start AVD
+    # Start AVD
 
 Start appium server
     Log    Start appium server
@@ -332,7 +332,7 @@ Start appium server
     ${os}=    Evaluate    platform.system()
     Log    ${os}
     IF    '${os}' == 'Windows'
-        Start Process    cmd.exe "${appium_bat}"    shell=True
+        Start Process   "${appium_bat}"    shell=True
     ELSE IF    '${os}' == 'Linux'
         Start Process    bash "${appium_sh}"    shell=True
     END
@@ -356,13 +356,13 @@ Close All Apps
 
 Close appium server
     Log To Console    Close appium server
-    Run Process    cmd.exe /c taskkill /F /IM node.exe    shell=True
+    Run Process    cmd.exe taskkill /F /IM node.exe    shell=True
     Sleep    5
 
 Close AVD
     Log To Console    Close AVD
-    Run Process    cmd.exe /c taskkill /F /IM qemu-system-x86_64.exe    shell=True
-    Run Process    cmd.exe /c taskkill /F /IM emulator.exe    shell=True
+    Run Process    cmd.exe taskkill /F /IM qemu-system-x86_64.exe    shell=True
+    Run Process    cmd.exe taskkill /F /IM emulator.exe    shell=True
     Sleep    5
 
 Convert bounds to x and y
