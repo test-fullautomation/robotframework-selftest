@@ -326,8 +326,8 @@ Startup
 
 Start appium server
     Log    Start appium server
-    ${robot_node_js}=    Get Environment Variable    RobotNodeJS
-    ${appium_path}=    Normalize Path    ${robot_node_js}/appium.cmd
+    ${robot_devtools}=    Get Environment Variable    RobotDevtools
+    ${appium_path}=    Normalize Path    ${robot_devtools}/nodejs/appium.cmd
     ${appium_log}=    Normalize Path    ${CURDIR}/../../aiotestlogfiles/appium_log.txt
     Start Process    ${appium_path}    --allow-insecure\=adb_shell   stdout=${appium_log}
     Sleep    15
@@ -351,12 +351,10 @@ Close All Apps
 Close appium server
     Log To Console    Close appium server
     Run Process    taskkill /F /IM node.exe    shell=True
-    Sleep    5
 
 Close AVD
     Log To Console    Close AVD
     Run Process    taskkill /F /IM qemu-system-x86_64.exe    shell=True
-    Sleep    5
 
 Convert bounds to x and y
     [Arguments]    ${input_string}
