@@ -23,7 +23,6 @@ Suite Teardown    Close All Apps
 *** Variables ***
 ${selftest_path}=            ${CURDIR}/../../../helpers/Android/Selftest.apk
 ${calculator_path}=          ${CURDIR}/../../../helpers/Android/calculator.apk
-${appium_server_command}=      cmd.exe /c "$env:APPIUM_HOME\appium" --relaxed-security
 ${remote_url}=                 http://127.0.0.1:4723
 ${platform_name}=              Android
 ${platform_version}=           14
@@ -321,28 +320,23 @@ Verify appium can scroll to view element
 
 *** Keywords ***
 Startup
-    Start appium server
     Install AVD
-    # Start AVD
+    Start AVD
+    Start appium server
 
 Start appium server
     Log    Start appium server
-    ${appium_bat}=    Normalize Path    ${CURDIR}/../../../helpers/Android/Appium.bat
-    ${appium_sh}=    Normalize Path    ${CURDIR}/../../../helpers/Android/Appium.sh
-    ${os}=    Evaluate    platform.system()
-    Log    ${os}
-    IF    '${os}' == 'Windows'
-        Start Process   "${appium_bat}"    shell=True
-    ELSE IF    '${os}' == 'Linux'
-        Start Process    bash "${appium_sh}"    shell=True
-    END
+    ${robot_node_js}=    Get Environment Variable    RobotNodeJS
+    ${appium_path}=    Normalize Path    ${robot_node_js}/appium.cmd
+    ${appium_log}=    Normalize Path    ${CURDIR}/../../aiotestlogfiles/appium_log.txt
+    Start Process    ${appium_path}    --allow-insecure\=adb_shell   stdout=${appium_log}
     Sleep    15
 
 Install AVD
     Log     Install avd
     ${install_avd}=    Normalize Path    ${CURDIR}/../../../helpers/Android/install_avd.bat
     Start Process    cmd.exe "${install_avd}"    shell=True
-    Sleep    5
+    Sleep    15
 
 Start AVD
     Log    Start AVD
@@ -356,13 +350,12 @@ Close All Apps
 
 Close appium server
     Log To Console    Close appium server
-    Run Process    cmd.exe taskkill /F /IM node.exe    shell=True
+    Run Process    taskkill /F /IM node.exe    shell=True
     Sleep    5
 
 Close AVD
     Log To Console    Close AVD
-    Run Process    cmd.exe taskkill /F /IM qemu-system-x86_64.exe    shell=True
-    Run Process    cmd.exe taskkill /F /IM emulator.exe    shell=True
+    Run Process    taskkill /F /IM qemu-system-x86_64.exe    shell=True
     Sleep    5
 
 Convert bounds to x and y
