@@ -53,6 +53,7 @@ ${add_project_button_locator}    id=com.testfullautomation.selftest:id/addProjec
 ${gm_project_locator}    xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="GM"]
 ${project_5_locator}    xpath=xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_5"]
 ${project_8_locator}    xpath=xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_8"]
+
 *** Test Cases ***
 Verify successful opening of Android application
     Log    Open TMLselftest application
@@ -326,7 +327,7 @@ Startup
 
 Start appium server
     Log    Start appium server
-    ${robot_devtools}=    Get Environment Variable    RobotDevtools
+    # ${robot_devtools}=    Get Environment Variable    RobotDevtools
     ${appium_windows_path}=    Normalize Path    ${robot_devtools}/nodejs/appium.cmd
     ${appium_linux_path}=    Normalize Path    ${robot_devtools}/nodejs/bin/appium
     ${appium_log}=    Normalize Path    ${CURDIR}/../../aiotestlogfiles/appium_log.txt
@@ -340,15 +341,32 @@ Start appium server
     Sleep    15
 
 Install AVD
-    Log     Install avd
-    ${install_avd}=    Normalize Path    ${CURDIR}/../../../helpers/Android/install_avd.bat
-    Start Process    cmd.exe "${install_avd}"    shell=True
-    Sleep    15
+    # Get environment path
+    ${robot_devtools}=    Get Environment Variable    RobotDevtools
+    Set Global Variable    ${robot_devtools}
+
+    # Get os
+    ${os}=    Evaluate    platform.system()
+    Set Global Variable    ${os}
+
+    ${avd_manager}=    Normalize Path    ${robot_devtools}/Android/tools/bin/avdmanager
+    ${aehd}=           Normalize Path    ${robot_devtools}/Android/aehd-windows/
+    ${avd_install_log}=    Normalize Path    ${CURDIR}/../../aiotestlogfiles/avd_install_log.txt
+    # Check avd is exist
+    ${avd}=    Run Process    "${avd_manager}" list avd | findstr /C:"Name: my_avd" > nul    shell=True
+    IF    '${os}' == 'Windows'
+        IF    ${avd.rc} == 1
+            Run Process    ${aehd}/silent_install.bat"    stdout=aehd_install.log
+            Run Process    ${avd_manager} create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    shell=True    stdout=${avd_install_log}
+        END
+    ELSE IF    '${os}' == 'Linux'
+        Run Process    ${avd_manager} create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    shell=True    stdout=${avd_install_log}
+    END
 
 Start AVD
     Log    Start AVD
     ${start_avd}=    Normalize Path    ${CURDIR}/../../../helpers/Android/start_avd.bat
-    Start Process    cmd.exe /c "${start_avd}"    shell=True
+    Start Process    "${start_avd}"    shell=True    stdout=start_avd.log
     Sleep    60
 
 Close All Apps
