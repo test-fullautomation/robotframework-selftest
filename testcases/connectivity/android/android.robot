@@ -359,10 +359,10 @@ Install AVD
     IF    '${os}' == 'Windows'
         IF    ${avd.rc} == 1
             Run Process    ${aehd}    stdout=${aehd_install_log}
-            Run Process    ${avd_manager} create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}
+            Run Process    "${avd_manager}"     create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}
         END
     ELSE IF    '${os}' == 'Linux'
-        Run Process    ${avd_manager} create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}
+        Run Process    "${avd_manager}"     create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}
     END
 
 Start AVD
