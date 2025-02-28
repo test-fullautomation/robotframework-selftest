@@ -350,12 +350,11 @@ Install AVD
     Set Global Variable    ${os}
 
     ${avd_manager}=    Normalize Path    ${robot_devtools}/Android/tools/bin/avdmanager
-    ${aehd}=           Normalize Path    ${robot_devtools}/Android/aehd-windows/silent_install.bat
+    ${aehd}=           Normalize Path    ${robot_devtools}/Android/silent_install.bat
     ${aehd_install_log}=    Normalize Path    ${CURDIR}/../../aiotestlogfiles/aehd_install_log.txt
     ${avd_install_log}=    Normalize Path    ${CURDIR}/../../aiotestlogfiles/avd_install_log.txt
     # Check avd is exist
     ${avd}=    Run Process    "${avd_manager}" list avd | findstr /C:"Name: my_avd" > nul    shell=True
-
     IF    '${os}' == 'Windows'
         IF    ${avd.rc} == 1
             Run Process    ${aehd}    stdout=${aehd_install_log}
