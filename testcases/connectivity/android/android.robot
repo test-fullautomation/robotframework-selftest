@@ -322,7 +322,7 @@ Verify appium can scroll to view element
 *** Keywords ***
 Startup
     Install AVD
-    Start AVD
+    # Start AVD
     Start appium server
 
 Start appium server
@@ -353,6 +353,8 @@ Install AVD
     ${aehd}=           Normalize Path    ${robot_devtools}/Android/aehd-windows/silent_install.bat
     ${aehd_install_log}=    Normalize Path    ${CURDIR}/../../aiotestlogfiles/aehd_install_log.txt
     ${avd_install_log}=    Normalize Path    ${CURDIR}/../../aiotestlogfiles/avd_install_log.txt
+    ${emulator}=    Normalize Path    ${robot_devtools}/Android/tools/emulator
+    ${emulator_log}=    Normalize Path    ${CURDIR}/../../aiotestlogfiles/emulator_log.txt
     # Check avd is exist
     ${avd}=    Run Process    "${avd_manager}" list avd | findstr /C:"Name: my_avd" > nul    shell=True
     IF    '${os}' == 'Windows'
@@ -364,8 +366,11 @@ Install AVD
         Run Process    "${avd_manager}"     create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}
     END
 
+    Start Process    ${emulator}    -avd my_avd -accel on -gpu auto -no-snapshot-load -wipe-data -memory 4096 -cores 4 -no-window -no-boot-anim    stdout=${emulator_log}    shell=True
+
 Start AVD
     Log    Start AVD
+
     ${start_avd}=    Normalize Path    ${CURDIR}/../../../helpers/Android/start_avd.bat
     Start Process    "${start_avd}"    shell=True    stdout=start_avd.log
     Sleep    60
