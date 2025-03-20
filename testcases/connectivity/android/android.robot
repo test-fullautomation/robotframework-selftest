@@ -359,7 +359,7 @@ Install AVD
     ${avd}=    Run Process    "${avd_manager}" list avd | findstr /C:"Name: my_avd" > nul    shell=True
     IF    '${os}' == 'Windows'
         IF    ${avd.rc} == 1
-            Run Process    ${aehd}    stdout=${aehd_install_log}    shell=True
+            # Run Process    ${aehd}    stdout=${aehd_install_log}    shell=True
             Run Process    "${avd_manager}"     create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}    shell=True
         END
     ELSE IF    '${os}' == 'Linux'
