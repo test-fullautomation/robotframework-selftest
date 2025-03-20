@@ -362,11 +362,11 @@ Install AVD
             # Run Process    ${aehd}    stdout=${aehd_install_log}    shell=True
             Run Process    "${avd_manager}"     create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}    shell=True
             Sleep    15
+            Start Process    "${avd_manager}"    list avd    stdout=${avd_install_log}    shell=True
         END
     ELSE IF    '${os}' == 'Linux'
         Run Process    "${avd_manager}"     create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}
     END
-    Run Process    "${avd_manager}"    list avd    stdout=${avd_install_log}
     Start Process    ${emulator}    -avd my_avd -accel on -gpu auto -no-snapshot-load -wipe-data -memory 4096 -cores 4 -no-window -no-boot-anim    stdout=${emulator_log}    shell=True
 
 Start AVD
