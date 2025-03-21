@@ -367,8 +367,8 @@ Install AVD
     ELSE IF    '${os}' == 'Linux'
         Run Process    "${avd_manager}" create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}
     END
-    Start Process    cmd.exe /c "${CURDIR}/../../../helpers/Android/start_avd.bat"    shell=True    stdout=${avd_install_log}
-    Sleep    60
+    Start Process   "${emulator}" -avd my_avd -accel on -gpu auto -no-snapshot-load -wipe-data -memory 4096 -cores 4 -no-window -no-boot-anim    shell=True    stdout=${avd_install_log}
+    Sleep    120
 
 Start AVD
     Log    Start AVD
