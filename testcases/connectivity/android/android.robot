@@ -350,7 +350,7 @@ Install AVD
     Set Global Variable    ${os}
 
     ${avd_manager}=    Normalize Path    ${robot_devtools}/Android/tools/bin/avdmanager
-    ${aehd}=           Normalize Path    ${robot_devtools}/Android/aehd-windows/silent_install.bat
+    ${aehd}=           Normalize Path    ${robot_devtools}/Android/aehd-windows/silent_install_safe.bat
     ${aehd_install_log}=    Normalize Path    ${CURDIR}/../../aiotestlogfiles/aehd_install_log.txt
     ${avd_install_log}=    Normalize Path    ${CURDIR}/../../aiotestlogfiles/avd_install_log.txt
     ${emulator}=    Normalize Path    ${robot_devtools}/Android/tools/emulator.exe
@@ -359,7 +359,7 @@ Install AVD
     ${avd}=    Run Process    "${avd_manager}" list avd | findstr /C:"Name: my_avd" > nul    shell=True
     IF    '${os}' == 'Windows'
         IF    ${avd.rc} == 1
-            # Run Process    ${aehd}    stdout=${aehd_install_log}    shell=True
+            Run Process    ${aehd}    stdout=${aehd_install_log}    shell=True
             Run Process    "${avd_manager}" create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}    shell=True
             Sleep    15
             Start Process    "${avd_manager}" list avd    stdout=${avd_install_log}    shell=True
