@@ -368,7 +368,7 @@ Install AVD
         Run Process    "${avd_manager}" create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}
     END
     Start Process   "${emulator}" -avd my_avd -accel on -gpu auto -no-snapshot-load -wipe-data -memory 4096 -cores 4 -no-window -no-boot-anim    shell=True    stdout=${avd_install_log}
-    Sleep    300s
+    Sleep    120s
 
 Start AVD
     Log    Start AVD
