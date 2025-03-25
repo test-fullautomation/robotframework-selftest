@@ -350,7 +350,7 @@ Install AVD
     Set Global Variable    ${os}
 
     ${avd_manager}=    Normalize Path    ${robot_devtools}/Android/tools/bin/avdmanager
-    ${aehd}=           Normalize Path    ${robot_devtools}/Android/aehd-windows/silent_install_safe.bat
+    ${aehd}=           Normalize Path    ${robot_devtools}/Android/aehd-windows/silent_install.bat
     ${aehd_install_log}=    Normalize Path    ${CURDIR}/../../aiotestlogfiles/aehd_install_log.txt
     ${avd_install_log}=    Normalize Path    ${CURDIR}/../../aiotestlogfiles/avd_install_log.txt
     ${emulator}=    Normalize Path    ${robot_devtools}/Android/tools/emulator.exe
