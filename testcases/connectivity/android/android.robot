@@ -329,7 +329,7 @@ Start appium server
     Log    Start appium server
 
     ${appium_windows_path}=    Normalize Path    ${robot_devtools}/nodejs/appium.cmd
-    ${appium_linux_path}=    Normalize Path    ${robot_devtools}/nodejs/appium
+    ${appium_linux_path}=    Normalize Path    ${robot_devtools}/nodejs/lib/node_modules/appium
     ${appium_log}=    Normalize Path    ${CURDIR}/../../aiotestlogfiles/appium_log.txt
 
     ${os}=    Evaluate    platform.system()
