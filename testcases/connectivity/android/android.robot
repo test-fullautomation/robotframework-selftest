@@ -351,6 +351,8 @@ Start appium server
         Start Process    ${appium_windows_path}    --allow-insecure\=adb_shell   stdout=${appium_log}
     ELSE IF    '${os}' == 'Linux'
         Start Process    ${appium_linux_path}    --allow-insecure\=adb_shell &   stdout=${appium_log}
+
+        Run Process    chmod +r ${CURDIR}/../../../helpers/Android/
     END
     Sleep    15
 
