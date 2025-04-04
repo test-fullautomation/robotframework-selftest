@@ -352,7 +352,6 @@ Start appium server
     ELSE IF    '${os}' == 'Linux'
         Start Process    ${appium_linux_path}    --allow-insecure\=adb_shell &   stdout=${appium_log}
         ${apk_folder}=    Normalize Path    ${CURDIR}/../../../helpers/Android/
-        Run Process    chmod +r ${apk_folder}
     END
     Sleep    15
 
