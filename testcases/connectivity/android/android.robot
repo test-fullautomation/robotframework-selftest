@@ -56,6 +56,7 @@ ${project_8_locator}    xpath=xpath=//android.widget.TextView[@resource-id="andr
 ${robot_devtools}    robot_devtools
 *** Test Cases ***
 Verify successful opening of Android application
+    ${selftest_path}=    Normalize Path    ${selftest_path}
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -71,6 +72,7 @@ Verify successful opening of Android application
     Should Match    ${context}[0]    NATIVE_APP
 
 Verify successful closure of Android Application
+    ${selftest_path}=    Normalize Path    ${selftest_path}
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -84,6 +86,8 @@ Verify successful closure of Android Application
     Run Keyword And Expect Error    No application is open    Get Appium SessionId
 
 Verify successful closure of all Android applications
+    ${selftest_path}=    Normalize Path    ${selftest_path}
+    ${calculator_path}=    Normalize Path    ${calculator_path}
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -107,6 +111,8 @@ Verify successful closure of all Android applications
     Run Keyword And Expect Error    No application is open    Get Appium SessionId
 
 Verify successful switching of Android application
+    ${selftest_path}=    Normalize Path    ${selftest_path}
+    ${calculator_path}=    Normalize Path    ${calculator_path}
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -141,6 +147,8 @@ Verify successful switching of Android application
     Should Match    ${session_2nd}    ${session}
 
 Verify failed switching of Android application
+    ${selftest_path}=    Normalize Path    ${selftest_path}
+    ${calculator_path}=    Normalize Path    ${calculator_path}
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -170,6 +178,7 @@ Verify failed switching of Android application
     Should Be Equal    ${status}    ${False}
 
 Verify successful execution ADB Shell command
+    ${selftest_path}=    Normalize Path    ${selftest_path}
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -183,6 +192,7 @@ Verify successful execution ADB Shell command
     Should Not Be Empty    ${output}
 
 Verify failed execution ADB Shell command
+    ${selftest_path}=    Normalize Path    ${selftest_path}
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -197,6 +207,7 @@ Verify failed execution ADB Shell command
     Close All Applications
 
 Verify android interactions
+    ${selftest_path}=    Normalize Path    ${selftest_path}
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -226,6 +237,7 @@ Verify android interactions
     Should Not Match    ${begin_value}    ${end_value}
 
 Verify appium can input text
+    ${selftest_path}=    Normalize Path    ${selftest_path}
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -258,6 +270,7 @@ Verify appium can input text
     Click Element    ${register_button_locator}
 
 Verify appium can hide keyboard
+    ${selftest_path}=    Normalize Path    ${selftest_path}
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -288,6 +301,7 @@ Verify appium can hide keyboard
     Close All Applications
 
 Verify appium can scroll to view element
+    ${selftest_path}=    Normalize Path    ${selftest_path}
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
