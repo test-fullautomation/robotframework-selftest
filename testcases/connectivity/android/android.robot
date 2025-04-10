@@ -27,7 +27,7 @@ ${calculator_path}=            ${CURDIR}/../../../helpers/Android/calculator.apk
 ${appium_server_command}=      cmd.exe /c "$env:APPIUM_HOME\appium" --relaxed-security
 ${remote_url}=                 http://127.0.0.1:4723
 ${platform_name}=              Android
-${platform_version}=           11
+${platform_version}=           14
 ${automation_name}=            UiAutomator2
 ${app_package_tmlselftest}=    com.testfullautomation.selftest
 ${app_activity_tmlselftest}=   com.testfullautomation.selftest.MainActivity
@@ -56,7 +56,17 @@ ${gm_project_locator}               xpath=//android.widget.TextView[@resource-id
 ${project_5_locator}                xpath=xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_5"]
 ${project_8_locator}                xpath=xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_8"]
 
+${os}                OS
 ${robot_devtools}    robot_devtools
+
+${appium_windows_path}    ${robot_devtools}/nodejs/appium.cmd
+${appium_linux_path}      ${robot_devtools}/nodejs/bin/appium
+${emulator}               ${robot_devtools}/Android/tools/emulator.exe
+${avd_manager}            ${robot_devtools}/Android/tools/bin/avdmanager
+
+${appium_log}             ${CURDIR}/../../aiotestlogfiles/appium_log.txt
+${avd_install_log}        ${CURDIR}/../../aiotestlogfiles/avd_install_log.txt
+${emulator_log}           ${CURDIR}/../../aiotestlogfiles/emulator_log.txt
 *** Test Cases ***
 Verify successful opening of Android application
     Log    Open TMLselftest application
@@ -305,9 +315,14 @@ Verify appium can scroll to view element
 
 *** Keywords ***
 Startup
+    Normalize the path
     Start appium server
     Install AVD
-    Start AVD
+
+    Log    Environtment: ${env}
+    IF    '${env}' != 'Github_action'
+        Start AVD
+    END
 
 Start appium server
     Log    Start appium server
@@ -337,6 +352,35 @@ Close AVD
     Log To Console    Close AVD
     Run Process    taskkill /F /IM qemu-system-x86_64.exe    shell=True
     Sleep    5
+
+Normalize the path
+    ${selftest_path}=          Normalize Path    ${selftest_path}
+    ${calculator_path}=        Normalize Path    ${calculator_path}
+
+    ${appium_log}=         Normalize Path    ${CURDIR}/../../aiotestlogfiles/appium_log.txt
+    ${avd_install_log}=    Normalize Path    ${CURDIR}/../../aiotestlogfiles/avd_install_log.txt
+    ${emulator_log}=       Normalize Path    ${CURDIR}/../../aiotestlogfiles/emulator_log.txt
+
+    ${os}=                Evaluate                    platform.system()
+    ${robot_devtools}=    Get Environment Variable    RobotDevtools
+
+    Set Global Variable    ${os}
+    Set Global Variable    ${robot_devtools}
+
+    ${appium_windows_path}=    Normalize Path    ${robot_devtools}/nodejs/appium.cmd
+    ${appium_linux_path}=      Normalize Path    ${robot_devtools}/nodejs/bin/appium
+    ${emulator}=               Normalize Path    ${robot_devtools}/Android/tools/emulator.exe
+    ${avd_manager}             Normalize Path    ${robot_devtools}/Android/tools/bin/avdmanager
+
+    Set Global Variable    ${selftest_path}
+    Set Global Variable    ${calculator_path}
+    Set Global Variable    ${appium_log}
+    Set Global Variable    ${avd_install_log}
+    Set Global Variable    ${emulator_log}
+    Set Global Variable    ${appium_windows_path}
+    Set Global Variable    ${appium_linux_path}
+    Set Global Variable    ${avd_manager}
+    Set Global Variable    ${emulator}
 
 Convert bounds to x and y
     [Arguments]    ${input_string}
