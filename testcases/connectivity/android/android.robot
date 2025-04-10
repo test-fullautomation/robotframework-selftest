@@ -21,7 +21,7 @@ Library    OperatingSystem
 Suite Setup    Startup
 Suite Teardown    Close All Apps
 *** Variables ***
-${selftest_path}=          ${CURDIR}/../../../helpers/Android/Selftest.apk
+${selftest_path}=          ${CURDIR}/../../../helpers/Android/SelfTest.apk
 ${appium_server_command}=      cmd.exe /c "$env:APPIUM_HOME\appium" --relaxed-security
 ${remote_url}=                 http://127.0.0.1:4723
 ${platform_name}=              Android
@@ -347,12 +347,13 @@ Convert bounds to x and y
 Create projects in project list
     [Arguments]    ${times}
     Log    Create ${times} project in project list
-    ${list_projects}=    Create List    abc
+    ${list_projects}=    Create List    project_0
+    Wait Until Element Is Visible    ${add_button_locator}
     FOR    ${counter}    IN RANGE    0    ${times}
         Log    Click on add button
         Click Element    ${add_button_locator}
         Wait Until Element Is Visible    ${project_text_locator}
-        ${item}    Set Variable    project_${times}
+        ${item}    Set Variable    project_${counter}
         Log    Enter project name: ${item}
         Input Text    ${project_text_locator}    ${item}
         Append To List    ${list_projects}    ${item}
