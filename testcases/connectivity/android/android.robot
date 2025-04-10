@@ -325,8 +325,16 @@ Startup
     END
 
 Start appium server
+    Log    Environment    console=True
+    Log    OS: ${os}      console=True
+    Log    ${env}         console=True
     Log    Start appium server
-    Start Process    cmd.exe /c "C:/Program Files/RobotFramework/devtools/Appium.bat"    shell=True
+
+    IF    '${os}' == 'Windows'
+        Start Process    ${appium_windows_path}    --allow-insecure\=adb_shell    stdout=${appium_log}
+    ELSE IF     '${os}' == 'Linux'
+        Start Process    ${appium_linux_path}    --allow-insecure\=adb_shell &     stdout=${appium_log}
+    END
     Sleep    15
 
 Install AVD
