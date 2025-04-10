@@ -21,7 +21,7 @@ Library    OperatingSystem
 Suite Setup    Startup
 Suite Teardown    Close All Apps
 *** Variables ***
-${env}    default
+${run_on}                      Local Machine
 ${selftest_path}=              ${CURDIR}/../../../helpers/Android/SelfTest.apk
 ${calculator_path}=            ${CURDIR}/../../../helpers/Android/calculator.apk
 ${appium_server_command}=      cmd.exe /c "$env:APPIUM_HOME\appium" --relaxed-security
@@ -319,15 +319,15 @@ Startup
     Start appium server
     Install AVD
 
-    Log    Environtment: ${env}
-    IF    '${env}' != 'Github_action'
+    Log    Environtment: ${run_on}
+    IF    '${run_on}' != 'Github Action'
         Start AVD
     END
 
 Start appium server
     Log    Environment    console=True
     Log    OS: ${os}      console=True
-    Log    ${env}         console=True
+    Log    Run on: ${run_on}         console=True
     Log    Start appium server
 
     IF    '${os}' == 'Windows'
@@ -338,14 +338,23 @@ Start appium server
     Sleep    15
 
 Install AVD
-    Log     Install avd
-    Start Process    cmd.exe /c "${CURDIR}/../../../helpers/Android/install_avd.bat"    shell=True
-    Sleep    5
+    Log    Verify the existence of AVD    console=True
+    ${avd}=    Run Process    "${avd_manager}" list avd | findstr /C:"Name: my_avd" > nul    shell=True
+    IF    '${os}' == 'Windows'
+        IF    ${avd.rc} == 1
+            Log    The AVD is not exist    console=True
+            Log    Install AVD    console=True
+            Run Process     "${avd_manager}" create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log} shell=True
+            Sleep    5
+        END
+    END
 
 Start AVD
-    Log    Start AVD
-    Start Process    cmd.exe /c "${CURDIR}/../../../helpers/Android/start_avd.bat"    shell=True
-    Sleep    60
+    Log    Start AVD    console=True
+    IF    '${os}' == 'Windows' and '${run_on}' == 'Local Machine'
+        Start Process    "${emulator}" -avd my_avd -accel on -gpu auto -no-snapshot-load -wipe-data -memory 4096 -cores 4 -no-window -no-boot-anim    shell=True    stdout=start_avd.log
+        Sleep    60
+    END
 
 Close All Apps
     Close appium server
