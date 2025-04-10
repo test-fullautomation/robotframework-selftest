@@ -353,9 +353,9 @@ Start appium server
 
     ${os}=    Evaluate    platform.system()
     IF    '${os}' == 'Windows'
-        Start Process    ${appium_windows_path}    --relaxed-security   stdout=${appium_log}
+        Start Process    ${appium_windows_path}    --allow-insecure=adb_shell   stdout=${appium_log}
     ELSE IF    '${os}' == 'Linux'
-        Start Process    ${appium_linux_path}    --relaxed-security &   stdout=${appium_log}
+        Start Process    ${appium_linux_path}    --allow-insecure=adb_shell &   stdout=${appium_log}
     END
     Sleep    15
 
