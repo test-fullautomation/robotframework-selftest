@@ -21,7 +21,9 @@ Library    OperatingSystem
 Suite Setup    Startup
 Suite Teardown    Close All Apps
 *** Variables ***
-${selftest_path}=          ${CURDIR}/../../../helpers/Android/SelfTest.apk
+${env}    default
+${selftest_path}=              ${CURDIR}/../../../helpers/Android/SelfTest.apk
+${calculator_path}=            ${CURDIR}/../../../helpers/Android/calculator.apk
 ${appium_server_command}=      cmd.exe /c "$env:APPIUM_HOME\appium" --relaxed-security
 ${remote_url}=                 http://127.0.0.1:4723
 ${platform_name}=              Android
@@ -29,30 +31,32 @@ ${platform_version}=           11
 ${automation_name}=            UiAutomator2
 ${app_package_tmlselftest}=    com.testfullautomation.selftest
 ${app_activity_tmlselftest}=   com.testfullautomation.selftest.MainActivity
-${app_package_calculator}=     com.oneplus.calculator
-${app_activity_calculator}=    com.oneplus.calculator.Calculator
+${app_package_calculator}=     com.google.android.calculator
+${app_activity_calculator}=    com.android.calculator2.Calculator
 
-${checkbox1_id_locator}    id=com.testfullautomation.selftest:id/checkbox1
-${checkbox1_xpath_locator}    xpath=//android.widget.CheckBox[@resource-id="com.testfullautomation.selftest:id/checkbox1"]
-${seekbar_id_locator}    id=com.testfullautomation.selftest:id/seekBar
-${seekbar_value_locator}    id=com.testfullautomation.selftest:id/seekVal
-${register_button_locator}    id=com.testfullautomation.selftest:id/btnRegister
-${firstname_text_locator}    id=com.testfullautomation.selftest:id/firstName
-${lastname_text_locator}    id=com.testfullautomation.selftest:id/lastName
-${userid_text_locator}    id=com.testfullautomation.selftest:id/userID
-${password_text_locator}    id=com.testfullautomation.selftest:id/password
+${checkbox1_id_locator}             id=com.testfullautomation.selftest:id/checkbox1
+${checkbox1_xpath_locator}          xpath=//android.widget.CheckBox[@resource-id="com.testfullautomation.selftest:id/checkbox1"]
+${seekbar_id_locator}               id=com.testfullautomation.selftest:id/seekBar
+${seekbar_value_locator}            id=com.testfullautomation.selftest:id/seekVal
+${register_button_locator}          id=com.testfullautomation.selftest:id/btnRegister
+${firstname_text_locator}           id=com.testfullautomation.selftest:id/firstName
+${lastname_text_locator}            id=com.testfullautomation.selftest:id/lastName
+${userid_text_locator}              id=com.testfullautomation.selftest:id/userID
+${password_text_locator}            id=com.testfullautomation.selftest:id/password
 ${confirm_password_text_locator}    id=com.testfullautomation.selftest:id/confirmPassword
-${email_text_locator}    id=com.testfullautomation.selftest:id/email
-${phone_number_text_locator}    id=com.testfullautomation.selftest:id/phone
-${female_radio_locator}    id=com.testfullautomation.selftest:id/female
-${male_radio_locator}    id=com.testfullautomation.selftest:id/male
-${add_button_locator}    id=com.testfullautomation.selftest:id/addBtn
-${project_button_locator}    id=com.testfullautomation.selftest:id/btnProject
-${project_text_locator}    id=com.testfullautomation.selftest:id/inputProjectName
-${add_project_button_locator}    id=com.testfullautomation.selftest:id/addProjectBtn
-${gm_project_locator}    xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="GM"]
-${project_5_locator}    xpath=xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_5"]
-${project_8_locator}    xpath=xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_8"]
+${email_text_locator}               id=com.testfullautomation.selftest:id/email
+${phone_number_text_locator}        id=com.testfullautomation.selftest:id/phone
+${female_radio_locator}             id=com.testfullautomation.selftest:id/female
+${male_radio_locator}               id=com.testfullautomation.selftest:id/male
+${add_button_locator}               id=com.testfullautomation.selftest:id/addBtn
+${project_button_locator}           id=com.testfullautomation.selftest:id/btnProject
+${project_text_locator}             id=com.testfullautomation.selftest:id/inputProjectName
+${add_project_button_locator}       id=com.testfullautomation.selftest:id/addProjectBtn
+${gm_project_locator}               xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="GM"]
+${project_5_locator}                xpath=xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_5"]
+${project_8_locator}                xpath=xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_8"]
+
+${robot_devtools}    robot_devtools
 *** Test Cases ***
 Verify successful opening of Android application
     Log    Open TMLselftest application
@@ -331,8 +335,7 @@ Close appium server
 
 Close AVD
     Log To Console    Close AVD
-    Run Process    cmd.exe /c taskkill /F /IM qemu-system-x86_64.exe    shell=True
-    Run Process    cmd.exe /c taskkill /F /IM emulator.exe    shell=True
+    Run Process    taskkill /F /IM qemu-system-x86_64.exe    shell=True
     Sleep    5
 
 Convert bounds to x and y
