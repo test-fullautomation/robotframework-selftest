@@ -21,7 +21,7 @@ Library    OperatingSystem
 Suite Setup    Startup
 Suite Teardown    Close All Apps
 *** Variables ***
-${selftest_path}=            ${CURDIR}/../../../helpers/Android/Selftest.apk
+${selftest_path}=            ${CURDIR}/../../../helpers/Android/SelfTest.apk
 ${calculator_path}=          ${CURDIR}/../../../helpers/Android/calculator.apk
 ${remote_url}=                 http://127.0.0.1:4723
 ${platform_name}=              Android
