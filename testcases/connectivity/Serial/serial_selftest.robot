@@ -24,6 +24,7 @@ ${END_STR1}  ~~END1~~
 Serial Base
     [Setup]     Open Serial Port
     [Teardown]  Delete All Ports
+    [Tags]    SerialSelfTest
     ${command} =    Serial Command    echo 1; echo 2; echo 3; echo 4; echo 5
     Write Data   ${command}
     ${read} =    Read Until
