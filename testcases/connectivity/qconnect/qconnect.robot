@@ -51,6 +51,7 @@ Get COM Status
 
 *** Test Cases ***
 Serial Base Test
+    [Tags]    QConnectSelfTest
 #    Get COM Status      COM9
     connect             conn_name=${TEST_CONNECTION}
     ...                 conn_type=SerialClient
@@ -66,6 +67,7 @@ Serial Base Test
     Should Be Equal As Strings      ${res}[1]    ${qconnect}[qconnect][SerialBaseTest]
 
 Serial Base Semicolon
+    [Tags]    QConnectSelfTest
     connect             conn_name=${TEST_CONNECTION}
     ...                 conn_type=SerialClient
     ...                 conn_conf=${__TESTBENCH__CONFIG}[hw][internal][serial]
@@ -80,6 +82,7 @@ Serial Base Semicolon
     Should Be Equal As Strings      ${res}[1]    ${qconnect}[qconnect][SerialBaseSemicolon]
 
 Serial Base Newlines
+    [Tags]    QConnectSelfTest
     connect             conn_name=${TEST_CONNECTION}
     ...                 conn_type=SerialClient
     ...                 conn_conf=${__TESTBENCH__CONFIG}[hw][internal][serial]
@@ -94,6 +97,7 @@ Serial Base Newlines
     Should Be Equal As Strings      ${res}[1]    ${qconnect}[qconnect][SerialBaseWithNewlines]
 
 Serial Base Newlines Semicolon
+    [Tags]    QConnectSelfTest
     connect             conn_name=${TEST_CONNECTION}
     ...                 conn_type=SerialClient
     ...                 conn_conf=${__TESTBENCH__CONFIG}[hw][internal][serial]
@@ -108,6 +112,7 @@ Serial Base Newlines Semicolon
     Should Be Equal As Strings      ${res}[1]    ${qconnect}[qconnect][SerialBaseWithNewlines]
 
 Serial Base Without Response
+    [Tags]    QConnectSelfTest
     connect             conn_name=${TEST_CONNECTION}
     ...                 conn_type=SerialClient
     ...                 conn_conf=${__TESTBENCH__CONFIG}[hw][internal][serial]
@@ -122,6 +127,7 @@ Serial Base Without Response
     Should Be Equal As Strings      ${res}[1]    ${qconnect}[qconnect][SerialBaseWithoutResponse]
 
 Serial Base Without Response Negative Result
+    [Tags]    QConnectSelfTest
     connect             conn_name=${TEST_CONNECTION}
     ...                 conn_type=SerialClient
     ...                 conn_conf=${__TESTBENCH__CONFIG}[hw][internal][serial]
@@ -136,6 +142,7 @@ Serial Base Without Response Negative Result
     Should Be Equal As Strings      ${res}[1]    ${qconnect}[qconnect][SerialBaseWithoutResponse]
 
 Serial Base Delayed Response
+    [Tags]    QConnectSelfTest
     connect             conn_name=${TEST_CONNECTION}
     ...                 conn_type=SerialClient
     ...                 conn_conf=${__TESTBENCH__CONFIG}[hw][internal][serial]
