@@ -69,6 +69,7 @@ ${avd_install_log}        ${CURDIR}/../../aiotestlogfiles/avd_install_log.txt
 ${emulator_log}           ${CURDIR}/../../aiotestlogfiles/emulator_log.txt
 *** Test Cases ***
 Verify successful opening of Android application
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -83,6 +84,7 @@ Verify successful opening of Android application
     Should Match    ${context}[0]    NATIVE_APP
 
 Verify successful closure of Android Application
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -95,6 +97,7 @@ Verify successful closure of Android Application
     Run Keyword And Expect Error    No application is open    Get Appium SessionId
 
 Verify successful closure of all Android applications
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -115,6 +118,7 @@ Verify successful closure of all Android applications
     Run Keyword And Expect Error    No application is open    Get Appium SessionId
 
 Verify successful switching of Android application
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -146,6 +150,7 @@ Verify successful switching of Android application
     Should Match    ${session_2nd}    ${session}
 
 Verify failed switching of Android application
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -172,6 +177,7 @@ Verify failed switching of Android application
     Should Be Equal    ${status}    ${False}
 
 Verify successful execution ADB Shell command
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -184,6 +190,7 @@ Verify successful execution ADB Shell command
     Should Not Be Empty    ${output}
 
 Verify failed execution ADB Shell command
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -196,6 +203,7 @@ Verify failed execution ADB Shell command
     Should Be Equal    ${status}    ${False}
 
 Verify android interactions
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -224,6 +232,7 @@ Verify android interactions
     Should Not Match    ${begin_value}    ${end_value}
 
 Verify appium can input text
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -255,6 +264,7 @@ Verify appium can input text
     Click Element    ${register_button_locator}
 
 Verify appium can hide keyboard
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -283,6 +293,7 @@ Verify appium can hide keyboard
     Should Be Equal    ${result}    ${False}
 
 Verify appium can scroll to view element
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
