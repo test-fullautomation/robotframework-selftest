@@ -112,6 +112,7 @@ Verify successful closure of all Android applications
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_calculator}
     ...                 appActivity=${app_activity_calculator}
+    ...                 app=${calculator_path}
 
     Log    Close all application
     Close All Applications
@@ -136,6 +137,7 @@ Verify successful switching of Android application
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_calculator}
     ...                 appActivity=${app_activity_calculator}
+    ...                 app=${calculator_path}
     ...                 alias=calculator_app
     ${session_2nd}=    Get Appium SessionId
 
@@ -169,6 +171,7 @@ Verify failed switching of Android application
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_calculator}
     ...                 appActivity=${app_activity_calculator}
+    ...                 app=${calculator_path}
 
     ${session_2nd}=    Get Appium SessionId
 
