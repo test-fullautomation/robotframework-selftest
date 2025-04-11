@@ -331,7 +331,7 @@ Startup
     Install AVD
 
     Log    Environtment: ${run_on}
-    IF    '${run_on}' != 'Github Action'
+    IF    '${run_on}' != 'Github_Action'
         Start AVD
     END
 
