@@ -67,6 +67,7 @@ ${avd_manager}            ${robot_devtools}/Android/tools/bin/avdmanager
 ${appium_log}             ${CURDIR}/../../aiotestlogfiles/appium_log.txt
 ${avd_install_log}        ${CURDIR}/../../aiotestlogfiles/avd_install_log.txt
 ${emulator_log}           ${CURDIR}/../../aiotestlogfiles/emulator_log.txt
+${start_avd_log}          ${CURDIR}/../../aiotestlogfiles/start_avd_log.txt
 *** Test Cases ***
 Verify successful opening of Android application
     [Tags]    AndroidSelfTest
@@ -366,7 +367,7 @@ Install AVD
 Start AVD
     Log    Start AVD    console=True
     IF    '${os}' == 'Windows'
-        Start Process    "${emulator}" -avd my_avd -accel on -gpu auto -no-snapshot-load -wipe-data -memory 4096 -cores 4 -no-window -no-boot-anim    shell=True    stdout=start_avd.log
+        Start Process    "${emulator}" -avd my_avd -accel on -gpu auto -no-snapshot-load -wipe-data -memory 4096 -cores 4 -no-window -no-boot-anim    shell=True    stdout=${start_avd_log}
         Sleep    60
     END
 
@@ -391,6 +392,7 @@ Normalize the path
     ${appium_log}=         Normalize Path    ${CURDIR}/../../aiotestlogfiles/appium_log.txt
     ${avd_install_log}=    Normalize Path    ${CURDIR}/../../aiotestlogfiles/avd_install_log.txt
     ${emulator_log}=       Normalize Path    ${CURDIR}/../../aiotestlogfiles/emulator_log.txt
+    ${start_avd_log}=      Normalize Path    ${CURDIR}/../../aiotestlogfiles/start_avd_log.txt
 
     ${os}=                Evaluate                    platform.system()
     ${robot_devtools}=    Get Environment Variable    RobotDevtools
