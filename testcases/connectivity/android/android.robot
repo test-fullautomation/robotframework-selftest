@@ -181,7 +181,7 @@ Verify failed switching of Android application
     Should Be Equal    ${status}    ${False}
 
 Verify successful execution ADB Shell command
-    [Tags]    AndroidSelfTest
+    [Tags]    robot:skip
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -236,7 +236,7 @@ Verify android interactions
     Should Not Match    ${begin_value}    ${end_value}
 
 Verify appium can input text
-    [Tags]    AndroidSelfTest
+    [Tags]    robot:skip
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -268,7 +268,7 @@ Verify appium can input text
     Click Element    ${register_button_locator}
 
 Verify appium can hide keyboard
-    [Tags]    AndroidSelfTest
+    [Tags]    robot:skip
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -297,7 +297,7 @@ Verify appium can hide keyboard
     Should Be Equal    ${result}    ${False}
 
 Verify appium can scroll to view element
-    [Tags]    AndroidSelfTest
+    [Tags]    robot:skip
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -367,7 +367,7 @@ Install AVD
 Start AVD
     Log    Start AVD    console=True
     IF    '${os}' == 'Windows'
-        Start Process    "${emulator}" -avd my_avd -accel on -gpu auto -no-snapshot-load -wipe-data -memory 4096 -cores 4 -no-window -no-boot-anim    shell=True    stdout=${start_avd_log}
+        Start Process    "${emulator}" -avd my_avd -accel on -gpu auto -no-snapshot-load -wipe-data  -no-window -no-boot-anim    shell=True    stdout=${start_avd_log}
         Sleep    60
     END
 
