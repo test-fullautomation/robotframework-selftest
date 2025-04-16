@@ -367,7 +367,7 @@ Install AVD
 Start AVD
     Log    Start AVD    console=True
     IF    '${os}' == 'Windows'
-        Start Process    "${emulator}" -avd my_avd -accel on -gpu auto -no-snapshot-load -wipe-data  -no-window -no-boot-anim    shell=True    stdout=${start_avd_log}
+        Start Process    "${emulator}" -avd my_avd -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim    shell=True    stdout=${start_avd_log}
         Sleep    60
     END
 
@@ -402,7 +402,7 @@ Normalize the path
 
     ${appium_windows_path}=    Normalize Path    ${robot_devtools}/nodejs/appium.cmd
     ${appium_linux_path}=      Normalize Path    ${robot_devtools}/nodejs/bin/appium
-    ${emulator}=               Normalize Path    ${robot_devtools}/Android/tools/emulator.exe
+    ${emulator}=               Normalize Path    ${robot_devtools}/Android/tools/emulator
     ${avd_manager}             Normalize Path    ${robot_devtools}/Android/tools/bin/avdmanager
 
     Set Global Variable    ${selftest_path}
