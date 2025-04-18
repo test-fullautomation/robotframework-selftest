@@ -359,7 +359,7 @@ Install AVD
         IF    ${avd.rc} == 1
             Log    The AVD is not exist    console=True
             Log    Install AVD    console=True
-            Run Process     "${avd_manager}" create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}     shell=True
+            Run Process     "${avd_manager}" create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}    stderr=${avd_install_log}     shell=True
             Sleep    5
         END
     END
