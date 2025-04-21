@@ -368,7 +368,7 @@ Install AVD
 Start AVD
     Log    Start AVD    console=True
     IF    '${os}' == 'Windows'
-        Start Process    "${emulator}" -avd my_avd -no-window -gpu -no-snapshot -noaudio -no-boot-anim -avd-path "C:\Users\runneradmin\.android\avd\my_avd.avd"    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
+        Start Process    "${emulator}" -avd my_avd -no-window -gpu -no-snapshot -noaudio -no-boot-anim    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
         Sleep    60
     END
 
