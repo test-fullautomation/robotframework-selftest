@@ -368,7 +368,7 @@ Install AVD
 Start AVD
     Log    Start AVD    console=True
     IF    '${os}' == 'Windows'
-        Start Process    "${emulator}" -avd my_avd -accel on -gpu auto -no-snapshot-load -wipe-data -no-window -no-boot-anim -verbose    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
+        Start Process    "${emulator}" -avd my_avd -accel on -no-snapshot-load -no-window -no-boot-anim -verbose    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
         Sleep    180
     END
 
