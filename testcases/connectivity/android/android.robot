@@ -403,7 +403,7 @@ Normalize the path
 
     ${appium_windows_path}=    Normalize Path    ${robot_devtools}/nodejs/appium.cmd
     ${appium_linux_path}=      Normalize Path    ${robot_devtools}/nodejs/bin/appium
-    ${emulator}=               Normalize Path    ${robot_devtools}/Android/tools/emulator
+    ${emulator}=               Normalize Path    ${robot_devtools}/Android/emulator/emulator
     ${avd_manager}             Normalize Path    ${robot_devtools}/Android/tools/bin/avdmanager
 
     Set Global Variable    ${selftest_path}
