@@ -368,7 +368,7 @@ Install AVD
 Start AVD
     Log    Start AVD    console=True
     IF    '${os}' == 'Windows'
-        Start Process    "${emulator}" -avd my_avd -accel auto -verbose    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
+        Start Process    "${emulator}" -avd my_avd -accel off -verbose    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
         Sleep    180
     END
 
