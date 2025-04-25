@@ -61,8 +61,9 @@ ${robot_devtools}    robot_devtools
 
 ${appium_windows_path}    ${robot_devtools}/nodejs/appium.cmd
 ${appium_linux_path}      ${robot_devtools}/nodejs/bin/appium
-${emulator}               ${robot_devtools}/Android/tools/emulator.exe
+${emulator}               ${robot_devtools}/Android/emulator/emulator.exe
 ${avd_manager}            ${robot_devtools}/Android/tools/bin/avdmanager
+${adb}                    ${robot_devtools}/Android/platform-tools/adb
 
 ${appium_log}             ${CURDIR}/../../aiotestlogfiles/appium_log.txt
 ${avd_install_log}        ${CURDIR}/../../aiotestlogfiles/avd_install_log.txt
@@ -368,8 +369,9 @@ Install AVD
 Start AVD
     Log    Start AVD    console=True
     IF    '${os}' == 'Windows'
-        Start Process    "${emulator}" -avd my_avd -accel off -verbose    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
+        Start Process    "${emulator}" -avd my_avd -accel auto -verbose    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
         Sleep    180
+        Run Process    ${adb} devices    shell=True    stdout=${avd_install_log}    stderr=${avd_install_log}
     END
 
 Close All Apps
@@ -405,6 +407,7 @@ Normalize the path
     ${appium_linux_path}=      Normalize Path    ${robot_devtools}/nodejs/bin/appium
     ${emulator}=               Normalize Path    ${robot_devtools}/Android/emulator/emulator
     ${avd_manager}             Normalize Path    ${robot_devtools}/Android/tools/bin/avdmanager
+    ${adb}=                    Normalize Path    ${robot_devtools}/Android/platform-tools/adb
 
     Set Global Variable    ${selftest_path}
     Set Global Variable    ${calculator_path}
