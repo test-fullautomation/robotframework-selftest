@@ -64,7 +64,7 @@ sPythonVersion  = sys.version
 
 if sPlatformSystem == "Windows":
     # nothing specific to do
-    pass
+    sys.exit(nReturn)
 elif sPlatformSystem == "Linux":
     # nothing specific to do
     pass
