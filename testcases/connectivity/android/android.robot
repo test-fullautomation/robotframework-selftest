@@ -371,7 +371,7 @@ Start AVD
     IF    '${os}' == 'Windows'
         Start Process    "${emulator}" -avd my_avd -accel auto -verbose    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
         Sleep    180
-        Run Process    ${adb} devices    shell=True    stdout=${avd_install_log}    stderr=${avd_install_log}
+        Run Process    "${adb}" devices    shell=True    stdout=${avd_install_log}    stderr=${avd_install_log}
     END
 
 Close All Apps
@@ -418,6 +418,7 @@ Normalize the path
     Set Global Variable    ${appium_linux_path}
     Set Global Variable    ${avd_manager}
     Set Global Variable    ${emulator}
+    Set Global Variable    ${adb}
 
 Convert bounds to x and y
     [Arguments]    ${input_string}
