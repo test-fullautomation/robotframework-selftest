@@ -24,6 +24,7 @@ ${END_STR1}  ~~END1~~
 Serial Base
     [Setup]     Open Serial Port
     [Teardown]  Delete All Ports
+    [Tags]    SerialSelfTest
     ${command} =    Serial Command    echo 1; echo 2; echo 3; echo 4; echo 5
     Write Data   ${command}
     ${read} =    Read Until
@@ -34,6 +35,7 @@ Serial Base
 Serial Base Semicolon
     [Setup]     Open Serial Port
     [Teardown]  Delete All Ports
+    [Tags]    SerialSelfTest
     ${command} =    Serial Command    echo 1; echo 2; echo 3; echo 4; echo 5
     Write Data   ${command}
     ${read} =    Read Until
@@ -44,6 +46,7 @@ Serial Base Semicolon
 Serial Base New lines
     [Setup]     Open Serial Port
     [Teardown]  Delete All Ports
+    [Tags]    SerialSelfTest
     ${command} =    Serial Command    echo; echo; echo 1; echo 2; echo 3; echo 4; echo 5; echo; echo
     Write Data   ${command}
     ${read} =    Read Until
@@ -54,6 +57,7 @@ Serial Base New lines
 Serial Base New lines Semicolon
     [Setup]     Open Serial Port
     [Teardown]  Delete All Ports
+    [Tags]    SerialSelfTest
     ${command} =    Serial Command    echo; echo; echo 1; echo 2; echo 3; echo 4; echo 5; echo; echo
     Write Data   ${command}
     ${read} =    Read Until
@@ -64,6 +68,7 @@ Serial Base New lines Semicolon
 Serial Base withoput response
     [Setup]     Open Serial Port
     [Teardown]  Delete All Ports
+    [Tags]    SerialSelfTest
     ${command} =    Serial Command    true
     Write Data   ${command}
     ${read} =    Read Until
@@ -78,6 +83,7 @@ Serial Base withoput response
 Serial Base withoput response negative result
     [Setup]     Open Serial Port
     [Teardown]  Delete All Ports
+    [Tags]    SerialSelfTest
     ${command} =    Serial Command    false
     Write Data   ${command}
     ${read} =    Read Until
@@ -91,6 +97,7 @@ Serial Base withoput response negative result
 Serial Base delayed response
     [Setup]     Open Serial Port
     [Teardown]  Delete All Ports
+    [Tags]    SerialSelfTest
     ${command} =    Serial Command    sleep 1; echo 1; sleep 1; echo 2; sleep 1; echo 3; sleep 1; echo 4; sleep 1; echo 5
     Write Data   ${command}
     ${read} =    Read Until

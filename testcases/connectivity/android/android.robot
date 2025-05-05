@@ -21,40 +21,57 @@ Library    OperatingSystem
 Suite Setup    Startup
 Suite Teardown    Close All Apps
 *** Variables ***
-${selftest_path}=          ${CURDIR}/../../../helpers/Android/Selftest.apk
+${run_on}                      Local Machine
+${selftest_path}=              ${CURDIR}/../../../helpers/Android/SelfTest.apk
+${calculator_path}=            ${CURDIR}/../../../helpers/Android/calculator.apk
 ${appium_server_command}=      cmd.exe /c "$env:APPIUM_HOME\appium" --relaxed-security
 ${remote_url}=                 http://127.0.0.1:4723
 ${platform_name}=              Android
-${platform_version}=           11
+${platform_version}=           14
 ${automation_name}=            UiAutomator2
 ${app_package_tmlselftest}=    com.testfullautomation.selftest
 ${app_activity_tmlselftest}=   com.testfullautomation.selftest.MainActivity
-${app_package_calculator}=     com.oneplus.calculator
-${app_activity_calculator}=    com.oneplus.calculator.Calculator
+${app_package_calculator}=     com.google.android.calculator
+${app_activity_calculator}=    com.android.calculator2.Calculator
 
-${checkbox1_id_locator}    id=com.testfullautomation.selftest:id/checkbox1
-${checkbox1_xpath_locator}    xpath=//android.widget.CheckBox[@resource-id="com.testfullautomation.selftest:id/checkbox1"]
-${seekbar_id_locator}    id=com.testfullautomation.selftest:id/seekBar
-${seekbar_value_locator}    id=com.testfullautomation.selftest:id/seekVal
-${register_button_locator}    id=com.testfullautomation.selftest:id/btnRegister
-${firstname_text_locator}    id=com.testfullautomation.selftest:id/firstName
-${lastname_text_locator}    id=com.testfullautomation.selftest:id/lastName
-${userid_text_locator}    id=com.testfullautomation.selftest:id/userID
-${password_text_locator}    id=com.testfullautomation.selftest:id/password
+${checkbox1_id_locator}             id=com.testfullautomation.selftest:id/checkbox1
+${checkbox1_xpath_locator}          xpath=//android.widget.CheckBox[@resource-id="com.testfullautomation.selftest:id/checkbox1"]
+${seekbar_id_locator}               id=com.testfullautomation.selftest:id/seekBar
+${seekbar_value_locator}            id=com.testfullautomation.selftest:id/seekVal
+${register_button_locator}          id=com.testfullautomation.selftest:id/btnRegister
+${firstname_text_locator}           id=com.testfullautomation.selftest:id/firstName
+${lastname_text_locator}            id=com.testfullautomation.selftest:id/lastName
+${userid_text_locator}              id=com.testfullautomation.selftest:id/userID
+${password_text_locator}            id=com.testfullautomation.selftest:id/password
 ${confirm_password_text_locator}    id=com.testfullautomation.selftest:id/confirmPassword
-${email_text_locator}    id=com.testfullautomation.selftest:id/email
-${phone_number_text_locator}    id=com.testfullautomation.selftest:id/phone
-${female_radio_locator}    id=com.testfullautomation.selftest:id/female
-${male_radio_locator}    id=com.testfullautomation.selftest:id/male
-${add_button_locator}    id=com.testfullautomation.selftest:id/addBtn
-${project_button_locator}    id=com.testfullautomation.selftest:id/btnProject
-${project_text_locator}    id=com.testfullautomation.selftest:id/inputProjectName
-${add_project_button_locator}    id=com.testfullautomation.selftest:id/addProjectBtn
-${gm_project_locator}    xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="GM"]
-${project_5_locator}    xpath=xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_5"]
-${project_8_locator}    xpath=xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_8"]
+${email_text_locator}               id=com.testfullautomation.selftest:id/email
+${phone_number_text_locator}        id=com.testfullautomation.selftest:id/phone
+${female_radio_locator}             id=com.testfullautomation.selftest:id/female
+${male_radio_locator}               id=com.testfullautomation.selftest:id/male
+${add_button_locator}               id=com.testfullautomation.selftest:id/addBtn
+${project_button_locator}           id=com.testfullautomation.selftest:id/btnProject
+${project_text_locator}             id=com.testfullautomation.selftest:id/inputProjectName
+${add_project_button_locator}       id=com.testfullautomation.selftest:id/addProjectBtn
+${gm_project_locator}               xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="GM"]
+${project_5_locator}                xpath=xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_5"]
+${project_8_locator}                xpath=xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_8"]
+
+${os}                OS
+${robot_devtools}    robot_devtools
+
+${appium_windows_path}    ${robot_devtools}/nodejs/appium.cmd
+${appium_linux_path}      ${robot_devtools}/nodejs/bin/appium
+${emulator}               ${robot_devtools}/Android/emulator/emulator.exe
+${avd_manager}            ${robot_devtools}/Android/tools/bin/avdmanager
+${adb}                    ${robot_devtools}/Android/platform-tools/adb
+
+${appium_log}             ${CURDIR}/../../aiotestlogfiles/appium_log.txt
+${avd_install_log}        ${CURDIR}/../../aiotestlogfiles/avd_install_log.txt
+${emulator_log}           ${CURDIR}/../../aiotestlogfiles/emulator_log.txt
+${start_avd_log}          ${CURDIR}/../../aiotestlogfiles/start_avd_log.txt
 *** Test Cases ***
 Verify successful opening of Android application
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -69,6 +86,7 @@ Verify successful opening of Android application
     Should Match    ${context}[0]    NATIVE_APP
 
 Verify successful closure of Android Application
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -81,6 +99,7 @@ Verify successful closure of Android Application
     Run Keyword And Expect Error    No application is open    Get Appium SessionId
 
 Verify successful closure of all Android applications
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -95,12 +114,14 @@ Verify successful closure of all Android applications
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_calculator}
     ...                 appActivity=${app_activity_calculator}
+    ...                 app=${calculator_path}
 
     Log    Close all application
     Close All Applications
     Run Keyword And Expect Error    No application is open    Get Appium SessionId
 
 Verify successful switching of Android application
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -118,6 +139,7 @@ Verify successful switching of Android application
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_calculator}
     ...                 appActivity=${app_activity_calculator}
+    ...                 app=${calculator_path}
     ...                 alias=calculator_app
     ${session_2nd}=    Get Appium SessionId
 
@@ -132,6 +154,7 @@ Verify successful switching of Android application
     Should Match    ${session_2nd}    ${session}
 
 Verify failed switching of Android application
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -150,6 +173,7 @@ Verify failed switching of Android application
     ...                 automationName=${automation_name}
     ...                 appPackage=${app_package_calculator}
     ...                 appActivity=${app_activity_calculator}
+    ...                 app=${calculator_path}
 
     ${session_2nd}=    Get Appium SessionId
 
@@ -158,6 +182,7 @@ Verify failed switching of Android application
     Should Be Equal    ${status}    ${False}
 
 Verify successful execution ADB Shell command
+    [Tags]    robot:skip
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -170,6 +195,7 @@ Verify successful execution ADB Shell command
     Should Not Be Empty    ${output}
 
 Verify failed execution ADB Shell command
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -182,6 +208,7 @@ Verify failed execution ADB Shell command
     Should Be Equal    ${status}    ${False}
 
 Verify android interactions
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -210,6 +237,7 @@ Verify android interactions
     Should Not Match    ${begin_value}    ${end_value}
 
 Verify appium can input text
+    [Tags]    robot:skip
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -241,6 +269,7 @@ Verify appium can input text
     Click Element    ${register_button_locator}
 
 Verify appium can hide keyboard
+    [Tags]    robot:skip
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -269,6 +298,7 @@ Verify appium can hide keyboard
     Should Be Equal    ${result}    ${False}
 
 Verify appium can scroll to view element
+    [Tags]    robot:skip
     Log    Open TMLselftest application
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
@@ -301,24 +331,48 @@ Verify appium can scroll to view element
 
 *** Keywords ***
 Startup
+    Normalize the path
     Start appium server
     Install AVD
-    Start AVD
+
+    Log    Environtment: ${run_on}
+    IF    '${run_on}' != 'Github_Action'
+        Start AVD
+    END
 
 Start appium server
+    Log    Environment    console=True
+    Log    OS: ${os}      console=True
+    Log    Run on: ${run_on}         console=True
     Log    Start appium server
-    Start Process    cmd.exe /c "C:/Program Files/RobotFramework/devtools/Appium.bat"    shell=True
+
+    IF    '${os}' == 'Windows'
+        Start Process    ${appium_windows_path}    --allow-insecure\=adb_shell    stdout=${appium_log}
+    ELSE IF     '${os}' == 'Linux'
+        Start Process    ${appium_linux_path}    --allow-insecure\=adb_shell &     stdout=${appium_log}
+    END
     Sleep    15
 
 Install AVD
-    Log     Install avd
-    Start Process    cmd.exe /c "${CURDIR}/../../../helpers/Android/install_avd.bat"    shell=True
-    Sleep    5
+    Log    Verify the existence of AVD    console=True
+    ${avd}=    Run Process    "${avd_manager}" list avd | findstr /C:"Name: my_avd" > nul    shell=True
+    IF    '${os}' == 'Windows'
+        IF    ${avd.rc} == 1
+            Log    The AVD is not exist    console=True
+            Log    Install AVD    console=True
+            Run Process     "${avd_manager}" create avd -n my_avd -k "system-images;android-34;google_apis;arm64" --force --device "pixel_xl"    stdout=${avd_install_log}    stderr=${avd_install_log}     shell=True
+            Sleep    5
+            Run Process     "${avd_manager}" list avd    shell=True    stdout=${avd_install_log}    stderr=${avd_install_log}
+        END
+    END
 
 Start AVD
-    Log    Start AVD
-    Start Process    cmd.exe /c "${CURDIR}/../../../helpers/Android/start_avd.bat"    shell=True
-    Sleep    60
+    Log    Start AVD    console=True
+    IF    '${os}' == 'Windows'
+        Start Process    "${emulator}" -avd my_avd -accel auto -verbose    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
+        Sleep    180
+        Run Process    "${adb}" devices    shell=True    stdout=${avd_install_log}    stderr=${avd_install_log}
+    END
 
 Close All Apps
     Close appium server
@@ -331,9 +385,40 @@ Close appium server
 
 Close AVD
     Log To Console    Close AVD
-    Run Process    cmd.exe /c taskkill /F /IM qemu-system-x86_64.exe    shell=True
-    Run Process    cmd.exe /c taskkill /F /IM emulator.exe    shell=True
+    Run Process    taskkill /F /IM qemu-system-x86_64.exe    shell=True
     Sleep    5
+
+Normalize the path
+    ${selftest_path}=          Normalize Path    ${selftest_path}
+    ${calculator_path}=        Normalize Path    ${calculator_path}
+
+    ${appium_log}=         Normalize Path    ${CURDIR}/../../aiotestlogfiles/appium_log.txt
+    ${avd_install_log}=    Normalize Path    ${CURDIR}/../../aiotestlogfiles/avd_install_log.txt
+    ${emulator_log}=       Normalize Path    ${CURDIR}/../../aiotestlogfiles/emulator_log.txt
+    ${start_avd_log}=      Normalize Path    ${CURDIR}/../../aiotestlogfiles/start_avd_log.txt
+
+    ${os}=                Evaluate                    platform.system()
+    ${robot_devtools}=    Get Environment Variable    RobotDevtools
+
+    Set Global Variable    ${os}
+    Set Global Variable    ${robot_devtools}
+
+    ${appium_windows_path}=    Normalize Path    ${robot_devtools}/nodejs/appium.cmd
+    ${appium_linux_path}=      Normalize Path    ${robot_devtools}/nodejs/bin/appium
+    ${emulator}=               Normalize Path    ${robot_devtools}/Android/emulator/emulator
+    ${avd_manager}             Normalize Path    ${robot_devtools}/Android/tools/bin/avdmanager
+    ${adb}=                    Normalize Path    ${robot_devtools}/Android/platform-tools/adb
+
+    Set Global Variable    ${selftest_path}
+    Set Global Variable    ${calculator_path}
+    Set Global Variable    ${appium_log}
+    Set Global Variable    ${avd_install_log}
+    Set Global Variable    ${emulator_log}
+    Set Global Variable    ${appium_windows_path}
+    Set Global Variable    ${appium_linux_path}
+    Set Global Variable    ${avd_manager}
+    Set Global Variable    ${emulator}
+    Set Global Variable    ${adb}
 
 Convert bounds to x and y
     [Arguments]    ${input_string}
@@ -347,12 +432,13 @@ Convert bounds to x and y
 Create projects in project list
     [Arguments]    ${times}
     Log    Create ${times} project in project list
-    ${list_projects}=    Create List    abc
+    ${list_projects}=    Create List    project_0
+    Wait Until Element Is Visible    ${add_button_locator}
     FOR    ${counter}    IN RANGE    0    ${times}
         Log    Click on add button
         Click Element    ${add_button_locator}
         Wait Until Element Is Visible    ${project_text_locator}
-        ${item}    Set Variable    project_${times}
+        ${item}    Set Variable    project_${counter}
         Log    Enter project name: ${item}
         Input Text    ${project_text_locator}    ${item}
         Append To List    ${list_projects}    ${item}
