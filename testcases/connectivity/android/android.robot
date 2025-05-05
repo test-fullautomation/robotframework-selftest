@@ -360,7 +360,7 @@ Install AVD
         IF    ${avd.rc} == 1
             Log    The AVD is not exist    console=True
             Log    Install AVD    console=True
-            Run Process     "${avd_manager}" create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}    stderr=${avd_install_log}     shell=True
+            Run Process     "${avd_manager}" create avd -n my_avd -k "system-images;android-34;google_apis;arm64" --force --device "pixel_xl"    stdout=${avd_install_log}    stderr=${avd_install_log}     shell=True
             Sleep    5
             Run Process     "${avd_manager}" list avd    shell=True    stdout=${avd_install_log}    stderr=${avd_install_log}
         END
@@ -369,7 +369,7 @@ Install AVD
 Start AVD
     Log    Start AVD    console=True
     IF    '${os}' == 'Windows'
-        Start Process    "${emulator}" -avd my_avd -no-accel -verbose    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
+        Start Process    "${emulator}" -avd my_avd -accel auto -verbose    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
         Sleep    180
         Run Process    "${adb}" devices    shell=True    stdout=${avd_install_log}    stderr=${avd_install_log}
     END
