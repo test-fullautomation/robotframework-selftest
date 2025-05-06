@@ -64,7 +64,7 @@ sPythonVersion  = sys.version
 
 if sPlatformSystem == "Windows":
     # temporarily disabled the test due to an issue with the Android Virtual Device
-    pass
+    sys.exit()
 elif sPlatformSystem == "Linux":
     # nothing specific to do
     pass
