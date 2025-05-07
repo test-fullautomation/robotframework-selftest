@@ -369,9 +369,11 @@ Install AVD
 Start AVD
     Log    Start AVD    console=True
     IF    '${os}' == 'Windows'
-        Start Process    "${emulator}" -avd my_avd -accel auto -verbose    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
-        Sleep    120
+        Start Process    "${emulator}" -avd my_avd -accel auto -gpu swiftshader_indirect -verbose    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
+    ELSE IF     '${os}' == 'Linux' and '${run_on}' = 'Local Machine'
+        Start Process    "${emulator}" my_avd -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim &    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
     END
+    Sleep    180
 
 Close All Apps
     Close appium server
