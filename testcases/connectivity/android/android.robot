@@ -356,14 +356,21 @@ Start appium server
 Install AVD
     Log    Verify the existence of AVD    console=True
     ${avd}=    Run Process    "${avd_manager}" list avd | findstr /C:"Name: my_avd" > nul    shell=True
-    IF    '${os}' == 'Windows'
-        IF    ${avd.rc} == 1
-            Log    The AVD is not exist    console=True
-            Log    Install AVD    console=True
-            Run Process     "${avd_manager}" create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}    stderr=${avd_install_log}     shell=True
-            Sleep    5
-            Run Process     "${avd_manager}" list avd    shell=True    stdout=${avd_install_log}    stderr=${avd_install_log}
-        END
+    # IF    '${os}' == 'Windows'
+    #     IF    ${avd.rc} == 1
+    #         Log    The AVD is not exist    console=True
+    #         Log    Install AVD    console=True
+    #         Run Process     "${avd_manager}" create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}    stderr=${avd_install_log}     shell=True
+    #         Sleep    5
+    #         Run Process     "${avd_manager}" list avd    shell=True    stdout=${avd_install_log}    stderr=${avd_install_log}
+    #     END
+    # END
+    IF    ${avd.rc} == 1
+        Log    The AVD is not exist    console=True
+        Log    Install AVD    console=True
+        Run Process     "${avd_manager}" create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}    stderr=${avd_install_log}     shell=True
+        Sleep    5
+        Run Process     "${avd_manager}" list avd    shell=True    stdout=${avd_install_log}    stderr=${avd_install_log}
     END
 
 Start AVD
