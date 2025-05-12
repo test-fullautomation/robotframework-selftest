@@ -24,7 +24,7 @@ Suite Teardown    Close All Apps
 ${run_on}                      Local Machine
 ${selftest_path}=              ${CURDIR}/../../../helpers/Android/SelfTest.apk
 ${calculator_path}=            ${CURDIR}/../../../helpers/Android/calculator.apk
-${appium_server_command}=      cmd.exe /c "$env:APPIUM_HOME\appium" --relaxed-security
+${appium_server_command}=      cmd.exe /c "$env:RobotDevtools\appium" --relaxed-security
 ${remote_url}=                 http://127.0.0.1:4723
 ${platform_name}=              Android
 ${platform_version}=           14
@@ -59,8 +59,8 @@ ${project_8_locator}                xpath=xpath=//android.widget.TextView[@resou
 ${os}                OS
 ${robot_devtools}    robot_devtools
 
-${appium_windows_path}    ${robot_devtools}/nodejs/appium.cmd
-${appium_linux_path}      ${robot_devtools}/nodejs/bin/appium
+${appium_windows_path}    ${robot_devtools}/Appium.bat
+${appium_linux_path}      ${robot_devtools}/appium
 ${emulator}               ${robot_devtools}/Android/emulator/emulator.exe
 ${avd_manager}            ${robot_devtools}/Android/tools/bin/avdmanager
 ${adb}                    ${robot_devtools}/Android/platform-tools/adb
@@ -346,6 +346,7 @@ Start appium server
     Log    Run on: ${run_on}         console=True
     Log    Start appium server
 
+    Create File     path=${appium_log}
     IF    '${os}' == 'Windows'
         Start Process    ${appium_windows_path}    --allow-insecure\=adb_shell    stdout=${appium_log}
     ELSE IF     '${os}' == 'Linux'
@@ -360,6 +361,7 @@ Install AVD
         IF    ${avd.rc} == 1
             Log    The AVD is not exist    console=True
             Log    Install AVD    console=True
+            Create File    path=${avd_install_log} 
             Run Process     "${avd_manager}" create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}    stderr=${avd_install_log}     shell=True
             Sleep    5
             Run Process     "${avd_manager}" list avd    shell=True    stdout=${avd_install_log}    stderr=${avd_install_log}
@@ -369,6 +371,7 @@ Install AVD
 Start AVD
     Log    Start AVD    console=True
     IF    '${os}' == 'Windows'
+        Create File     path=${start_avd_log}
         Start Process    "${emulator}" -avd my_avd -accel auto -verbose    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
         Sleep    120
     END
@@ -402,8 +405,8 @@ Normalize the path
     Set Global Variable    ${os}
     Set Global Variable    ${robot_devtools}
 
-    ${appium_windows_path}=    Normalize Path    ${robot_devtools}/nodejs/appium.cmd
-    ${appium_linux_path}=      Normalize Path    ${robot_devtools}/nodejs/bin/appium
+    ${appium_windows_path}=    Normalize Path    ${robot_devtools}/Appium.bat
+    ${appium_linux_path}=      Normalize Path    ${robot_devtools}/appium
     ${emulator}=               Normalize Path    ${robot_devtools}/Android/emulator/emulator
     ${avd_manager}             Normalize Path    ${robot_devtools}/Android/tools/bin/avdmanager
     ${adb}=                    Normalize Path    ${robot_devtools}/Android/platform-tools/adb
