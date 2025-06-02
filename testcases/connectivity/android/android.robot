@@ -24,7 +24,6 @@ Suite Teardown    Close All Apps
 ${run_on}                      Local Machine
 ${selftest_path}=              ${CURDIR}/../../../helpers/Android/SelfTest.apk
 ${calculator_path}=            ${CURDIR}/../../../helpers/Android/calculator.apk
-${appium_server_command}=      cmd.exe /c "$env:APPIUM_HOME\appium" --relaxed-security
 ${remote_url}=                 http://127.0.0.1:4723
 ${platform_name}=              Android
 ${platform_version}=           14
@@ -58,12 +57,13 @@ ${project_8_locator}                xpath=xpath=//android.widget.TextView[@resou
 
 ${os}                OS
 ${robot_devtools}    robot_devtools
+${android_sdk}    android_sdk
 
 ${appium_windows_path}    ${robot_devtools}/nodejs/appium.cmd
 ${appium_linux_path}      ${robot_devtools}/nodejs/bin/appium
-${emulator}               ${robot_devtools}/Android/emulator/emulator.exe
-${avd_manager}            ${robot_devtools}/Android/tools/bin/avdmanager
-${adb}                    ${robot_devtools}/Android/platform-tools/adb
+${emulator}               ${robot_devtools}/Android/sdk/emulator/emulator.exe
+${avd_manager}            ${robot_devtools}/Android/sdk/latest/cmdline-tools/bin/avdmanager
+${adb}                    ${robot_devtools}/Android/sdk/platform-tools/adb
 
 ${appium_log}             ${CURDIR}/../../aiotestlogfiles/appium_log.txt
 ${avd_install_log}        ${CURDIR}/../../aiotestlogfiles/avd_install_log.txt
@@ -79,6 +79,7 @@ Verify successful opening of Android application
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 uiautomator2ServerLaunchTimeout=60000
 
     ${context}=    Get Contexts
 
@@ -94,6 +95,7 @@ Verify successful closure of Android Application
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 uiautomator2ServerLaunchTimeout=60000
 
     Close Application
     Run Keyword And Expect Error    No application is open    Get Appium SessionId
@@ -107,6 +109,7 @@ Verify successful closure of all Android applications
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 uiautomator2ServerLaunchTimeout=60000
 
     Log    Open Caculator application
     Open Application    remote_url=${remote_url}
@@ -115,6 +118,7 @@ Verify successful closure of all Android applications
     ...                 appPackage=${app_package_calculator}
     ...                 appActivity=${app_activity_calculator}
     ...                 app=${calculator_path}
+    ...                 uiautomator2ServerLaunchTimeout=60000
 
     Log    Close all application
     Close All Applications
@@ -130,6 +134,7 @@ Verify successful switching of Android application
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
     ...                 alias=selftest_app
+    ...                 uiautomator2ServerLaunchTimeout=60000
     Log    Get tml selftest session
     ${session_1st}=    Get Appium SessionId
 
@@ -141,6 +146,7 @@ Verify successful switching of Android application
     ...                 appActivity=${app_activity_calculator}
     ...                 app=${calculator_path}
     ...                 alias=calculator_app
+    ...                 uiautomator2ServerLaunchTimeout=60000
     ${session_2nd}=    Get Appium SessionId
 
     Log    Switch to tml self test app
@@ -162,6 +168,7 @@ Verify failed switching of Android application
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 uiautomator2ServerLaunchTimeout=60000
 
     Log    Get tml selftest session
     ${session_1st}=    Get Appium SessionId
@@ -174,6 +181,7 @@ Verify failed switching of Android application
     ...                 appPackage=${app_package_calculator}
     ...                 appActivity=${app_activity_calculator}
     ...                 app=${calculator_path}
+    ...                 uiautomator2ServerLaunchTimeout=60000
 
     ${session_2nd}=    Get Appium SessionId
 
@@ -190,6 +198,7 @@ Verify successful execution ADB Shell command
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 uiautomator2ServerLaunchTimeout=60000
 
     ${output}=    Execute Adb Shell    "ls"
     Should Not Be Empty    ${output}
@@ -203,6 +212,7 @@ Verify failed execution ADB Shell command
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 uiautomator2ServerLaunchTimeout=60000
 
     ${status}=    Run Keyword And Return Status    Execute Adb Shell    "help"
     Should Be Equal    ${status}    ${False}
@@ -216,6 +226,7 @@ Verify android interactions
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 uiautomator2ServerLaunchTimeout=60000
 
     Log    Click to check the check box 1 using id
     Click Element    ${checkbox1_id_locator}
@@ -245,6 +256,7 @@ Verify appium can input text
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 uiautomator2ServerLaunchTimeout=60000
 
     Log    Tap 'Register button'
     Wait Until Element Is Visible    ${register_button_locator}
@@ -277,6 +289,7 @@ Verify appium can hide keyboard
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 uiautomator2ServerLaunchTimeout=60000
 
     Log    Click on Project button
     Click Element    ${project_button_locator}
@@ -306,6 +319,7 @@ Verify appium can scroll to view element
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
+    ...                 uiautomator2ServerLaunchTimeout=60000
 
     Log    Click on Project button
     Click Element    ${project_button_locator}
@@ -331,25 +345,23 @@ Verify appium can scroll to view element
 
 *** Keywords ***
 Startup
+    Runner info
     Normalize the path
     Start appium server
     Install AVD
+    Start AVD
 
-    Log    Environtment: ${run_on}
-    IF    '${run_on}' != 'Github_Action'
-        Start AVD
-    END
+Runner info
+    Log    Environment               console=True
+    Log    OS: ${os}                 console=True
+    Log    Run on: ${run_on}         console=True
 
 Start appium server
-    Log    Environment    console=True
-    Log    OS: ${os}      console=True
-    Log    Run on: ${run_on}         console=True
-    Log    Start appium server
-
+    Log    Start appium server       console=True
     IF    '${os}' == 'Windows'
         Start Process    ${appium_windows_path}    --allow-insecure\=adb_shell    stdout=${appium_log}
     ELSE IF     '${os}' == 'Linux'
-        Start Process    ${appium_linux_path}    --allow-insecure\=adb_shell &     stdout=${appium_log}
+        Start Process    ${appium_linux_path}    --allow-insecure\=adb_shell     stdout=${appium_log}
     END
     Sleep    15
 
@@ -370,8 +382,10 @@ Start AVD
     Log    Start AVD    console=True
     IF    '${os}' == 'Windows'
         Start Process    "${emulator}" -avd my_avd -accel auto -verbose    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
-        Sleep    120
+    ELSE IF    '${os}' == 'Linux' and '${run_on}' == 'Gitlab'
+        Start Process    "${emulator}" -avd my_avd -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim &    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
     END
+    Sleep    300
 
 Close All Apps
     Close appium server
@@ -379,12 +393,20 @@ Close All Apps
 
 Close appium server
     Log To Console    Close appium server
-    Run Process    cmd.exe /c taskkill /F /IM node.exe    shell=True
+    IF    '${os}' == 'Windows'
+        Run Process    cmd.exe /c taskkill /F /IM node.exe    shell=True
+    ELSE IF     '${os}' == 'Linux'
+        Run Process    pkill -f appium    shell=True
+    END
     Sleep    5
 
 Close AVD
     Log To Console    Close AVD
-    Run Process    taskkill /F /IM qemu-system-x86_64.exe    shell=True
+    IF    '${os}' == 'Windows'
+        Run Process    taskkill /F /IM qemu-system-x86_64.exe    shell=True
+    ELSE IF     '${os}' == 'Linux'
+        Run Process    pkill -f qemu    shell=True
+    END
     Sleep    5
 
 Normalize the path
@@ -399,14 +421,28 @@ Normalize the path
     ${os}=                Evaluate                    platform.system()
     ${robot_devtools}=    Get Environment Variable    RobotDevtools
 
+    IF    '${run_on}' == 'Gitlab'
+        IF  '${os}' == 'Windows'
+            ${android_sdk}=    Get Environment Variable    AndroidSdkPath
+            ${android_sdk}=    Normalize Path    ${android_sdk}
+        ELSE IF     '${os}' == 'Linux'
+            ${android_sdk}=    Normalize Path    /home/gitlab-runner/Android/sdk
+        END
+    ELSE IF    '${run_on}' == 'Github_Action'
+        ${android_sdk}=    Normalize Path    ${robot_devtools}/Android/sdk
+    END
+
     Set Global Variable    ${os}
     Set Global Variable    ${robot_devtools}
+    Set Global Variable    ${android_sdk}
 
     ${appium_windows_path}=    Normalize Path    ${robot_devtools}/nodejs/appium.cmd
     ${appium_linux_path}=      Normalize Path    ${robot_devtools}/nodejs/bin/appium
-    ${emulator}=               Normalize Path    ${robot_devtools}/Android/emulator/emulator
-    ${avd_manager}             Normalize Path    ${robot_devtools}/Android/tools/bin/avdmanager
-    ${adb}=                    Normalize Path    ${robot_devtools}/Android/platform-tools/adb
+
+
+    ${emulator}=               Normalize Path    ${android_sdk}/emulator/emulator
+    ${avd_manager}             Normalize Path    ${android_sdk}/cmdline-tools/latest/bin/avdmanager
+    ${adb}=                    Normalize Path    ${android_sdk}/platform-tools/adb
 
     Set Global Variable    ${selftest_path}
     Set Global Variable    ${calculator_path}
