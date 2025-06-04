@@ -63,8 +63,8 @@ sPython         = CString.NormalizePath(sys.executable)
 sPythonVersion  = sys.version
 
 if sPlatformSystem == "Windows":
-    # temporarily disabled the test due to an issue with the Android Virtual Device
-    sys.exit()
+    # nothing specific to do
+    pass
 elif sPlatformSystem == "Linux":
     # nothing specific to do
     pass
