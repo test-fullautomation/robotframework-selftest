@@ -345,8 +345,8 @@ Verify appium can scroll to view element
 
 *** Keywords ***
 Startup
-    Runner info
     Normalize the path
+    Runner info
     Start appium server
     Install AVD
     Start AVD
@@ -421,6 +421,9 @@ Normalize the path
     ${os}=                Evaluate                    platform.system()
     ${robot_devtools}=    Get Environment Variable    RobotDevtools
 
+    Set Global Variable    ${os}
+    Set Global Variable    ${robot_devtools}
+
     IF    '${run_on}' == 'Gitlab'
         IF  '${os}' == 'Windows'
             ${android_sdk}=    Get Environment Variable    AndroidSdkPath
@@ -428,13 +431,10 @@ Normalize the path
         ELSE IF     '${os}' == 'Linux'
             ${android_sdk}=    Normalize Path    /home/gitlab-runner/Android/sdk
         END
+        Set Global Variable    ${android_sdk}
     ELSE IF    '${run_on}' == 'Github_Action'
         ${android_sdk}=    Normalize Path    ${robot_devtools}/Android/sdk
     END
-
-    Set Global Variable    ${os}
-    Set Global Variable    ${robot_devtools}
-    Set Global Variable    ${android_sdk}
 
     ${appium_windows_path}=    Normalize Path    ${robot_devtools}/nodejs/appium.cmd
     ${appium_linux_path}=      Normalize Path    ${robot_devtools}/nodejs/bin/appium
