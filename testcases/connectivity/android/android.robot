@@ -443,4 +443,3 @@ Open Android Application
     ...                 app=${app}
     ...                 alias=${alias}
     ...                 uiautomator2ServerLaunchTimeout=60000
-    ...                 newCommandTimeout=300
