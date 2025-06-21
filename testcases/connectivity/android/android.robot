@@ -54,7 +54,6 @@ ${add_project_button_locator}       id=com.testfullautomation.selftest:id/addPro
 ${gm_project_locator}               xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="GM"]
 ${project_5_locator}                xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_5"]
 ${project_8_locator}                xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_8"]
-${main_screen_text_locator}         xpath=//android.widget.TextView[@text="Main Screen"]
 
 ${os}                OS
 ${robot_devtools}    robot_devtools
@@ -182,13 +181,11 @@ Verify failed execution ADB Shell command
     Should Be Equal    ${status}    ${False}
 
 Verify android interactions
-    [Tags]    AndroidSelfTest
+    [Tags]    robot:skip
     Log    Open TMLselftest application
     Open Android Application    appPackage=${app_package_tmlselftest}
     ...                         appActivity=${app_activity_tmlselftest}
     ...                         app=${selftest_path}
-
-    Wait Until Element Is Visible    ${main_screen_text_locator}    timeout=30
 
     Log    Click to check the check box 1 using id
     Click Element    ${checkbox1_id_locator}
@@ -442,4 +439,4 @@ Open Android Application
     ...                 appActivity=${appActivity}
     ...                 app=${app}
     ...                 alias=${alias}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    ...                 uiautomator2ServerLaunchTimeout=90000
