@@ -432,8 +432,10 @@ Close AVD
     Sleep    5
 
 Click Wait button if it exist
-    Run Keyword And Ignore Error    Click Element    ${wait_button}
-    Sleep    10
+    FOR    ${i}    IN RANGE    0    5
+        Run Keyword And Ignore Error    Click Element    ${wait_button}
+        Sleep    5
+    END
 
 Normalize the path
     ${selftest_path}=          Normalize Path    ${selftest_path}
