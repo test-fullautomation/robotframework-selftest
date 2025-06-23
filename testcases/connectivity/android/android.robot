@@ -20,6 +20,7 @@ Library    String
 Library    OperatingSystem
 Suite Setup    Startup
 Suite Teardown    Close All Apps
+Test Setup    Click Wait button if it exist
 *** Variables ***
 ${run_on}                      Local Machine
 ${selftest_path}=              ${CURDIR}/../../../helpers/Android/SelfTest.apk
@@ -54,6 +55,7 @@ ${add_project_button_locator}       id=com.testfullautomation.selftest:id/addPro
 ${gm_project_locator}               xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="GM"]
 ${project_5_locator}                xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_5"]
 ${project_8_locator}                xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_8"]
+${wait_button}                      xpath=//android.widget.Button[@resource-id="android:id/aerr_wait"]
 
 ${os}                OS
 ${robot_devtools}    robot_devtools
@@ -181,7 +183,7 @@ Verify failed execution ADB Shell command
     Should Be Equal    ${status}    ${False}
 
 Verify android interactions
-    [Tags]    robot:skip
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Android Application    appPackage=${app_package_tmlselftest}
     ...                         appActivity=${app_activity_tmlselftest}
@@ -430,6 +432,10 @@ Create projects in project list
     END
     RETURN    ${list_projects}
 
+Click Wait button if it exist
+    Run Keyword And Ignore Error    Click Element    ${wait_button}
+    Sleep    10
+
 Open Android Application
     [Arguments]    ${appPackage}    ${appActivity}    ${app}    ${alias}=${EMPTY}
     Open Application    remote_url=${remote_url}
@@ -440,3 +446,4 @@ Open Android Application
     ...                 app=${app}
     ...                 alias=${alias}
     ...                 uiautomator2ServerLaunchTimeout=90000
+    ...                 adbExecTimeout=60000
