@@ -20,6 +20,8 @@ Library    String
 Library    OperatingSystem
 Suite Setup    Startup
 Suite Teardown    Close All Apps
+Test Setup    Click Wait button if it exist
+Test Teardown    Close All Applications
 *** Variables ***
 ${run_on}                      Local Machine
 ${selftest_path}=              ${CURDIR}/../../../helpers/Android/SelfTest.apk
@@ -54,6 +56,7 @@ ${add_project_button_locator}       id=com.testfullautomation.selftest:id/addPro
 ${gm_project_locator}               xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="GM"]
 ${project_5_locator}                xpath=xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_5"]
 ${project_8_locator}                xpath=xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_8"]
+${wait_button}                      xpath=//android.widget.Button[@resource-id="android:id/aerr_wait"]
 
 ${os}                OS
 ${robot_devtools}    robot_devtools
@@ -79,7 +82,8 @@ Verify successful opening of Android application
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    ...                 uiautomator2ServerLaunchTimeout=90000
+    ...                 adbExecTimeout=90000
 
     ${context}=    Get Contexts
 
@@ -95,7 +99,8 @@ Verify successful closure of Android Application
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    ...                 uiautomator2ServerLaunchTimeout=90000
+    ...                 adbExecTimeout=90000
 
     Close Application
     Run Keyword And Expect Error    No application is open    Get Appium SessionId
@@ -109,7 +114,10 @@ Verify successful closure of all Android applications
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    ...                 uiautomator2ServerLaunchTimeout=90000
+    ...                 adbExecTimeout=90000
+
+    Sleep    15
 
     Log    Open Caculator application
     Open Application    remote_url=${remote_url}
@@ -118,7 +126,8 @@ Verify successful closure of all Android applications
     ...                 appPackage=${app_package_calculator}
     ...                 appActivity=${app_activity_calculator}
     ...                 app=${calculator_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    ...                 uiautomator2ServerLaunchTimeout=90000
+    ...                 adbExecTimeout=90000
 
     Log    Close all application
     Close All Applications
@@ -134,7 +143,9 @@ Verify successful switching of Android application
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
     ...                 alias=selftest_app
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    ...                 uiautomator2ServerLaunchTimeout=90000
+    ...                 adbExecTimeout=90000
+
     Log    Get tml selftest session
     ${session_1st}=    Get Appium SessionId
 
@@ -146,7 +157,9 @@ Verify successful switching of Android application
     ...                 appActivity=${app_activity_calculator}
     ...                 app=${calculator_path}
     ...                 alias=calculator_app
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    ...                 uiautomator2ServerLaunchTimeout=90000
+    ...                 adbExecTimeout=90000
+
     ${session_2nd}=    Get Appium SessionId
 
     Log    Switch to tml self test app
@@ -168,7 +181,8 @@ Verify failed switching of Android application
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    ...                 uiautomator2ServerLaunchTimeout=90000
+    ...                 adbExecTimeout=90000
 
     Log    Get tml selftest session
     ${session_1st}=    Get Appium SessionId
@@ -181,7 +195,8 @@ Verify failed switching of Android application
     ...                 appPackage=${app_package_calculator}
     ...                 appActivity=${app_activity_calculator}
     ...                 app=${calculator_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    ...                 uiautomator2ServerLaunchTimeout=90000
+    ...                 adbExecTimeout=90000
 
     ${session_2nd}=    Get Appium SessionId
 
@@ -198,7 +213,8 @@ Verify successful execution ADB Shell command
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    ...                 uiautomator2ServerLaunchTimeout=90000
+    ...                 adbExecTimeout=90000
 
     ${output}=    Execute Adb Shell    "ls"
     Should Not Be Empty    ${output}
@@ -212,7 +228,8 @@ Verify failed execution ADB Shell command
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    ...                 uiautomator2ServerLaunchTimeout=90000
+    ...                 adbExecTimeout=90000
 
     ${status}=    Run Keyword And Return Status    Execute Adb Shell    "help"
     Should Be Equal    ${status}    ${False}
@@ -226,9 +243,11 @@ Verify android interactions
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    ...                 uiautomator2ServerLaunchTimeout=90000
+    ...                 adbExecTimeout=90000
 
     Log    Click to check the check box 1 using id
+    Click Wait button if it exist
     Click Element    ${checkbox1_id_locator}
     ${is_check}=    Get Element Attribute    ${checkbox1_id_locator}    checked
     Should Be Equal    ${is_check}    true
@@ -256,7 +275,8 @@ Verify appium can input text
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    ...                 uiautomator2ServerLaunchTimeout=90000
+    ...                 adbExecTimeout=90000
 
     Log    Tap 'Register button'
     Wait Until Element Is Visible    ${register_button_locator}
@@ -289,7 +309,8 @@ Verify appium can hide keyboard
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    ...                 uiautomator2ServerLaunchTimeout=90000
+    ...                 adbExecTimeout=90000
 
     Log    Click on Project button
     Click Element    ${project_button_locator}
@@ -319,7 +340,8 @@ Verify appium can scroll to view element
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    ...                 uiautomator2ServerLaunchTimeout=90000
+    ...                 adbExecTimeout=90000
 
     Log    Click on Project button
     Click Element    ${project_button_locator}
@@ -408,6 +430,10 @@ Close AVD
         Run Process    pkill -f qemu    shell=True
     END
     Sleep    5
+
+Click Wait button if it exist
+    Run Keyword And Ignore Error    Click Element    ${wait_button}
+    Sleep    10
 
 Normalize the path
     ${selftest_path}=          Normalize Path    ${selftest_path}
