@@ -58,6 +58,9 @@ ${project_5_locator}                xpath=xpath=//android.widget.TextView[@resou
 ${project_8_locator}                xpath=xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_8"]
 ${wait_button}                      xpath=//android.widget.Button[@resource-id="android:id/aerr_wait"]
 
+${uiautomator2_timeout}             90000
+${adbExecTimeout}                   90000
+
 ${os}                OS
 ${robot_devtools}    robot_devtools
 ${android_sdk}    android_sdk
@@ -82,8 +85,8 @@ Verify successful opening of Android application
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=90000
-    ...                 adbExecTimeout=90000
+    ...                 uiautomator2ServerLaunchTimeout=${uiautomator2_timeout}
+    ...                 adbExecTimeout=${adb_exec_timeout}
 
     ${context}=    Get Contexts
 
@@ -99,8 +102,8 @@ Verify successful closure of Android Application
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=90000
-    ...                 adbExecTimeout=90000
+    ...                 uiautomator2ServerLaunchTimeout=${uiautomator2_timeout}
+    ...                 adbExecTimeout=${adb_exec_timeout}
 
     Close Application
     Run Keyword And Expect Error    No application is open    Get Appium SessionId
@@ -114,8 +117,8 @@ Verify successful closure of all Android applications
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=90000
-    ...                 adbExecTimeout=90000
+    ...                 uiautomator2ServerLaunchTimeout=${uiautomator2_timeout}
+    ...                 adbExecTimeout=${adb_exec_timeout}
 
     Sleep    15
 
@@ -126,8 +129,8 @@ Verify successful closure of all Android applications
     ...                 appPackage=${app_package_calculator}
     ...                 appActivity=${app_activity_calculator}
     ...                 app=${calculator_path}
-    ...                 uiautomator2ServerLaunchTimeout=90000
-    ...                 adbExecTimeout=90000
+    ...                 uiautomator2ServerLaunchTimeout=${uiautomator2_timeout}
+    ...                 adbExecTimeout=${adb_exec_timeout}
 
     Log    Close all application
     Close All Applications
@@ -143,8 +146,8 @@ Verify successful switching of Android application
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
     ...                 alias=selftest_app
-    ...                 uiautomator2ServerLaunchTimeout=90000
-    ...                 adbExecTimeout=90000
+    ...                 uiautomator2ServerLaunchTimeout=${uiautomator2_timeout}
+    ...                 adbExecTimeout=${adb_exec_timeout}
 
     Log    Get tml selftest session
     ${session_1st}=    Get Appium SessionId
@@ -157,8 +160,8 @@ Verify successful switching of Android application
     ...                 appActivity=${app_activity_calculator}
     ...                 app=${calculator_path}
     ...                 alias=calculator_app
-    ...                 uiautomator2ServerLaunchTimeout=90000
-    ...                 adbExecTimeout=90000
+    ...                 uiautomator2ServerLaunchTimeout=${uiautomator2_timeout}
+    ...                 adbExecTimeout=${adb_exec_timeout}
 
     ${session_2nd}=    Get Appium SessionId
 
@@ -181,8 +184,8 @@ Verify failed switching of Android application
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=90000
-    ...                 adbExecTimeout=90000
+    ...                 uiautomator2ServerLaunchTimeout=${uiautomator2_timeout}
+    ...                 adbExecTimeout=${adb_exec_timeout}
 
     Log    Get tml selftest session
     ${session_1st}=    Get Appium SessionId
@@ -195,8 +198,8 @@ Verify failed switching of Android application
     ...                 appPackage=${app_package_calculator}
     ...                 appActivity=${app_activity_calculator}
     ...                 app=${calculator_path}
-    ...                 uiautomator2ServerLaunchTimeout=90000
-    ...                 adbExecTimeout=90000
+    ...                 uiautomator2ServerLaunchTimeout=${uiautomator2_timeout}
+    ...                 adbExecTimeout=${adb_exec_timeout}
 
     ${session_2nd}=    Get Appium SessionId
 
@@ -213,8 +216,8 @@ Verify successful execution ADB Shell command
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=90000
-    ...                 adbExecTimeout=90000
+    ...                 uiautomator2ServerLaunchTimeout=${uiautomator2_timeout}
+    ...                 adbExecTimeout=${adb_exec_timeout}
 
     ${output}=    Execute Adb Shell    "ls"
     Should Not Be Empty    ${output}
@@ -228,8 +231,8 @@ Verify failed execution ADB Shell command
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=90000
-    ...                 adbExecTimeout=90000
+    ...                 uiautomator2ServerLaunchTimeout=${uiautomator2_timeout}
+    ...                 adbExecTimeout=${adb_exec_timeout}
 
     ${status}=    Run Keyword And Return Status    Execute Adb Shell    "help"
     Should Be Equal    ${status}    ${False}
@@ -243,8 +246,8 @@ Verify android interactions
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=90000
-    ...                 adbExecTimeout=90000
+    ...                 uiautomator2ServerLaunchTimeout=${uiautomator2_timeout}
+    ...                 adbExecTimeout=${adb_exec_timeout}
 
     Log    Click to check the check box 1 using id
     Click Wait button if it exists
@@ -275,8 +278,8 @@ Verify appium can input text
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=90000
-    ...                 adbExecTimeout=90000
+    ...                 uiautomator2ServerLaunchTimeout=${uiautomator2_timeout}
+    ...                 adbExecTimeout=${adb_exec_timeout}
 
     Log    Tap 'Register button'
     Wait Until Element Is Visible    ${register_button_locator}
@@ -309,8 +312,8 @@ Verify appium can hide keyboard
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=90000
-    ...                 adbExecTimeout=90000
+    ...                 uiautomator2ServerLaunchTimeout=${uiautomator2_timeout}
+    ...                 adbExecTimeout=${adb_exec_timeout}
 
     Log    Click on Project button
     Click Element    ${project_button_locator}
@@ -340,8 +343,8 @@ Verify appium can scroll to view element
     ...                 appPackage=${app_package_tmlselftest}
     ...                 appActivity=${app_activity_tmlselftest}
     ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=90000
-    ...                 adbExecTimeout=90000
+    ...                 uiautomator2ServerLaunchTimeout=${uiautomator2_timeout}
+    ...                 adbExecTimeout=${adb_exec_timeout}
 
     Log    Click on Project button
     Click Element    ${project_button_locator}
