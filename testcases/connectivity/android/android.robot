@@ -19,8 +19,8 @@ Library    Process
 Library    String
 Library    OperatingSystem
 Suite Setup    Startup
-Suite Teardown    Close All Apps
-Test Setup    Click Wait button if it exist
+Suite Teardown    Shutdown All Test Services
+Test Setup    Click Wait button if it exists
 Test Teardown    Close All Applications
 *** Variables ***
 ${run_on}                      Local Machine
@@ -247,7 +247,7 @@ Verify android interactions
     ...                 adbExecTimeout=90000
 
     Log    Click to check the check box 1 using id
-    Click Wait button if it exist
+    Click Wait button if it exists
     Click Element    ${checkbox1_id_locator}
     ${is_check}=    Get Element Attribute    ${checkbox1_id_locator}    checked
     Should Be Equal    ${is_check}    true
@@ -409,12 +409,12 @@ Start AVD
     END
     Sleep    300
 
-Close All Apps
-    Close appium server
-    Close AVD
+Shutdown All Test Services
+    Shutdown appium server
+    Shutdown AVD
 
-Close appium server
-    Log To Console    Close appium server
+Shutdown appium server
+    Log To Console    Shutdown appium server
     IF    '${os}' == 'Windows'
         Run Process    cmd.exe /c taskkill /F /IM node.exe    shell=True
     ELSE IF     '${os}' == 'Linux'
@@ -422,8 +422,8 @@ Close appium server
     END
     Sleep    5
 
-Close AVD
-    Log To Console    Close AVD
+Shutdown AVD
+    Log To Console    Shutdown AVD
     IF    '${os}' == 'Windows'
         Run Process    taskkill /F /IM qemu-system-x86_64.exe    shell=True
     ELSE IF     '${os}' == 'Linux'
@@ -431,7 +431,7 @@ Close AVD
     END
     Sleep    5
 
-Click Wait button if it exist
+Click Wait button if it exists
     FOR    ${i}    IN RANGE    0    5
         Run Keyword And Ignore Error    Click Element    ${wait_button}
         Sleep    5
