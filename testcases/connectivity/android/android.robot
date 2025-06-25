@@ -465,7 +465,7 @@ Normalize the path
     END
 
     ${appium_windows_path}=    Normalize Path    ${robot_devtools}/nodejs/appium.cmd
-    ${appium_linux_path}=      Normalize Path    ${robot_devtools}/nodejs/bin/appium
+    ${appium_linux_path}=      Normalize Path    ${robot_devtools}/appium
 
 
     ${emulator}=               Normalize Path    ${android_sdk}/emulator/emulator
