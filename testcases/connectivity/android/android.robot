@@ -54,8 +54,8 @@ ${project_button_locator}           id=com.testfullautomation.selftest:id/btnPro
 ${project_text_locator}             id=com.testfullautomation.selftest:id/inputProjectName
 ${add_project_button_locator}       id=com.testfullautomation.selftest:id/addProjectBtn
 ${gm_project_locator}               xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="GM"]
-${project_5_locator}                xpath=xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_5"]
-${project_8_locator}                xpath=xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_8"]
+${project_5_locator}                xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_5"]
+${project_8_locator}                xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_8"]
 ${wait_button}                      xpath=//android.widget.Button[@resource-id="android:id/aerr_wait"]
 
 ${uiautomator2_timeout}             90000
