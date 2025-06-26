@@ -108,7 +108,7 @@ Verify successful closure of all Android applications
 
     Sleep    15
 
-    Log    Open Caculator application
+    Log    Open Calculator application
     Open Android Application    ${app_package_calculator}
     ...                         ${app_activity_calculator}
     ...                         ${calculator_path}
@@ -378,7 +378,7 @@ Open Android Application
     ...                 automationName=${automation_name}
     ...                 appPackage=${appPackage}
     ...                 appActivity=${appActivity}
-    ...                 app=${selftest_path}
+    ...                 app=${app}
     ...                 alias=${alias}
     ...                 uiautomator2ServerLaunchTimeout=${uiautomator2_timeout}
     ...                 adbExecTimeout=${adbExecTimeout}
