@@ -19,7 +19,9 @@ Library    Process
 Library    String
 Library    OperatingSystem
 Suite Setup    Startup
-Suite Teardown    Close All Apps
+Suite Teardown    Shutdown All Test Services
+Test Setup    Click Wait button if it exists
+Test Teardown    Close All Applications
 *** Variables ***
 ${run_on}                      Local Machine
 ${selftest_path}=              ${CURDIR}/../../../helpers/Android/SelfTest.apk
@@ -52,8 +54,12 @@ ${project_button_locator}           id=com.testfullautomation.selftest:id/btnPro
 ${project_text_locator}             id=com.testfullautomation.selftest:id/inputProjectName
 ${add_project_button_locator}       id=com.testfullautomation.selftest:id/addProjectBtn
 ${gm_project_locator}               xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="GM"]
-${project_5_locator}                xpath=xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_5"]
-${project_8_locator}                xpath=xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_8"]
+${project_5_locator}                xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_5"]
+${project_8_locator}                xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_8"]
+${wait_button}                      xpath=//android.widget.Button[@resource-id="android:id/aerr_wait"]
+
+${uiautomator2_timeout}             90000
+${adbExecTimeout}                   90000
 
 ${os}                OS
 ${robot_devtools}    robot_devtools
@@ -73,13 +79,10 @@ ${start_avd_log}          ${CURDIR}/../../aiotestlogfiles/start_avd_log.txt
 Verify successful opening of Android application
     [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
-    Open Application    remote_url=${remote_url}
-    ...                 platformName=${platform_name}
-    ...                 automationName=${automation_name}
-    ...                 appPackage=${app_package_tmlselftest}
-    ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    Open Android Application    ${app_package_tmlselftest}
+    ...                         ${app_activity_tmlselftest}
+    ...                         ${selftest_path}
+
 
     ${context}=    Get Contexts
 
@@ -89,13 +92,9 @@ Verify successful opening of Android application
 Verify successful closure of Android Application
     [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
-    Open Application    remote_url=${remote_url}
-    ...                 platformName=${platform_name}
-    ...                 automationName=${automation_name}
-    ...                 appPackage=${app_package_tmlselftest}
-    ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    Open Android Application    ${app_package_tmlselftest}
+    ...                         ${app_activity_tmlselftest}
+    ...                         ${selftest_path}
 
     Close Application
     Run Keyword And Expect Error    No application is open    Get Appium SessionId
@@ -103,22 +102,16 @@ Verify successful closure of Android Application
 Verify successful closure of all Android applications
     [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
-    Open Application    remote_url=${remote_url}
-    ...                 platformName=${platform_name}
-    ...                 automationName=${automation_name}
-    ...                 appPackage=${app_package_tmlselftest}
-    ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    Open Android Application    ${app_package_tmlselftest}
+    ...                         ${app_activity_tmlselftest}
+    ...                         ${selftest_path}
 
-    Log    Open Caculator application
-    Open Application    remote_url=${remote_url}
-    ...                 platformName=${platform_name}
-    ...                 automationName=${automation_name}
-    ...                 appPackage=${app_package_calculator}
-    ...                 appActivity=${app_activity_calculator}
-    ...                 app=${calculator_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    Sleep    15
+
+    Log    Open Calculator application
+    Open Android Application    ${app_package_calculator}
+    ...                         ${app_activity_calculator}
+    ...                         ${calculator_path}
 
     Log    Close all application
     Close All Applications
@@ -127,26 +120,20 @@ Verify successful closure of all Android applications
 Verify successful switching of Android application
     [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
-    Open Application    remote_url=${remote_url}
-    ...                 platformName=${platform_name}
-    ...                 automationName=${automation_name}
-    ...                 appPackage=${app_package_tmlselftest}
-    ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${selftest_path}
-    ...                 alias=selftest_app
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    Open Android Application    ${app_package_tmlselftest}
+    ...                         ${app_activity_tmlselftest}
+    ...                         ${selftest_path}
+    ...                         selftest_app
+
     Log    Get tml selftest session
     ${session_1st}=    Get Appium SessionId
 
     Log    Open Caculator application
-    Open Application    remote_url=${remote_url}
-    ...                 platformName=${platform_name}
-    ...                 automationName=${automation_name}
-    ...                 appPackage=${app_package_calculator}
-    ...                 appActivity=${app_activity_calculator}
-    ...                 app=${calculator_path}
-    ...                 alias=calculator_app
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    Open Android Application    ${app_package_calculator}
+    ...                         ${app_activity_calculator}
+    ...                         ${calculator_path}
+    ...                         calculator_app
+
     ${session_2nd}=    Get Appium SessionId
 
     Log    Switch to tml self test app
@@ -162,26 +149,18 @@ Verify successful switching of Android application
 Verify failed switching of Android application
     [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
-    Open Application    remote_url=${remote_url}
-    ...                 platformName=${platform_name}
-    ...                 automationName=${automation_name}
-    ...                 appPackage=${app_package_tmlselftest}
-    ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    Open Android Application    ${app_package_tmlselftest}
+    ...                         ${app_activity_tmlselftest}
+    ...                         ${selftest_path}
 
     Log    Get tml selftest session
     ${session_1st}=    Get Appium SessionId
 
     Log    Open Caculator application
-    Open Application    remote_url=${remote_url}
-    ...                 alias=calculator_app
-    ...                 platformName=${platform_name}
-    ...                 automationName=${automation_name}
-    ...                 appPackage=${app_package_calculator}
-    ...                 appActivity=${app_activity_calculator}
-    ...                 app=${calculator_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    Open Android Application    ${app_package_calculator}
+    ...                         ${app_activity_calculator}
+    ...                         ${calculator_path}
+    ...                         calculator_app
 
     ${session_2nd}=    Get Appium SessionId
 
@@ -192,13 +171,9 @@ Verify failed switching of Android application
 Verify successful execution ADB Shell command
     [Tags]    robot:skip
     Log    Open TMLselftest application
-    Open Application    remote_url=${remote_url}
-    ...                 platformName=${platform_name}
-    ...                 automationName=${automation_name}
-    ...                 appPackage=${app_package_tmlselftest}
-    ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    Open Android Application    ${app_package_tmlselftest}
+    ...                         ${app_activity_tmlselftest}
+    ...                         ${selftest_path}
 
     ${output}=    Execute Adb Shell    "ls"
     Should Not Be Empty    ${output}
@@ -206,13 +181,9 @@ Verify successful execution ADB Shell command
 Verify failed execution ADB Shell command
     [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
-    Open Application    remote_url=${remote_url}
-    ...                 platformName=${platform_name}
-    ...                 automationName=${automation_name}
-    ...                 appPackage=${app_package_tmlselftest}
-    ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    Open Android Application    ${app_package_tmlselftest}
+    ...                         ${app_activity_tmlselftest}
+    ...                         ${selftest_path}
 
     ${status}=    Run Keyword And Return Status    Execute Adb Shell    "help"
     Should Be Equal    ${status}    ${False}
@@ -220,15 +191,12 @@ Verify failed execution ADB Shell command
 Verify android interactions
     [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
-    Open Application    remote_url=${remote_url}
-    ...                 platformName=${platform_name}
-    ...                 automationName=${automation_name}
-    ...                 appPackage=${app_package_tmlselftest}
-    ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    Open Android Application    ${app_package_tmlselftest}
+    ...                         ${app_activity_tmlselftest}
+    ...                         ${selftest_path}
 
     Log    Click to check the check box 1 using id
+    Click Wait button if it exists
     Click Element    ${checkbox1_id_locator}
     ${is_check}=    Get Element Attribute    ${checkbox1_id_locator}    checked
     Should Be Equal    ${is_check}    true
@@ -250,13 +218,9 @@ Verify android interactions
 Verify appium can input text
     [Tags]    robot:skip
     Log    Open TMLselftest application
-    Open Application    remote_url=${remote_url}
-    ...                 platformName=${platform_name}
-    ...                 automationName=${automation_name}
-    ...                 appPackage=${app_package_tmlselftest}
-    ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    Open Android Application    ${app_package_tmlselftest}
+    ...                         ${app_activity_tmlselftest}
+    ...                         ${selftest_path}
 
     Log    Tap 'Register button'
     Wait Until Element Is Visible    ${register_button_locator}
@@ -283,13 +247,9 @@ Verify appium can input text
 Verify appium can hide keyboard
     [Tags]    robot:skip
     Log    Open TMLselftest application
-    Open Application    remote_url=${remote_url}
-    ...                 platformName=${platform_name}
-    ...                 automationName=${automation_name}
-    ...                 appPackage=${app_package_tmlselftest}
-    ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    Open Android Application    ${app_package_tmlselftest}
+    ...                         ${app_activity_tmlselftest}
+    ...                         ${selftest_path}
 
     Log    Click on Project button
     Click Element    ${project_button_locator}
@@ -313,13 +273,9 @@ Verify appium can hide keyboard
 Verify appium can scroll to view element
     [Tags]    robot:skip
     Log    Open TMLselftest application
-    Open Application    remote_url=${remote_url}
-    ...                 platformName=${platform_name}
-    ...                 automationName=${automation_name}
-    ...                 appPackage=${app_package_tmlselftest}
-    ...                 appActivity=${app_activity_tmlselftest}
-    ...                 app=${selftest_path}
-    ...                 uiautomator2ServerLaunchTimeout=60000
+    Open Android Application    ${app_package_tmlselftest}
+    ...                         ${app_activity_tmlselftest}
+    ...                         ${selftest_path}
 
     Log    Click on Project button
     Click Element    ${project_button_locator}
@@ -387,12 +343,12 @@ Start AVD
     END
     Sleep    300
 
-Close All Apps
-    Close appium server
-    Close AVD
+Shutdown All Test Services
+    Shutdown appium server
+    Shutdown AVD
 
-Close appium server
-    Log To Console    Close appium server
+Shutdown appium server
+    Log To Console    Shutdown appium server
     IF    '${os}' == 'Windows'
         Run Process    cmd.exe /c taskkill /F /IM node.exe    shell=True
     ELSE IF     '${os}' == 'Linux'
@@ -400,14 +356,32 @@ Close appium server
     END
     Sleep    5
 
-Close AVD
-    Log To Console    Close AVD
+Shutdown AVD
+    Log To Console    Shutdown AVD
     IF    '${os}' == 'Windows'
         Run Process    taskkill /F /IM qemu-system-x86_64.exe    shell=True
     ELSE IF     '${os}' == 'Linux'
         Run Process    pkill -f qemu    shell=True
     END
     Sleep    5
+
+Click Wait button if it exists
+    FOR    ${i}    IN RANGE    0    5
+        Run Keyword And Ignore Error    Click Element    ${wait_button}
+        Sleep    5
+    END
+
+Open Android Application
+    [Arguments]    ${appPackage}    ${appActivity}    ${app}    ${alias}=None
+    Open Application    remote_url=${remote_url}
+    ...                 platformName=${platform_name}
+    ...                 automationName=${automation_name}
+    ...                 appPackage=${appPackage}
+    ...                 appActivity=${appActivity}
+    ...                 app=${app}
+    ...                 alias=${alias}
+    ...                 uiautomator2ServerLaunchTimeout=${uiautomator2_timeout}
+    ...                 adbExecTimeout=${adbExecTimeout}
 
 Normalize the path
     ${selftest_path}=          Normalize Path    ${selftest_path}
@@ -432,12 +406,12 @@ Normalize the path
             ${android_sdk}=    Normalize Path    /home/gitlab-runner/Android/sdk
         END
         Set Global Variable    ${android_sdk}
-    ELSE IF    '${run_on}' == 'Github_Action'
+    ELSE
         ${android_sdk}=    Normalize Path    ${robot_devtools}/Android/sdk
     END
 
-    ${appium_windows_path}=    Normalize Path    ${robot_devtools}/nodejs/appium.cmd
-    ${appium_linux_path}=      Normalize Path    ${robot_devtools}/nodejs/bin/appium
+    ${appium_windows_path}=    Normalize Path    ${robot_devtools}/Appium.bat
+    ${appium_linux_path}=      Normalize Path    ${robot_devtools}/appium
 
 
     ${emulator}=               Normalize Path    ${android_sdk}/emulator/emulator
@@ -462,7 +436,7 @@ Convert bounds to x and y
     ${xy_values} =    Split String    ${x_y}    ,
     ${x} =    Convert To Integer    ${xy_values}[0]
     ${y} =    Convert To Integer    ${xy_values}[1]
-    [Return]    ${x}    ${y}
+    RETURN    ${x}    ${y}
 
 Create projects in project list
     [Arguments]    ${times}
@@ -481,4 +455,4 @@ Create projects in project list
         Click Element    ${add_project_button_locator}
         Wait Until Page Does Not Contain Element    ${add_project_button_locator}
     END
-    [Return]   ${list_projects}
+    RETURN   ${list_projects}
