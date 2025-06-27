@@ -67,9 +67,9 @@ ${android_sdk}    android_sdk
 
 ${appium_windows_path}    ${robot_devtools}/nodejs/appium.cmd
 ${appium_linux_path}      ${robot_devtools}/nodejs/bin/appium
-${emulator}               ${robot_devtools}/Android/sdk/emulator/emulator.exe
-${avd_manager}            ${robot_devtools}/Android/sdk/latest/cmdline-tools/bin/avdmanager
-${adb}                    ${robot_devtools}/Android/sdk/platform-tools/adb
+${emulator}               ${robot_devtools}/Android/emulator/emulator.exe
+${avd_manager}            ${robot_devtools}/Android/latest/cmdline-tools/bin/avdmanager
+${adb}                    ${robot_devtools}/Android/platform-tools/adb
 
 ${appium_log}             ${CURDIR}/../../aiotestlogfiles/appium_log.txt
 ${avd_install_log}        ${CURDIR}/../../aiotestlogfiles/avd_install_log.txt
@@ -403,11 +403,11 @@ Normalize the path
             ${android_sdk}=    Get Environment Variable    AndroidSdkPath
             ${android_sdk}=    Normalize Path    ${android_sdk}
         ELSE IF     '${os}' == 'Linux'
-            ${android_sdk}=    Normalize Path    /home/gitlab-runner/Android/sdk
+            ${android_sdk}=    Normalize Path    /home/gitlab-runner/Android
         END
         Set Global Variable    ${android_sdk}
     ELSE
-        ${android_sdk}=    Normalize Path    ${robot_devtools}/Android/sdk
+        ${android_sdk}=    Normalize Path    ${robot_devtools}/Android
     END
 
     ${appium_windows_path}=    Normalize Path    ${robot_devtools}/Appium.bat
