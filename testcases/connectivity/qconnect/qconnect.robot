@@ -28,7 +28,7 @@ Serial Command
     [Arguments]  ${input}
     ${string}=  set variable  echo ~~START~~;${input.rstrip(';')};echo ~~END$?~~
     sleep   1s
-    [Return]  ${string}
+    RETURN  ${string}
 
 Close Connection
     disconnect      ${TEST_CONNECTION}
@@ -47,7 +47,7 @@ Get COM Status
     ${status}=  Set Variable If     '${match}' == 'PASS'    Unavailable   Unknown
 #    ${status}=  Set Variable If     ${msg}    Available   ${status}
     Run keyword if  '${status}' == 'Available'    disconnect  check_status
-    [Return]    ${status}
+    RETURN    ${status}
 
 *** Test Cases ***
 Serial Base Test
