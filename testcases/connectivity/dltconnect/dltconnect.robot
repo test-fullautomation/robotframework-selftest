@@ -80,7 +80,7 @@ Command injection with DLTSelfTestApp
 
    # log to console     \n${res}[0]
 
-*** Keyword ***
+*** Keywords ***
 Close Connection
    disconnect  ${CONNECTION_NAME}
    Log to console    \nDLT connection has been closed!
