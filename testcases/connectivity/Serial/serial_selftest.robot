@@ -120,5 +120,5 @@ Open Serial Port
 Serial Command
   [Arguments]  ${input}
   ${string}=  set variable  echo ~~START~~;${input};echo ~~END$?~~\r
-  [Return]  ${string}
+  RETURN  ${string}
 
