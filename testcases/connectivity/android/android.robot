@@ -20,7 +20,6 @@ Library    String
 Library    OperatingSystem
 Suite Setup    Startup
 Suite Teardown    Shutdown All Test Services
-Test Setup    Click Wait button if it exists
 Test Teardown    Close All Applications
 *** Variables ***
 ${run_on}                      Local Machine
@@ -364,12 +363,6 @@ Shutdown AVD
         Run Process    pkill -f qemu    shell=True
     END
     Sleep    5
-
-Click Wait button if it exists
-    FOR    ${i}    IN RANGE    0    5
-        Run Keyword And Ignore Error    Click Element    ${wait_button}
-        Sleep    5
-    END
 
 Open Android Application
     [Arguments]    ${appPackage}    ${appActivity}    ${app}    ${alias}=None
