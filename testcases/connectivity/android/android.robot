@@ -398,17 +398,7 @@ Normalize the path
     Set Global Variable    ${os}
     Set Global Variable    ${robot_devtools}
 
-    IF    '${run_on}' == 'Gitlab'
-        IF  '${os}' == 'Windows'
-            ${android_sdk}=    Get Environment Variable    AndroidSdkPath
-            ${android_sdk}=    Normalize Path    ${android_sdk}
-        ELSE IF     '${os}' == 'Linux'
-            ${android_sdk}=    Normalize Path    /home/gitlab-runner/Android
-        END
-        Set Global Variable    ${android_sdk}
-    ELSE
-        ${android_sdk}=    Normalize Path    ${robot_devtools}/Android
-    END
+    ${android_sdk}=    Normalize Path    ${robot_devtools}/Android
 
     ${appium_windows_path}=    Normalize Path    ${robot_devtools}/Appium.bat
     ${appium_linux_path}=      Normalize Path    ${robot_devtools}/appium
