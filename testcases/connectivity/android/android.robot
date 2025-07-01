@@ -195,7 +195,7 @@ Verify android interactions
     ...                         ${selftest_path}
 
     Log    Click to check the check box 1 using id
-    Click Wait button if it exists
+
     Click Element    ${checkbox1_id_locator}
     ${is_check}=    Get Element Attribute    ${checkbox1_id_locator}    checked
     Should Be Equal    ${is_check}    true
@@ -345,11 +345,12 @@ Start AVD
 Shutdown All Test Services
     Shutdown appium server
     Shutdown AVD
+    Terminate All Processes
 
 Shutdown appium server
     Log To Console    Shutdown appium server
     IF    '${os}' == 'Windows'
-        Run Process    cmd.exe /c taskkill /F /IM node.exe    shell=True
+        Run Process    taskkill /F /IM node.exe    shell=True
     ELSE IF     '${os}' == 'Linux'
         Run Process    pkill -f appium    shell=True
     END
