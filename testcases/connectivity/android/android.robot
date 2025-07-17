@@ -323,11 +323,36 @@ Start appium server
 Install AVD
     Log    Verify the existence of AVD    console=True
     ${avd}=    Run Process    "${avd_manager}" list avd | findstr /C:"Name: my_avd" > nul    shell=True
+
+    IF    ${avd.rc} == 1
+        Log    The AVD is not exist    console=True
+        Log    Install AVD    console=True
+        IF    '${os}' == 'Windows'
+            Run Process     "${avd_manager}" create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}    stderr=${avd_install_log}     shell=True
+        ELSE IF    '${os}' == 'Linux'
+            Run Process     "${avd_manager}" create avd -n my_avd -k "system-images;android-34;aosp_atd;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}    stderr=${avd_install_log}     shell=True
+        END
+
+        Sleep    5
+        Run Process     "${avd_manager}" list avd    shell=True    stdout=${avd_install_log}    stderr=${avd_install_log}
+    ELSE
+        Log    The AVD already exists    console=True
+    END
+
+
     IF    '${os}' == 'Windows'
         IF    ${avd.rc} == 1
             Log    The AVD is not exist    console=True
             Log    Install AVD    console=True
             Run Process     "${avd_manager}" create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}    stderr=${avd_install_log}     shell=True
+            Sleep    5
+            Run Process     "${avd_manager}" list avd    shell=True    stdout=${avd_install_log}    stderr=${avd_install_log}
+        END
+    ELSE IF    '${os}' == 'Linux'
+        IF    ${avd.rc} == 1
+            Log    The AVD is not exist    console=True
+            Log    Install AVD    console=True
+            Run Process     "${avd_manager}" create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl" --sdcard 512M    stdout=${avd_install_log}    stderr=${avd_install_log}     shell=True
             Sleep    5
             Run Process     "${avd_manager}" list avd    shell=True    stdout=${avd_install_log}    stderr=${avd_install_log}
         END
@@ -338,14 +363,13 @@ Start AVD
     IF    '${os}' == 'Windows'
         Start Process    "${emulator}" -avd my_avd -accel auto -verbose    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
     ELSE IF    '${os}' == 'Linux' and '${run_on}' == 'Gitlab'
-        Start Process    "${emulator}" -avd my_avd -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim &    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
+        Start Process    "${emulator}" -avd my_avd -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -memory 8192 -cores 6 &    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
     END
-    Sleep    300
+    Sleep    500
 
 Shutdown All Test Services
     Shutdown appium server
     Shutdown AVD
-    Terminate All Processes
 
 Shutdown appium server
     Log To Console    Shutdown appium server
@@ -360,6 +384,7 @@ Shutdown AVD
     Log To Console    Shutdown AVD
     IF    '${os}' == 'Windows'
         Run Process    taskkill /F /IM qemu-system-x86_64.exe    shell=True
+        Run Process    taskkill /F /IM adb.exe    shell=True
     ELSE IF     '${os}' == 'Linux'
         Run Process    pkill -f qemu    shell=True
     END
