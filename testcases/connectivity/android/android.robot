@@ -411,6 +411,11 @@ Normalize the path
     ${emulator_log}=       Normalize Path    ${CURDIR}/../../aiotestlogfiles/emulator_log.txt
     ${start_avd_log}=      Normalize Path    ${CURDIR}/../../aiotestlogfiles/start_avd_log.txt
 
+    Create File    ${appium_log}
+    Create File    ${avd_install_log}
+    Create File    ${emulator_log}
+    Create File    ${start_avd_log}
+
     ${os}=                Evaluate                    platform.system()
     ${robot_devtools}=    Get Environment Variable    RobotDevtools
 
