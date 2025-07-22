@@ -355,11 +355,25 @@ Shutdown All Test Services
 Shutdown appium server
     Log To Console    Shutdown appium server
     IF    '${os}' == 'Windows'
+        ${parentProcessId}=    Run Process    wmic process where "name\='node.exe'" get ParentProcessId    shell=True
+        ${parentProcessId}=    Extract Process ID From Output    ${parentProcessId}
+
+        Log    The Parent Process ID is: ${parentProcessId}
         Run Process    taskkill /F /IM node.exe    shell=True
+        IF    '${parentProcessId}' != 'None'
+            Run Process    taskkill /F /PID ${parentProcessId}    shell=True
+        END
     ELSE IF     '${os}' == 'Linux'
         Run Process    pkill -f appium    shell=True
     END
     Sleep    5
+
+Extract Process ID From Output
+    [Arguments]    ${output}
+    ${process_id}=    Set Variable    None
+    ${lines}=    Split String    ${output.stdout}    \r\n
+    ${process_id}=    Strip String    ${lines}[1]
+    RETURN    ${process_id}
 
 Shutdown AVD
     Log To Console    Shutdown AVD
