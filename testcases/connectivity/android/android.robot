@@ -372,7 +372,12 @@ Extract Process ID From Output
     [Arguments]    ${output}
     ${process_id}=    Set Variable    None
     ${lines}=    Split String    ${output.stdout}    \r\n
-    ${process_id}=    Strip String    ${lines}[1]
+    IF    len(${lines}) >= 2
+        ${process_id}=    Strip String    ${lines}[1]
+    ELSE
+        Log    Error: Insufficient lines in output to extract process ID.    console=True
+        ${process_id}=    None
+    END
     RETURN    ${process_id}
 
 Shutdown AVD
