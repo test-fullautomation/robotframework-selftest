@@ -57,6 +57,11 @@ using Appium.
    Test cases cover functionalities such as application launch, interaction
 with UI elements, app switching, ADB shell command execution, and more.
 "
+                             ],
+                      "0.14.2" : [
+"
+** Improved existing Android test cases for better reliability and performance.
+"
                              ]
                  }
 }
