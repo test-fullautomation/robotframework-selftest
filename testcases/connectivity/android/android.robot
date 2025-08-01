@@ -74,6 +74,13 @@ ${appium_log}             ${CURDIR}/../../aiotestlogfiles/appium_log.txt
 ${avd_install_log}        ${CURDIR}/../../aiotestlogfiles/avd_install_log.txt
 ${emulator_log}           ${CURDIR}/../../aiotestlogfiles/emulator_log.txt
 ${start_avd_log}          ${CURDIR}/../../aiotestlogfiles/start_avd_log.txt
+
+${memory_allocation}      8192
+${cpu_cores}              6
+
+${avd_start_timeout}      500
+${timeout}                5
+${elapsed}                0
 *** Test Cases ***
 Verify successful opening of Android application
     [Tags]    AndroidSelfTest
@@ -104,8 +111,6 @@ Verify successful closure of all Android applications
     Open Android Application    ${app_package_tmlselftest}
     ...                         ${app_activity_tmlselftest}
     ...                         ${selftest_path}
-
-    Sleep    15
 
     Log    Open Calculator application
     Open Android Application    ${app_package_calculator}
@@ -318,52 +323,84 @@ Start appium server
     ELSE IF     '${os}' == 'Linux'
         Start Process    ${appium_linux_path}    --allow-insecure\=adb_shell     stdout=${appium_log}
     END
-    Sleep    15
+    Sleep    ${timeout}
 
 Install AVD
     Log    Verify the existence of AVD    console=True
     ${avd}=    Run Process    "${avd_manager}" list avd | findstr /C:"Name: my_avd" > nul    shell=True
-    IF    '${os}' == 'Windows'
-        IF    ${avd.rc} == 1
-            Log    The AVD is not exist    console=True
-            Log    Install AVD    console=True
+
+    IF    ${avd.rc} == 1
+        Log    The AVD is not exist    console=True
+        Log    Install AVD    console=True
+        IF    '${os}' == 'Windows'
             Run Process     "${avd_manager}" create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}    stderr=${avd_install_log}     shell=True
-            Sleep    5
-            Run Process     "${avd_manager}" list avd    shell=True    stdout=${avd_install_log}    stderr=${avd_install_log}
+        ELSE IF    '${os}' == 'Linux'
+            Run Process     "${avd_manager}" create avd -n my_avd -k "system-images;android-34;aosp_atd;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}    stderr=${avd_install_log}     shell=True
         END
+
+        Sleep    ${timeout}
+        Run Process     "${avd_manager}" list avd    shell=True    stdout=${avd_install_log}    stderr=${avd_install_log}
+    ELSE
+        Log    The AVD already exists    console=True
     END
 
 Start AVD
     Log    Start AVD    console=True
+
     IF    '${os}' == 'Windows'
         Start Process    "${emulator}" -avd my_avd -accel auto -verbose    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
     ELSE IF    '${os}' == 'Linux' and '${run_on}' == 'Gitlab'
-        Start Process    "${emulator}" -avd my_avd -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim &    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
+        Start Process    "${emulator}" -avd my_avd -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -memory ${memory_allocation} -cores ${cpu_cores} &    shell=True    stdout=${start_avd_log}    stderr=${start_avd_log}
     END
-    Sleep    300
+
+    Log    Checking if AVD is ready...    console=True
+
+    WHILE    ${elapsed} < ${avd_start_timeout}
+        ${result}=    Run Process    ${adb} shell getprop sys.boot_completed    shell=True
+        ${boot_completed}=    Evaluate    str(${result.stdout}).strip()
+        IF    '${boot_completed}' == '1'
+            Log    AVD is ready!    console=True
+            ${elapsed}=    Evaluate    ${elapsed}
+            Exit For Loop
+        END
+    END
 
 Shutdown All Test Services
     Shutdown appium server
     Shutdown AVD
-    Terminate All Processes
 
 Shutdown appium server
     Log To Console    Shutdown appium server
     IF    '${os}' == 'Windows'
+        ${parentProcessId}=    Run Process    wmic process where "name\='node.exe'" get ParentProcessId    shell=True
+        ${parentProcessId}=    Extract Process ID From Output    ${parentProcessId}
+
+        Log    The Parent Process ID is: ${parentProcessId}
         Run Process    taskkill /F /IM node.exe    shell=True
+        IF    '${parentProcessId}' != 'None'
+            Run Process    taskkill /F /PID ${parentProcessId}    shell=True
+        END
     ELSE IF     '${os}' == 'Linux'
         Run Process    pkill -f appium    shell=True
     END
-    Sleep    5
+    Sleep    ${timeout}
+
+Extract Process ID From Output
+    [Arguments]    ${output}
+    ${process_id}=    Set Variable    None
+    ${lines}=    Split String    ${output.stdout}    \r\n
+    ${process_id}=    Strip String    ${lines}[1]
+    RETURN    ${process_id}
 
 Shutdown AVD
     Log To Console    Shutdown AVD
     IF    '${os}' == 'Windows'
         Run Process    taskkill /F /IM qemu-system-x86_64.exe    shell=True
+        Run Process    taskkill /F /IM adb.exe    shell=True
     ELSE IF     '${os}' == 'Linux'
         Run Process    pkill -f qemu    shell=True
     END
-    Sleep    5
+    Sleep    ${timeout}
 
 Open Android Application
     [Arguments]    ${appPackage}    ${appActivity}    ${app}    ${alias}=None
@@ -385,6 +422,11 @@ Normalize the path
     ${avd_install_log}=    Normalize Path    ${CURDIR}/../../aiotestlogfiles/avd_install_log.txt
     ${emulator_log}=       Normalize Path    ${CURDIR}/../../aiotestlogfiles/emulator_log.txt
     ${start_avd_log}=      Normalize Path    ${CURDIR}/../../aiotestlogfiles/start_avd_log.txt
+
+    Create File    ${appium_log}
+    Create File    ${avd_install_log}
+    Create File    ${emulator_log}
+    Create File    ${start_avd_log}
 
     ${os}=                Evaluate                    platform.system()
     ${robot_devtools}=    Get Environment Variable    RobotDevtools
