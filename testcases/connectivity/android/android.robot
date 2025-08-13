@@ -81,6 +81,7 @@ ${cpu_cores}              6
 ${avd_start_timeout}      500
 ${timeout}                5
 ${elapsed}                0
+${interval}               10
 *** Test Cases ***
 Verify successful opening of Android application
     [Tags]    AndroidSelfTest
@@ -354,15 +355,15 @@ Start AVD
     END
 
     Log    Checking if AVD is ready...    console=True
-
     WHILE    ${elapsed} < ${avd_start_timeout}
-        ${result}=    Run Process    ${adb} shell getprop sys.boot_completed    shell=True
+        ${result}=    Run Process    "${adb}" shell getprop sys.boot_completed   shell=True
         ${boot_completed}=    Evaluate    str(${result.stdout}).strip()
         IF    '${boot_completed}' == '1'
             Log    AVD is ready!    console=True
-            ${elapsed}=    Evaluate    ${elapsed}
             Exit For Loop
         END
+        Sleep    ${interval}
+        ${elapsed}=    Evaluate    ${elapsed} + ${interval}
     END
 
 Shutdown All Test Services
