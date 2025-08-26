@@ -56,6 +56,8 @@ ${gm_project_locator}               xpath=//android.widget.TextView[@resource-id
 ${project_5_locator}                xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_5"]
 ${project_8_locator}                xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_8"]
 ${wait_button}                      xpath=//android.widget.Button[@resource-id="android:id/aerr_wait"]
+${end_x}                            500
+${end_y}                            0
 
 ${uiautomator2_timeout}             90000
 ${adbExecTimeout}                   90000
@@ -216,7 +218,7 @@ Verify android interactions
     ${begin_value}=    Get Text    ${seekbar_value_locator}
     ${bounds}=    Get Element Attribute    ${seekbar_id_locator}    bounds
     ${x}    ${y}=    Convert bounds to x and y    ${bounds}
-    Swipe    start_x=${x}    start_y=${y}    end_x=${500}    end_y=${0}
+    Swipe    start_x=${x}    start_y=${y}    end_x=${end_x}    end_y=${end_y}
     Log    Verify seekbar value changed
     ${end_value}=    Get Text    ${seekbar_value_locator}
     Should Not Match    ${begin_value}    ${end_value}
