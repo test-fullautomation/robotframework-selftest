@@ -56,6 +56,8 @@ ${gm_project_locator}               xpath=//android.widget.TextView[@resource-id
 ${project_5_locator}                xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_5"]
 ${project_8_locator}                xpath=//android.widget.TextView[@resource-id="android:id/text1" and @text="project_8"]
 ${wait_button}                      xpath=//android.widget.Button[@resource-id="android:id/aerr_wait"]
+${end_x}                            500
+${end_y}                            0
 
 ${uiautomator2_timeout}             90000
 ${adbExecTimeout}                   90000
@@ -82,6 +84,7 @@ ${avd_start_timeout}      500
 ${timeout}                5
 ${elapsed}                0
 ${interval}               10
+${long_timeout}           30
 *** Test Cases ***
 Verify successful opening of Android application
     [Tags]    AndroidSelfTest
@@ -174,7 +177,7 @@ Verify failed switching of Android application
     Should Be Equal    ${status}    ${False}
 
 Verify successful execution ADB Shell command
-    [Tags]    robot:skip
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Android Application    ${app_package_tmlselftest}
     ...                         ${app_activity_tmlselftest}
@@ -201,7 +204,7 @@ Verify android interactions
     ...                         ${selftest_path}
 
     Log    Click to check the check box 1 using id
-
+    Wait Until Element Is Visible    ${checkbox1_id_locator}    timeout=${long_timeout}
     Click Element    ${checkbox1_id_locator}
     ${is_check}=    Get Element Attribute    ${checkbox1_id_locator}    checked
     Should Be Equal    ${is_check}    true
@@ -215,20 +218,20 @@ Verify android interactions
     ${begin_value}=    Get Text    ${seekbar_value_locator}
     ${bounds}=    Get Element Attribute    ${seekbar_id_locator}    bounds
     ${x}    ${y}=    Convert bounds to x and y    ${bounds}
-    Swipe    ${x}    ${y}    ${500}    ${0}
+    Swipe    start_x=${x}    start_y=${y}    end_x=${end_x}    end_y=${end_y}
     Log    Verify seekbar value changed
     ${end_value}=    Get Text    ${seekbar_value_locator}
     Should Not Match    ${begin_value}    ${end_value}
 
 Verify appium can input text
-    [Tags]    robot:skip
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Android Application    ${app_package_tmlselftest}
     ...                         ${app_activity_tmlselftest}
     ...                         ${selftest_path}
 
     Log    Tap 'Register button'
-    Wait Until Element Is Visible    ${register_button_locator}
+    Wait Until Element Is Visible    ${register_button_locator}    timeout=${long_timeout}
     Click Element    ${register_button_locator}
 
     Log    Fill out the form
@@ -250,20 +253,20 @@ Verify appium can input text
     Click Element    ${register_button_locator}
 
 Verify appium can hide keyboard
-    [Tags]    robot:skip
+    [Tags]    AndroidSelfTest
+    Skip If    '${os}' == 'Linux'    Skipping because this AVD image has no keyboard in Linux (aosp_atd)
     Log    Open TMLselftest application
     Open Android Application    ${app_package_tmlselftest}
     ...                         ${app_activity_tmlselftest}
     ...                         ${selftest_path}
 
-    Log    Click on Project button
-    Click Element    ${project_button_locator}
+    Log    Tap 'Register button'
+    Wait Until Element Is Visible    ${register_button_locator}    timeout=${long_timeout}
+    Click Element    ${register_button_locator}
 
-    Log    Click on add button
-    Click Element    ${add_button_locator}
-
-    Log    Click on input text
-    Click Element    ${project_text_locator}
+    Log    Fill out the form
+    Wait Until Element Is Visible    ${firstname_text_locator}    timeout=${long_timeout}
+    Click Element    ${firstname_text_locator}
 
     Log    Verify the keyboard is shown
     ${result}    Is Keyboard Shown
@@ -271,12 +274,11 @@ Verify appium can hide keyboard
 
     Log    Hide keyboard
     Hide Keyboard
-
     ${result}    Is Keyboard Shown
     Should Be Equal    ${result}    ${False}
 
 Verify appium can scroll to view element
-    [Tags]    robot:skip
+    [Tags]    AndroidSelfTest
     Log    Open TMLselftest application
     Open Android Application    ${app_package_tmlselftest}
     ...                         ${app_activity_tmlselftest}
@@ -288,21 +290,15 @@ Verify appium can scroll to view element
     Log    Add 10 project into Project List
     ${project_list}=    Create projects in project list    10
 
-    Log    Scroll to 5th in project list
-    ${item}    Set Variable    ${project_list}[5]
+    Log    Scroll to 9th in project list
+    ${item}    Set Variable    ${project_list}[9]
     ${item_locator}    Set Variable    xpath=//android.widget.TextView[@resource-id='android:id/text1' and @text='${item}']
-    Scroll Element Into View    ${item_locator}
-    ${item}    Set Variable    ${project_list}[8]
-    ${item_locator}    Set Variable    xpath=//android.widget.TextView[@resource-id='android:id/text1' and @text='${item}']
+    Scroll Down    ${item_locator}
     Page Should Contain Element    ${item_locator}
 
     Log    Scroll up to GM project
     Scroll Up    ${gm_project_locator}
     Page Should Contain Element    ${gm_project_locator}
-
-    Log    Scroll down to 5th in project list
-    Scroll Down    ${project_5_locator}
-    Page Should Contain Element    ${project_8_locator}
 
 *** Keywords ***
 Startup
@@ -320,9 +316,9 @@ Runner info
 Start appium server
     Log    Start appium server       console=True
     IF    '${os}' == 'Windows'
-        Start Process    ${appium_windows_path}    --allow-insecure\=adb_shell    stdout=${appium_log}
+        Start Process    ${appium_windows_path}    --allow-insecure\=\*\:adb_shell    stdout=${appium_log}
     ELSE IF     '${os}' == 'Linux'
-        Start Process    ${appium_linux_path}    --allow-insecure\=adb_shell     stdout=${appium_log}
+        Start Process    ${appium_linux_path}    --allow-insecure\=\*\:adb_shell     stdout=${appium_log}
     END
     Sleep    ${timeout}
 
@@ -334,9 +330,9 @@ Install AVD
         Log    The AVD is not exist    console=True
         Log    Install AVD    console=True
         IF    '${os}' == 'Windows'
-            Run Process     "${avd_manager}" create avd -n my_avd -k "system-images;android-34;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}    stderr=${avd_install_log}     shell=True
+            Run Process     "${avd_manager}" create avd -n my_avd -k "system-images;android-35;google_apis;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}    stderr=${avd_install_log}     shell=True
         ELSE IF    '${os}' == 'Linux'
-            Run Process     "${avd_manager}" create avd -n my_avd -k "system-images;android-34;aosp_atd;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}    stderr=${avd_install_log}     shell=True
+            Run Process     "${avd_manager}" create avd -n my_avd -k "system-images;android-35;aosp_atd;x86_64" --force --device "pixel_xl"    stdout=${avd_install_log}    stderr=${avd_install_log}     shell=True
         END
 
         Sleep    ${timeout}
@@ -360,6 +356,15 @@ Start AVD
         ${boot_completed}=    Evaluate    str(${result.stdout}).strip()
         IF    '${boot_completed}' == '1'
             Log    AVD is ready!    console=True
+            Log    Disable Bluetooth    console=True
+            Start Process    "${adb}" shell service call bluetooth_manager 8    shell=True
+
+            Log    Disable Wi-Fi    console=True
+            Start Process    "${adb}" shell svc wifi disable    shell=True
+
+            Log    Disable Mobile Data    console=True
+            Start Process    "${adb}" shell svc data disable    shell=True
+
             Exit For Loop
         END
         Sleep    ${interval}
