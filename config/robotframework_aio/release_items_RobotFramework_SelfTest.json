@@ -47,20 +47,19 @@
    "RELEASES"  : {
                    "0.11." : [
 "
-**First release of component RobotFramework Self Test
-The Robot Framework Self Test component encompasses a suite of test cases
-designed for validating and testing the functionalities of Robot Framework AIO
+**First release of component Robot Framework Self Test**
 
-* Added new test cases specifically designed for testing Android applications
-using Appium.
+The Robot Framework Self Test encompasses a suite of test cases designed for validating and testing
+the functionalities of RobotFramework AIO.
 
-   Test cases cover functionalities such as application launch, interaction
+This includes test cases specifically designed for testing Android applications using Appium.
+Test cases cover functionalities such as application launch, interaction
 with UI elements, app switching, ADB shell command execution, and more.
 "
                              ],
-                      "0.14.2" : [
+                      "0.14.2.;0.15.0." : [
 "
-** Improved existing Android test cases for better reliability and performance.
+Enhanced Android test cases to improve reliability and performance.
 "
                              ]
                  }
