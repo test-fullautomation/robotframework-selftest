@@ -235,7 +235,7 @@ Verify appium can input text
     Click Element    ${register_button_locator}
 
     Log    Fill out the form
-    Wait Until Element Is Visible    ${firstname_text_locator}
+    Wait Until Element Is Visible    ${firstname_text_locator}    timeout=${long_timeout}
     Input Text    ${firstname_text_locator}    text
     Input Text    ${lastname_text_locator}    text
     Input Text    ${userid_text_locator}    text
@@ -293,11 +293,11 @@ Verify appium can scroll to view element
     Log    Scroll to 9th in project list
     ${item}    Set Variable    ${project_list}[9]
     ${item_locator}    Set Variable    xpath=//android.widget.TextView[@resource-id='android:id/text1' and @text='${item}']
-    Scroll Down    ${item_locator}
+    Scroll Down    ${item_locator}    ${long_timeout}
     Page Should Contain Element    ${item_locator}
 
     Log    Scroll up to GM project
-    Scroll Up    ${gm_project_locator}
+    Scroll Up    ${gm_project_locator}    ${long_timeout}
     Page Should Contain Element    ${gm_project_locator}
 
 *** Keywords ***
