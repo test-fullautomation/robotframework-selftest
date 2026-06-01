@@ -12,7 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 *** Settings ***
-Library     RobotFramework_Testsuites    WITH NAME    testsuites
+Library     RobotFramework_Testsuites    AS    testsuites
 Library     QConnectionLibrary.ConnectionManager
 Library    Collections
 Suite Setup      testsuites.testsuite_setup    ../../../config/testsuites_config.json

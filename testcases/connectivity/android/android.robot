@@ -12,7 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 *** Settings ***
-Library    RobotFramework_TestsuitesManagement    WITH NAME    testsuites
+Library    RobotFramework_TestsuitesManagement    AS    testsuites
 Library    AppiumLibrary
 Library    Collections
 Library    Process
