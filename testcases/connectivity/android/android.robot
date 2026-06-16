@@ -99,7 +99,6 @@ Verify successful opening of Android application
 
     Log    The android selftest app open successfully
     Should Match    ${context}[0]    NATIVE_APP
-    Close All Applications
 
 Verify successful closure of Android Application
     [Tags]    AndroidSelfTest
@@ -119,6 +118,7 @@ Verify successful closure of all Android applications
     ...                         ${app_activity_tmlselftest}
     ...                         ${selftest_path}
     ...                         alias=selftest_app
+    Close Application
 
     Log    Open Calculator application
     Open Android Application    ${app_package_calculator}
@@ -127,9 +127,8 @@ Verify successful closure of all Android applications
     ...                         alias=calculator_app
 
     Log    Close all application
-    Close All Applications
+    Close Application
     Run Keyword And Expect Error    No application is open    Get Appium SessionId
-    Sleep    ${timeout}
 
 Verify successful switching of Android application
     [Tags]    AndroidSelfTest
@@ -159,7 +158,6 @@ Verify successful switching of Android application
     Switch Application    calculator_app
     ${session}=    Get Appium SessionId
     Should Match    ${session_2nd}    ${session}
-    Close All Applications
 
 Verify failed switching of Android application
     [Tags]    AndroidSelfTest
@@ -183,7 +181,6 @@ Verify failed switching of Android application
     Log    Switch to Non-existing application has another alias
     ${status}=    Run Keyword And Return Status    Switch Application    non-alias
     Should Be Equal    ${status}    ${False}
-    Close All Applications
 
 Verify successful execution ADB Shell command
     [Tags]    AndroidSelfTest
@@ -195,7 +192,6 @@ Verify successful execution ADB Shell command
 
     ${output}=    Execute Adb Shell    "ls"
     Should Not Be Empty    ${output}
-    Close All Applications
 
 Verify failed execution ADB Shell command
     [Tags]    AndroidSelfTest
@@ -207,7 +203,6 @@ Verify failed execution ADB Shell command
 
     ${status}=    Run Keyword And Return Status    Execute Adb Shell    "invalid_command_test"
     Should Be Equal    ${status}    ${False}
-    Close All Applications
 
 Verify android interactions
     [Tags]    AndroidSelfTest
@@ -236,7 +231,6 @@ Verify android interactions
     Log    Verify seekbar value changed
     ${end_value}=    Get Text    ${seekbar_value_locator}
     Should Not Match    ${begin_value}    ${end_value}
-    Close All Applications
 
 Verify appium can input text
     [Tags]    AndroidSelfTest
@@ -267,7 +261,6 @@ Verify appium can input text
 
     Log    Tap 'Register button'
     Click Element    ${register_button_locator}
-    Close All Applications
 
 Verify appium can hide keyboard
     [Tags]    AndroidSelfTest
@@ -294,7 +287,6 @@ Verify appium can hide keyboard
     Hide Keyboard
     ${result}    Is Keyboard Shown
     Should Be Equal    ${result}    ${False}
-    Close All Applications
 
 Verify appium can scroll to view element
     [Tags]    AndroidSelfTest
@@ -319,7 +311,6 @@ Verify appium can scroll to view element
     Log    Scroll up to GM project
     Scroll Up    ${gm_project_locator}
     Page Should Contain Element    ${gm_project_locator}
-    Close All Applications
 
 *** Keywords ***
 Startup
