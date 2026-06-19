@@ -12,27 +12,27 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 *** Settings ***
-Library    RobotFramework_TestsuitesManagement    AS    testsuites
-Library    AppiumLibrary
 Library    Collections
+Library    OperatingSystem
 Library    Process
 Library    String
-Library    OperatingSystem
+Library    RobotFramework_TestsuitesManagement    AS    testsuites
+Library    AppiumLibrary
 Suite Setup    Startup
 Suite Teardown    Shutdown All Test Services
-Test Teardown    Close All Applications
+
+
 *** Variables ***
 ${run_on}                      Local Machine
-${selftest_path}=              ${CURDIR}/../../../helpers/Android/SelfTest.apk
-${calculator_path}=            ${CURDIR}/../../../helpers/Android/calculator.apk
-${remote_url}=                 http://127.0.0.1:4723
-${platform_name}=              Android
-${platform_version}=           14
-${automation_name}=            UiAutomator2
-${app_package_tmlselftest}=    com.testfullautomation.selftest
-${app_activity_tmlselftest}=   com.testfullautomation.selftest.MainActivity
-${app_package_calculator}=     com.google.android.calculator
-${app_activity_calculator}=    com.android.calculator2.Calculator
+${selftest_path}               ${CURDIR}/../../../helpers/Android/SelfTest.apk
+${calculator_path}             ${CURDIR}/../../../helpers/Android/calculator.apk
+${remote_url}                  http://127.0.0.1:4723
+${platform_name}               Android
+${automation_name}             UiAutomator2
+${app_package_tmlselftest}     com.testfullautomation.selftest
+${app_activity_tmlselftest}    com.testfullautomation.selftest.MainActivity
+${app_package_calculator}      com.google.android.calculator
+${app_activity_calculator}     com.android.calculator2.Calculator
 
 ${checkbox1_id_locator}             id=com.testfullautomation.selftest:id/checkbox1
 ${checkbox1_xpath_locator}          xpath=//android.widget.CheckBox[@resource-id="com.testfullautomation.selftest:id/checkbox1"]
@@ -92,6 +92,7 @@ Verify successful opening of Android application
     Open Android Application    ${app_package_tmlselftest}
     ...                         ${app_activity_tmlselftest}
     ...                         ${selftest_path}
+    ...                         alias=selftest_app
 
 
     ${context}=    Get Contexts
@@ -105,6 +106,7 @@ Verify successful closure of Android Application
     Open Android Application    ${app_package_tmlselftest}
     ...                         ${app_activity_tmlselftest}
     ...                         ${selftest_path}
+    ...                         alias=selftest_app
 
     Close Application
     Run Keyword And Expect Error    No application is open    Get Appium SessionId
@@ -115,14 +117,17 @@ Verify successful closure of all Android applications
     Open Android Application    ${app_package_tmlselftest}
     ...                         ${app_activity_tmlselftest}
     ...                         ${selftest_path}
+    ...                         alias=selftest_app
+    Close Application
 
     Log    Open Calculator application
     Open Android Application    ${app_package_calculator}
     ...                         ${app_activity_calculator}
     ...                         ${calculator_path}
+    ...                         alias=calculator_app
 
     Log    Close all application
-    Close All Applications
+    Close Application
     Run Keyword And Expect Error    No application is open    Get Appium SessionId
 
 Verify successful switching of Android application
@@ -131,7 +136,7 @@ Verify successful switching of Android application
     Open Android Application    ${app_package_tmlselftest}
     ...                         ${app_activity_tmlselftest}
     ...                         ${selftest_path}
-    ...                         selftest_app
+    ...                         alias=selftest_app
 
     Log    Get tml selftest session
     ${session_1st}=    Get Appium SessionId
@@ -140,7 +145,7 @@ Verify successful switching of Android application
     Open Android Application    ${app_package_calculator}
     ...                         ${app_activity_calculator}
     ...                         ${calculator_path}
-    ...                         calculator_app
+    ...                         alias=calculator_app
 
     ${session_2nd}=    Get Appium SessionId
 
@@ -160,6 +165,7 @@ Verify failed switching of Android application
     Open Android Application    ${app_package_tmlselftest}
     ...                         ${app_activity_tmlselftest}
     ...                         ${selftest_path}
+    ...                         alias=selftest_app
 
     Log    Get tml selftest session
     ${session_1st}=    Get Appium SessionId
@@ -168,7 +174,7 @@ Verify failed switching of Android application
     Open Android Application    ${app_package_calculator}
     ...                         ${app_activity_calculator}
     ...                         ${calculator_path}
-    ...                         calculator_app
+    ...                         alias=calculator_app
 
     ${session_2nd}=    Get Appium SessionId
 
@@ -182,6 +188,7 @@ Verify successful execution ADB Shell command
     Open Android Application    ${app_package_tmlselftest}
     ...                         ${app_activity_tmlselftest}
     ...                         ${selftest_path}
+    ...                         alias=selftest_app
 
     ${output}=    Execute Adb Shell    "ls"
     Should Not Be Empty    ${output}
@@ -192,8 +199,9 @@ Verify failed execution ADB Shell command
     Open Android Application    ${app_package_tmlselftest}
     ...                         ${app_activity_tmlselftest}
     ...                         ${selftest_path}
+    ...                         alias=selftest_app
 
-    ${status}=    Run Keyword And Return Status    Execute Adb Shell    "help"
+    ${status}=    Run Keyword And Return Status    Execute Adb Shell    "invalid_command_test"
     Should Be Equal    ${status}    ${False}
 
 Verify android interactions
@@ -202,6 +210,7 @@ Verify android interactions
     Open Android Application    ${app_package_tmlselftest}
     ...                         ${app_activity_tmlselftest}
     ...                         ${selftest_path}
+    ...                         alias=selftest_app
 
     Log    Click to check the check box 1 using id
     Wait Until Element Is Visible    ${checkbox1_id_locator}    timeout=${long_timeout}
@@ -229,6 +238,7 @@ Verify appium can input text
     Open Android Application    ${app_package_tmlselftest}
     ...                         ${app_activity_tmlselftest}
     ...                         ${selftest_path}
+    ...                         alias=selftest_app
 
     Log    Tap 'Register button'
     Wait Until Element Is Visible    ${register_button_locator}    timeout=${long_timeout}
@@ -259,6 +269,7 @@ Verify appium can hide keyboard
     Open Android Application    ${app_package_tmlselftest}
     ...                         ${app_activity_tmlselftest}
     ...                         ${selftest_path}
+    ...                         alias=selftest_app
 
     Log    Tap 'Register button'
     Wait Until Element Is Visible    ${register_button_locator}    timeout=${long_timeout}
@@ -283,6 +294,7 @@ Verify appium can scroll to view element
     Open Android Application    ${app_package_tmlselftest}
     ...                         ${app_activity_tmlselftest}
     ...                         ${selftest_path}
+    ...                         alias=selftest_app
 
     Log    Click on Project button
     Click Element    ${project_button_locator}
@@ -409,7 +421,7 @@ Shutdown AVD
     Sleep    ${timeout}
 
 Open Android Application
-    [Arguments]    ${appPackage}    ${appActivity}    ${app}    ${alias}=None
+    [Arguments]    ${appPackage}    ${appActivity}    ${app}    ${alias}=${None}
     Open Application    remote_url=${remote_url}
     ...                 platformName=${platform_name}
     ...                 automationName=${automation_name}
